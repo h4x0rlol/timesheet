@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "target": "es5",
+    "module": "commonjs",
+    // "allowJs": true,
+    "baseUrl": "./"
+    // "outFile": "./dist/build.js"
+  }
+}
