@@ -1,9 +1,11 @@
 import React from "react";
+import MainLayout from "./layouts/Main/Main";
+import MainPage from "./views/MainPage/MainPage";
 
 const App = () => (
-  <>
-    <h1>hello world</h1>
-  </>
+  <MainLayout>
+    <MainPage />
+  </MainLayout>
 );
 
 export default App;
