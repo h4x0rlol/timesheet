@@ -4,10 +4,10 @@ import LoginPage from "./views/LoginPage/LoginPage";
 import MainPage from "./views/MainPage/MainPage";
 
 const App = () => (
-  // <LoginPage />
-  <MainLayout>
-    <MainPage />
-  </MainLayout>
+  <LoginPage />
+  // <MainLayout>
+  //   <MainPage />
+  // </MainLayout>
 );
 
 export default App;
