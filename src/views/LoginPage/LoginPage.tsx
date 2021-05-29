@@ -6,6 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Alert from "@material-ui/lab/Alert";
+import { useDispatch } from "react-redux";
+import { login } from "../../actions/user";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,10 +31,11 @@ const LoginPage = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   const signIn = (e) => {
     e.preventDefault();
-    console.log(username, password);
+    dispatch(login(username, password));
   };
   return (
     <Container component="main" maxWidth="xs">
