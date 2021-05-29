@@ -16,3 +16,19 @@ export const login = (username, password) => {
     }
   };
 };
+
+export const checkAuth = (token) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.post(`http://localhost:5000/api/checkAuth`, {
+        token,
+      });
+      dispatch(setUser(res.data));
+      localStorage.setItem("token", res.data.token);
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+      localStorage.removeItem("token");
+    }
+  };
+};
