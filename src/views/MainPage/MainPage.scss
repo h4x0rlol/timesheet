@@ -1,0 +1,29 @@
+.mainpage {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  height: 93vh;
+
+  &_mode {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    border: 1px solid black;
+    height: 40px;
+  }
+
+  &_buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    border: 1px solid black;
+    height: 40px;
+  }
+
+  &_graph {
+    display: flex;
+    height: 100%;
+    // width: 100%;
+    border: 1px solid black;
+  }
+}

@@ -9,12 +9,13 @@ import { checkAuth } from "./actions/user";
 import NotFound from "./views/NotFound/NotFound";
 
 const App = () => {
-  const isAuth = useSelector((state: IRootState) => state.user.isAuth);
+  // const isAuth = useSelector((state: IRootState) => state.user.isAuth);
+  const isAuth = true;
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(checkAuth(localStorage.getItem("token")));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(checkAuth(localStorage.getItem("token")));
+  // }, []);
 
   return (
     <BrowserRouter>
