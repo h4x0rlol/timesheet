@@ -1,10 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { IRootState } from "../../reducers/index";
 import MainPageButtons from "./components/MainPageButtons";
 import MainPageStats from "./components/MainPageStats";
 import ModeButtons from "./components/ModeButtons";
 import "./MainPage.scss";
 
 const MainPage = () => {
+  const isFullStats = useSelector(
+    (state: IRootState) => state.toilet.showFullStats
+  );
+
   return (
     <div className="mainpage">
       <div className="mainpage_mode">
@@ -21,11 +27,10 @@ const MainPage = () => {
             <i className="arrow right"></i>
           </div>
         </div>
-        <MainPageButtons />
+        <MainPageButtons isFullStats={isFullStats} />
       </div>
       <div className="mainpage_graph">
-        {/* graph comp */}
-        dsda
+        {!isFullStats ? <div>graph </div> : <div> full stats</div>}
       </div>
     </div>
   );
