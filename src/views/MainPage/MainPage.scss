@@ -1,29 +1,78 @@
 .mainpage {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  border-bottom: 0.2px solid #1976d2;
   height: 93vh;
 
   &_mode {
     display: flex;
     justify-content: center;
     flex-direction: row;
-    border: 1px solid black;
+    border-bottom: 0.2px solid #1976d2;
     height: 40px;
   }
 
   &_buttons {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: row;
-    border: 1px solid black;
+    border-bottom: 0.2px solid #1976d2;
     height: 40px;
+
+    &_month {
+      display: flex;
+      justify-self: center;
+      flex-direction: row;
+
+      &_arrows {
+        margin-top: 10px;
+        cursor: pointer;
+      }
+    }
   }
 
   &_graph {
     display: flex;
     height: 100%;
-    // width: 100%;
-    border: 1px solid black;
+    border-bottom: 0.2px solid #1976d2;
+  }
+}
+.month_name {
+  font-size: 20px;
+  margin-top: 8px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.arrow {
+  border: solid #1976d2;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 4px;
+}
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+@media (max-width: 480px) {
+  .month_name {
+    font-size: 11px;
+  }
+
+  .arrow {
+    border: solid #1976d2;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 2px;
+  }
+
+  .mainpage_buttons_month_arrows {
+    margin-top: 3px;
   }
 }

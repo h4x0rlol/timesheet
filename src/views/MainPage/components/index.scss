@@ -1,0 +1,53 @@
+.mode_button {
+  display: flex;
+  p {
+    font-size: 25px;
+    margin-top: 5px;
+  }
+}
+
+.mainpage_button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  p {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 5px;
+  }
+
+  &_stats {
+    display: flex;
+  }
+  &_activebtns {
+    display: flex;
+    flex-direction: row;
+
+    &_btn {
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-top: 5px;
+    }
+  }
+}
+
+.mybtn {
+  background-color: #1976d2;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+  border-width: 0.5px;
+}
+
+@media (max-width: 480px) {
+  .mainpage_button {
+    p {
+      font-size: 11px;
+    }
+  }
+
+  .mybtn {
+    font-size: 11px;
+  }
+}
