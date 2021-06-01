@@ -11,7 +11,7 @@ export default function userReducer(state = defaultState, action) {
     case SET_USER:
       return {
         ...state,
-        currentUser: action.payload,
+        currentUser: action.user,
         isAuth: true,
       };
     case LOGOUT:
@@ -26,5 +26,5 @@ export default function userReducer(state = defaultState, action) {
   }
 }
 
-export const setUser = (user) => ({ type: SET_USER, payload: user });
+export const setUser = (user) => ({ type: SET_USER, user: user });
 export const logout = () => ({ type: LOGOUT });

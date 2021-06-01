@@ -2,6 +2,7 @@
   "compilerOptions": {
     "sourceMap": true,
     "experimentalDecorators": true,
+    "typeRoots": ["node_modules/@types", "src/types"],
     "jsx": "react",
     "esModuleInterop": true,
     "target": "es5",
