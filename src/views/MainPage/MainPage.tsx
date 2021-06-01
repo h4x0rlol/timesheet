@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { nextMonth, previousMonth } from "../../reducers/dateReducer";
 import { IRootState } from "../../reducers/index";
 import MainPageButtons from "./components/MainPageButtons";
 import MainPageStats from "./components/MainPageStats";
@@ -11,6 +12,10 @@ const MainPage = () => {
     (state: IRootState) => state.toilet.showFullStats
   );
 
+  const date = useSelector((state: IRootState) => state.date);
+
+  const dispatch = useDispatch();
+
   return (
     <div className="mainpage">
       <div className="mainpage_mode">
@@ -20,11 +25,19 @@ const MainPage = () => {
         <MainPageStats />
         <div className="mainpage_buttons_month">
           <div className="mainpage_buttons_month_arrows">
-            <i className="arrow left"></i>
+            <i
+              className="arrow left"
+              onClick={() => dispatch(previousMonth())}
+            ></i>
           </div>
-          <p className="month_name">Июнь</p>
+          <p className="month_name">
+            {date.month} ({date.year})
+          </p>
           <div className="mainpage_buttons_month_arrows">
-            <i className="arrow right"></i>
+            <i
+              className="arrow right"
+              onClick={() => dispatch(nextMonth())}
+            ></i>
           </div>
         </div>
         <MainPageButtons isFullStats={isFullStats} />

@@ -3,10 +3,12 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import toiletReducer from "./toiletReducer";
 import userReducer from "./userReducer";
+import dateReducer from "../reducers/dateReducer";
 
 const rootReducer = combineReducers({
   user: userReducer,
   toilet: toiletReducer,
+  date: dateReducer,
 });
 
 export const store = createStore(
