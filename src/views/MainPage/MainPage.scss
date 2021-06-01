@@ -1,14 +1,13 @@
 .mainpage {
   display: flex;
   flex-direction: column;
-  border-bottom: 0.2px solid #1976d2;
-  height: 93vh;
+  height: 94.7vh;
 
   &_mode {
     display: flex;
     justify-content: center;
     flex-direction: row;
-    border-bottom: 0.2px solid #1976d2;
+    border-bottom: 0.2px solid lightslategray;
     height: 40px;
   }
 
@@ -16,8 +15,9 @@
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    border-bottom: 0.2px solid #1976d2;
+    border-bottom: 0.2px solid lightslategray;
     height: 40px;
+    color: #fff;
 
     &_month {
       display: flex;
@@ -33,8 +33,8 @@
 
   &_graph {
     display: flex;
+    justify-content: center;
     height: 100%;
-    border-bottom: 0.2px solid #1976d2;
   }
 }
 .month_name {
@@ -45,7 +45,7 @@
 }
 
 .arrow {
-  border: solid #1976d2;
+  border: solid lightslategray;
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 4px;
@@ -64,9 +64,8 @@
   .month_name {
     font-size: 11px;
   }
-
   .arrow {
-    border: solid #1976d2;
+    border: solid lightslategray;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 2px;

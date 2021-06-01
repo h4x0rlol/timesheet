@@ -1,10 +1,11 @@
 import React from "react";
 import NavBar from "../components/Navbar";
+import "./Main.scss";
 
 const MainLayout = ({ children }) => (
   <>
     <NavBar />
-    <main>{children}</main>
+    <main className="main">{children}</main>
   </>
 );
 

@@ -2,16 +2,17 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { nextMonth, previousMonth } from "../../reducers/dateReducer";
 import { IRootState } from "../../reducers/index";
+import FullStats from "./components/FullStats";
 import MainPageButtons from "./components/MainPageButtons";
 import MainPageStats from "./components/MainPageStats";
 import ModeButtons from "./components/ModeButtons";
 import "./MainPage.scss";
 
 const MainPage = () => {
-  const isFullStats = useSelector(
-    (state: IRootState) => state.toilet.showFullStats
-  );
-
+  // const isFullStats = useSelector(
+  //   (state: IRootState) => state.toilet.showFullStats
+  // );
+  const isFullStats = true;
   const date = useSelector((state: IRootState) => state.date);
 
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const MainPage = () => {
         <MainPageButtons isFullStats={isFullStats} />
       </div>
       <div className="mainpage_graph">
-        {!isFullStats ? <div>graph </div> : <div> full stats</div>}
+        {!isFullStats ? <div>graph </div> : <FullStats />}
       </div>
     </div>
   );
