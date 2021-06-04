@@ -9,9 +9,9 @@ module.exports = {
       safe: true,
     }),
   ],
-  //   mode: "production",
-  mode: "development",
-  watch: true,
+  mode: "production",
+  // mode: "development",
+  // watch: true,
   output: {
     path: __dirname + "/dist",
     filename: "build.js",
