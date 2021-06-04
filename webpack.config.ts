@@ -1,14 +1,20 @@
 const TerserPlugin = require("terser-webpack-plugin");
 const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 module.exports = {
   entry: ["./src/index.tsx"],
+  plugins: [
+    new Dotenv({
+      path: "./.env",
+      safe: true,
+    }),
+  ],
   //   mode: "production",
   mode: "development",
   watch: true,
   output: {
     path: __dirname + "/dist",
     filename: "build.js",
-    // publicPath: __dirname + '/'
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
