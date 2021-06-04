@@ -68,11 +68,11 @@ const FullStats = () => {
             <td>10</td>
           </tr>
         </tbody>
-        <div className="fullstats_text">
-          <h3>Просрано времени: 10ч 20м 30с</h3>
-          <img src={Pepe} alt="Pepe on toilet" />
-        </div>
       </table>
+      <div className="fullstats_text">
+        <h3>Просрано времени: 10ч 20м 30с</h3>
+        <img src={Pepe} alt="Pepe on toilet" />
+      </div>
     </div>
   );
 };

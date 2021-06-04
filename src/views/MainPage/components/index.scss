@@ -50,9 +50,14 @@
   margin-left: 1px;
 
   &_text {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
     font-size: 40px;
     color: silver;
-    margin-left: 400px;
+    margin-right: 400px;
     margin-top: 100px;
 
     img {
@@ -111,7 +116,10 @@
   .mybtn {
     font-size: 11px;
   }
-
+  .fullstats {
+    justify-content: end;
+    flex-direction: column;
+  }
   .fullstats_text {
     font-size: 20px;
     color: silver;
