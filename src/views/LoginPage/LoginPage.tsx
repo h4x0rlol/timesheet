@@ -6,8 +6,12 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Alert from "@material-ui/lab/Alert";
-import { useDispatch } from "react-redux";
-import { login } from "../../actions/user";
+import Grid from "@material-ui/core/Grid";
+import Link from "@material-ui/core/Link";
+import { useDispatch, useSelector } from "react-redux";
+import { login, register } from "../../actions/user";
+import { IRootState } from "../../reducers/index";
+import { setError, setUser } from "../../reducers/userReducer";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,64 +31,159 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginPage = () => {
   const classes = useStyles();
+  const error = useSelector((state: IRootState) => state.user.error);
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<boolean>(false);
+  const [isLogginForm, setisLogginForm] = useState<boolean>(true);
   const dispatch = useDispatch();
+
+  const swtichForms = (e) => {
+    e.preventDefault();
+    dispatch(setError(""));
+    setisLogginForm(!isLogginForm);
+    setUsername("");
+    setPassword("");
+  };
 
   const signIn = (e) => {
     e.preventDefault();
+    dispatch(setError(""));
     dispatch(login(username, password));
   };
+
+  const signUp = (e) => {
+    e.preventDefault();
+    dispatch(setError(""));
+    dispatch(register(username, password));
+    setUsername("");
+    setPassword("");
+  };
+
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          Войти
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={signIn}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Имя пользователя"
-            name="username"
-            autoFocus
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Пароль"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {error && (
-            <Alert variant="outlined" severity="error">
-              Неверный логин или пароль!
-            </Alert>
-          )}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Войти
-          </Button>
-        </form>
-      </div>
-    </Container>
+    <>
+      {isLogginForm ? (
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Typography component="h1" variant="h5">
+              Войти
+            </Typography>
+            <form className={classes.form} noValidate onSubmit={signIn}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Имя пользователя"
+                name="username"
+                autoFocus
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Пароль"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {error && (
+                <Alert variant="outlined" severity="error">
+                  {error}
+                </Alert>
+              )}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Войти
+              </Button>
+              <Grid container>
+                <Grid item>
+                  <Link href="#" variant="body2" onClick={swtichForms}>
+                    {"Нет аккаунта? Зарегестрироваться"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+        </Container>
+      ) : (
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Typography component="h1" variant="h5">
+              Войти
+            </Typography>
+            <form className={classes.form} noValidate onSubmit={signUp}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Имя пользователя"
+                name="username"
+                autoFocus
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Пароль"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {error && error != "Аккаунт успешно зарегестрирован" && (
+                <Alert variant="outlined" severity="error">
+                  {error}
+                </Alert>
+              )}
+
+              {error === "Аккаунт успешно зарегестрирован" && (
+                <Alert variant="outlined" severity="success">
+                  {error}
+                </Alert>
+              )}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Зарегестрироваться
+              </Button>
+              <Grid container>
+                <Grid item>
+                  <Link href="#" variant="body2" onClick={swtichForms}>
+                    {"Есть аккаунт? Войти"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+        </Container>
+      )}
+    </>
   );
 };
 

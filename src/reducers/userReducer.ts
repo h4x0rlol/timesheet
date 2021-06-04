@@ -1,9 +1,10 @@
 const SET_USER = "SET_USER";
 const LOGOUT = "LOGOUT";
-
+const SET_ERROR = "SET_ERROR";
 const defaultState = {
   currentUser: {},
   isAuth: false,
+  error: "",
 };
 
 export default function userReducer(state = defaultState, action) {
@@ -13,6 +14,8 @@ export default function userReducer(state = defaultState, action) {
         ...state,
         currentUser: action.user,
         isAuth: true,
+        error: "",
+        registred: false,
       };
     case LOGOUT:
       localStorage.removeItem("token");
@@ -20,6 +23,14 @@ export default function userReducer(state = defaultState, action) {
         ...state,
         currentUser: {},
         isAuth: false,
+        error: "",
+        registred: false,
+      };
+    case SET_ERROR:
+      return {
+        ...state,
+        error: action.error,
+        registred: false,
       };
     default:
       return state;
@@ -28,3 +39,4 @@ export default function userReducer(state = defaultState, action) {
 
 export const setUser = (user) => ({ type: SET_USER, user: user });
 export const logout = () => ({ type: LOGOUT });
+export const setError = (error) => ({ type: SET_ERROR, error: error });
