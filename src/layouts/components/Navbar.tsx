@@ -1,9 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./Navbar.scss";
 import { IRootState } from "../../reducers/index";
 import { logout } from "../../reducers/userReducer";
-
+import "./NavBar.scss";
 const NavBar = () => {
   const username = useSelector(
     (state: IRootState) => state.user.currentUser.username

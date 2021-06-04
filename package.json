@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "start": "node server.ts",
-    "build": "webpack --config webpack.config.ts"
+    "build": "webpack --config webpack.config.ts",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
