@@ -40,9 +40,9 @@ const MainPage = () => {
         </div>
         <MainPageButtons isFullStats={isFullStats} />
       </div>
-      {/* <div className="mainpage_graph">
+      <div className="mainpage_graph">
         {!isFullStats ? <div>graph </div> : <FullStats />}
-      </div> */}
+      </div>
     </main>
   );
 };

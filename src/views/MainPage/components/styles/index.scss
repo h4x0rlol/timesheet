@@ -53,69 +53,37 @@
 
 .fullstats {
   display: flex;
-  justify-content: center;
-  flex-direction: row;
-  height: 50vh;
-  margin-top: 10px;
+  flex-direction: column;
   width: 100%;
-  margin-left: 1px;
+  justify-content: center;
+  margin-top: -200px;
 
-  &_text {
+  &_stats {
     display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    font-size: 40px;
-    color: silver;
-    margin-right: 400px;
-    margin-top: 100px;
+    justify-content: space-around;
 
-    img {
-      margin-left: 200px;
+    &_center {
+      display: flex;
+      align-items: center;
+      justify-content: column;
+      flex-direction: column;
     }
+  }
+
+  p {
+    font-size: 20px;
+    color: #f5f6f7;
   }
 }
 
-.table {
-  display: flex;
-  width: 100%;
-  border: none;
-  margin-bottom: 20px;
-}
-.table thead th {
-  font-weight: bold;
-  text-align: left;
-  border: none;
-  padding: 10px 15px;
-  background: #d8d8d8;
-  font-size: 14px;
-  border-left: 1px solid lightslategray;
-  border-right: 1px solid #ddd;
-}
-.table tbody td {
-  text-align: left;
-  border-left: 1px solid lightslategray;
-  border-right: 1px solid lightslategray;
-  padding: 10px 15px;
-  font-size: 16px;
-}
-.table thead tr th:first-child,
-.table tbody tr td:first-child {
-  border-left: none;
-}
-.table thead tr th:last-child,
-.table tbody tr td:last-child {
-  border-right: none;
-}
-.table tbody td:nth-child(odd) {
-  background: #f3f3f3;
-}
-
-.table tbody td:nth-child(even) {
-  background: #f3f3f3;
-  font-size: 20px;
-}
-
 @media (max-width: 480px) {
+  .fullstats {
+    p {
+      font-size: 12px;
+    }
+    img {
+      width: 128px;
+      height: 128px;
+    }
+  }
 }

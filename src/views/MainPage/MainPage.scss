@@ -43,8 +43,7 @@
 
   &_graph {
     display: flex;
-    justify-content: center;
-    height: 100%;
+    flex-grow: 1;
   }
 }
 .month_name {
