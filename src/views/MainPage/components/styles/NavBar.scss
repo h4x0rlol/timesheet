@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900);
 
 .header {
-  background-color: lightslategray;
+  background-color: #242526;
   height: 50px;
   display: flex;
   flex-direction: row;
@@ -21,8 +21,7 @@
   &_name {
     font-size: 24px;
     margin: 0;
-    color: #fff;
-    cursor: pointer;
+    color: #f5f6f7;
   }
 
   &_buttons {
@@ -31,8 +30,13 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    p {
+      color: #f5f6f7;
+      text-decoration: none;
+      margin-right: 10px;
+    }
     a {
-      color: #fff;
+      color: #f5f6f7;
       text-decoration: none;
       margin-right: 10px;
       cursor: pointer;

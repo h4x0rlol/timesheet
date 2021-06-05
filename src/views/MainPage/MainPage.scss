@@ -1,26 +1,37 @@
 .mainpage {
   display: flex;
   flex-direction: column;
-  height: 94.7vh;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  background-color: #18191a;
 
   &_mode {
     display: flex;
-    flex-direction: row;
-    border-bottom: 0.2px solid lightslategray;
-    height: 40px;
+    border-bottom: 0.5px solid #606770;
+    height: 50px;
   }
 
   &_buttons {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    border-bottom: 0.2px solid lightslategray;
-    height: 40px;
-    color: #fff;
+    border-bottom: 0.5px solid #606770;
+    height: 50px;
+    color: #f5f6f7;
+    align-items: center;
+
+    &_all_time {
+      margin-left: 10px;
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 20px;
+    }
 
     &_month {
       display: flex;
-      justify-self: center;
+      align-items: center;
       flex-direction: row;
 
       &_arrows {
@@ -38,16 +49,16 @@
 }
 .month_name {
   font-size: 20px;
-  margin-top: 8px;
   padding-right: 10px;
   padding-left: 10px;
 }
 
 .arrow {
-  border: solid lightslategray;
+  border: solid #f5f6f7;
   border-width: 0 3px 3px 0;
   display: inline-block;
-  padding: 4px;
+  padding: 5px;
+  cursor: pointer;
 }
 .right {
   transform: rotate(-45deg);
@@ -60,21 +71,11 @@
 }
 
 @media (max-width: 480px) {
-  .month_name {
-    font-size: 11px;
-  }
-  .arrow {
-    border: solid lightslategray;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 2px;
+  .mainpage_buttons p {
+    font-size: 14px;
   }
 
-  .mainpage {
-    height: 150vh;
-  }
-
-  .mainpage_buttons_month_arrows {
-    margin-top: 3px;
+  .mainpage_button {
+    margin-left: 10px;
   }
 }

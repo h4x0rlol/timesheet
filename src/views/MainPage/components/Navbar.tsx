@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "../../reducers/index";
-import { logout } from "../../reducers/userReducer";
-import "./NavBar.scss";
+import { IRootState } from "../../../reducers/index";
+import { logout } from "../../../reducers/userReducer";
+import "./styles/NavBar.scss";
 const NavBar = () => {
   const username = useSelector(
     (state: IRootState) => state.user.currentUser.username
@@ -14,8 +14,7 @@ const NavBar = () => {
       <div className="header_container">
         <h1 className="header_name">TimeIs</h1>
         <div className="header_buttons">
-          <h1 className="header_name"></h1>
-          <a>{username}</a>
+          <p>{username}</p>
           <a onClick={() => dispatch(logout())}>Выйти</a>
         </div>
       </div>

@@ -1,11 +1,12 @@
 import React from "react";
-import "./index.scss";
+import "./styles/index.scss";
 
 const ModeButtons = () => {
   return (
-    <div className="mode_button">
-      <button className="mybtn">Туалет</button>
-      <button className="mybtn">Сон</button>
+    <div className="mode_buttons">
+      <i className="mode_buttons_arrowleft"></i>
+      <a>Туалет</a>
+      <i className="mode_buttons_arrowright"></i>
     </div>
   );
 };

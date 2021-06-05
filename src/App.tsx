@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MainLayout from "./layouts/Main/Main";
 import LoginPage from "./views/LoginPage/LoginPage";
 import MainPage from "./views/MainPage/MainPage";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -12,7 +11,8 @@ import "./App.scss";
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false); // true
-  const isAuth = useSelector((state: IRootState) => state.user.isAuth);
+  // const isAuth = useSelector((state: IRootState) => state.user.isAuth);
+  const isAuth = true;
   const dispatch = useDispatch();
 
   const isLoading = () => {
@@ -21,10 +21,10 @@ const App = () => {
     }, 1000);
   };
 
-  useEffect(() => {
-    isLoading();
-    dispatch(checkAuth(localStorage.getItem("token")));
-  }, []);
+  // useEffect(() => {
+  //   isLoading();
+  //   dispatch(checkAuth(localStorage.getItem("token")));
+  // }, []);
 
   return (
     <BrowserRouter>
@@ -35,15 +35,7 @@ const App = () => {
               <CircularProgress />
             </div>
           ) : (
-            <>
-              {!isAuth ? (
-                <LoginPage />
-              ) : (
-                <MainLayout>
-                  <MainPage />
-                </MainLayout>
-              )}
-            </>
+            <>{!isAuth ? <LoginPage /> : <MainPage />}</>
           )}
         </Route>
         <Route component={NotFound} />

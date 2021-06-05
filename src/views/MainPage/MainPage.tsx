@@ -7,6 +7,7 @@ import MainPageButtons from "./components/MainPageButtons";
 import MainPageStats from "./components/MainPageStats";
 import ModeButtons from "./components/ModeButtons";
 import "./MainPage.scss";
+import NavBar from "./components/Navbar";
 
 const MainPage = () => {
   // const isFullStats = useSelector(
@@ -18,35 +19,31 @@ const MainPage = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="mainpage">
+    <main className="mainpage">
+      <NavBar />
       <div className="mainpage_mode">
         <ModeButtons />
       </div>
       <div className="mainpage_buttons">
-        <MainPageStats />
+        <p className="mainpage_buttons_all_time">
+          Всего времени за месяц: 10ч 25м 10с
+        </p>
         <div className="mainpage_buttons_month">
-          <div className="mainpage_buttons_month_arrows">
-            <i
-              className="arrow left"
-              onClick={() => dispatch(previousMonth())}
-            ></i>
-          </div>
+          <i
+            className="arrow left"
+            onClick={() => dispatch(previousMonth())}
+          ></i>
           <p className="month_name">
             {date.month} ({date.year})
           </p>
-          <div className="mainpage_buttons_month_arrows">
-            <i
-              className="arrow right"
-              onClick={() => dispatch(nextMonth())}
-            ></i>
-          </div>
+          <i className="arrow right" onClick={() => dispatch(nextMonth())}></i>
         </div>
         <MainPageButtons isFullStats={isFullStats} />
       </div>
-      <div className="mainpage_graph">
+      {/* <div className="mainpage_graph">
         {!isFullStats ? <div>graph </div> : <FullStats />}
-      </div>
-    </div>
+      </div> */}
+    </main>
   );
 };
 
