@@ -47,7 +47,7 @@ const AddForm = () => {
           <form className={classes.form} noValidate>
             <TextField
               style={{
-                backgroundColor: "white",
+                backgroundColor: "#f5f6f7",
               }}
               InputProps={{
                 style: {
@@ -55,7 +55,7 @@ const AddForm = () => {
                 },
               }}
               InputLabelProps={{
-                style: { color: "#18191a" },
+                style: { color: "black", fontSize: "20px" },
               }}
               variant="outlined"
               margin="normal"
@@ -70,6 +70,10 @@ const AddForm = () => {
             />
 
             <Button
+              style={{
+                backgroundColor: "#f5f6f7",
+                color: "black",
+              }}
               type="submit"
               fullWidth
               variant="contained"
