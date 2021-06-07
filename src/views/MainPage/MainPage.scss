@@ -1,3 +1,17 @@
+.mainpage_blur {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  background-color: #18191a;
+  background-size: cover;
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -ms-filter: blur(2px);
+  -o-filter: blur(2px);
+  filter: blur(2px);
+}
+
 .mainpage {
   display: flex;
   flex-direction: column;
