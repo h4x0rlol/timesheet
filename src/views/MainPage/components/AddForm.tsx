@@ -8,8 +8,17 @@ import Container from "@material-ui/core/Container";
 import Alert from "@material-ui/lab/Alert";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import { showAddForm } from "../../../reducers/toiletReducer";
+import Box from "@material-ui/core/Box";
+import Rating, { IconContainerProps } from "@material-ui/lab/Rating";
+import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
+import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
+import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
+import SentimentSatisfiedAltIcon from "@material-ui/icons/SentimentSatisfiedAltOutlined";
+import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,9 +36,48 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const customIcons: {
+  [index: string]: { icon: React.ReactElement; label: string };
+} = {
+  1: {
+    icon: <SentimentVeryDissatisfiedIcon />,
+    label: "Very Dissatisfied",
+  },
+  2: {
+    icon: <SentimentDissatisfiedIcon />,
+    label: "Dissatisfied",
+  },
+  3: {
+    icon: <SentimentSatisfiedIcon />,
+    label: "Neutral",
+  },
+  4: {
+    icon: <SentimentSatisfiedAltIcon />,
+    label: "Satisfied",
+  },
+  5: {
+    icon: <SentimentVerySatisfiedIcon />,
+    label: "Very Satisfied",
+  },
+};
+
+function IconContainer(props: IconContainerProps) {
+  const { value, ...other } = props;
+  return <span {...other}>{customIcons[value].icon}</span>;
+}
+
 const AddForm = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
+  const [enema, setEnema] = useState(false);
+  const [laxative, setLaxative] = useState(false);
+  const [diarrhea, setDiarrhea] = useState(false);
+  const [constipation, setConstipation] = useState(false);
+  const [normal, setNormal] = useState(false);
+  const [commentary, setCommentary] = useState("");
+  const [rating, setRating] = useState(1);
 
   const handleShow = () => {
     dispatch(showAddForm());
@@ -41,7 +89,7 @@ const AddForm = () => {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" color="inherit">
             Добавить данные
           </Typography>
           <form className={classes.form} noValidate>
@@ -61,12 +109,131 @@ const AddForm = () => {
               margin="normal"
               required
               fullWidth
-              id="username"
-              label="Имя пользователя"
-              name="username"
-              autoFocus
-              // value={username}
-              // onChange={(e) => setUsername(e.target.value)}
+              label="Время начала"
+              value={start}
+              onChange={(e) => setStart(e.target.value)}
+            />
+
+            <TextField
+              style={{
+                backgroundColor: "#f5f6f7",
+              }}
+              InputProps={{
+                style: {
+                  color: "#f5f6f7",
+                },
+              }}
+              InputLabelProps={{
+                style: { color: "black", fontSize: "20px" },
+              }}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label="Время окончания"
+              value={end}
+              onChange={(e) => setEnd(e.target.value)}
+            />
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={enema}
+                  onChange={(e) => setEnema(e.target.checked)}
+                  style={{
+                    color: "#f5f6f7",
+                  }}
+                />
+              }
+              label="Клизма"
+            />
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={laxative}
+                  onChange={(e) => setLaxative(e.target.checked)}
+                  style={{
+                    color: "#f5f6f7",
+                  }}
+                />
+              }
+              label="Слабительное"
+            />
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={diarrhea}
+                  onChange={(e) => setDiarrhea(e.target.checked)}
+                  style={{
+                    color: "#f5f6f7",
+                  }}
+                />
+              }
+              label="Понос"
+            />
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={constipation}
+                  onChange={(e) => setConstipation(e.target.checked)}
+                  style={{
+                    color: "#f5f6f7",
+                  }}
+                />
+              }
+              label="Запор"
+            />
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={normal}
+                  onChange={(e) => setNormal(e.target.checked)}
+                  style={{
+                    color: "#f5f6f7",
+                  }}
+                />
+              }
+              label="Нормальный стул"
+            />
+
+            <Box component="fieldset" mt={2} borderColor="transparent">
+              <Typography component="legend" variant="h6">
+                Оценка похода
+              </Typography>
+              <Rating
+                name="customized-icons"
+                defaultValue={1}
+                getLabelText={(value: number) => customIcons[value].label}
+                IconContainerComponent={IconContainer}
+                value={rating}
+                onChange={(event, newValue) => {
+                  setRating(newValue);
+                }}
+              />
+            </Box>
+
+            <TextField
+              style={{
+                backgroundColor: "#f5f6f7",
+              }}
+              InputProps={{
+                style: {
+                  color: "#f5f6f7",
+                },
+              }}
+              InputLabelProps={{
+                style: { color: "black", fontSize: "20px" },
+              }}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              label="Комментарий"
+              value={commentary}
+              onChange={(e) => setCommentary(e.target.value)}
             />
 
             <Button
@@ -79,8 +246,12 @@ const AddForm = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={(e) => {
+                e.preventDefault();
+                console.log(rating, diarrhea);
+              }}
             >
-              Войти
+              Отправить
             </Button>
           </form>
         </div>

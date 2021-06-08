@@ -67,7 +67,7 @@ const LoginPage = () => {
           <CssBaseline />
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
-              Войти
+              Вход
             </Typography>
             <form className={classes.form} noValidate onSubmit={signIn}>
               <TextField
@@ -124,7 +124,7 @@ const LoginPage = () => {
           <CssBaseline />
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
-              Войти
+              Регистрация
             </Typography>
             <form className={classes.form} noValidate onSubmit={signUp}>
               <TextField
