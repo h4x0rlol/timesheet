@@ -19,6 +19,8 @@ import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied"
 import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
 import SentimentSatisfiedAltIcon from "@material-ui/icons/SentimentSatisfiedAltOutlined";
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
+import "./styles/index.scss";
+import { TrendingUpOutlined } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -93,47 +95,80 @@ const AddForm = () => {
             Добавить данные
           </Typography>
           <form className={classes.form} noValidate>
-            <TextField
-              style={{
-                backgroundColor: "#f5f6f7",
-              }}
-              InputProps={{
-                style: {
-                  color: "#f5f6f7",
-                },
-              }}
-              InputLabelProps={{
-                style: { color: "black", fontSize: "20px" },
-              }}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              label="Время начала"
-              value={start}
-              onChange={(e) => setStart(e.target.value)}
-            />
-
-            <TextField
-              style={{
-                backgroundColor: "#f5f6f7",
-              }}
-              InputProps={{
-                style: {
-                  color: "#f5f6f7",
-                },
-              }}
-              InputLabelProps={{
-                style: { color: "black", fontSize: "20px" },
-              }}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              label="Время окончания"
-              value={end}
-              onChange={(e) => setEnd(e.target.value)}
-            />
+            <div className="time">
+              <div className="time_inputs">
+                <div className="time_inputs_input">
+                  <TextField
+                    style={{
+                      backgroundColor: "#f5f6f7",
+                    }}
+                    InputLabelProps={{
+                      style: { color: "black", fontSize: "20px" },
+                    }}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    disabled={true}
+                    label="Время начала"
+                    value={start}
+                  />
+                </div>
+                <div className="time_inputs_label">
+                  <Grid container>
+                    <Grid item>
+                      <Link
+                        href="#"
+                        variant="body2"
+                        style={{
+                          textDecoration: "none",
+                          fontSize: "20px",
+                          color: "#f5f6f7",
+                        }}
+                      >
+                        {"Задать"}
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </div>
+              </div>
+              <div className="time_inputs">
+                <div className="time_inputs_input">
+                  <TextField
+                    style={{
+                      backgroundColor: "#f5f6f7",
+                    }}
+                    InputLabelProps={{
+                      style: { color: "black", fontSize: "20px" },
+                    }}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    disabled={true}
+                    label="Время окончания"
+                    value={end}
+                  />
+                </div>
+                <div className="time_inputs_label">
+                  <Grid container>
+                    <Grid item>
+                      <Link
+                        href="#"
+                        variant="body2"
+                        style={{
+                          textDecoration: "none",
+                          fontSize: "20px",
+                          color: "#f5f6f7",
+                        }}
+                      >
+                        {"Задать"}
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </div>
+              </div>
+            </div>
 
             <FormControlLabel
               control={
@@ -219,11 +254,6 @@ const AddForm = () => {
             <TextField
               style={{
                 backgroundColor: "#f5f6f7",
-              }}
-              InputProps={{
-                style: {
-                  color: "#f5f6f7",
-                },
               }}
               InputLabelProps={{
                 style: { color: "black", fontSize: "20px" },

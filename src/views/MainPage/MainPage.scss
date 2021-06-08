@@ -3,7 +3,7 @@
   flex-direction: column;
   flex-wrap: wrap;
   min-height: 100vh;
-  background-color: #18191a;
+  background-color: #1e272e;
   background-size: cover;
   -webkit-filter: blur(2px);
   -moz-filter: blur(2px);
@@ -17,11 +17,11 @@
   flex-direction: column;
   flex-wrap: wrap;
   min-height: 100vh;
-  background-color: #18191a;
+  background-color: #1e272e;
 
   &_mode {
     display: flex;
-    border-bottom: 0.5px solid #606770;
+    border-bottom: 0.5px solid #485460;
     height: 50px;
   }
 
@@ -29,7 +29,7 @@
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    border-bottom: 0.5px solid #606770;
+    border-bottom: 0.5px solid #485460;
     height: 50px;
     color: #f5f6f7;
     align-items: center;

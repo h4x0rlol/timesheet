@@ -80,7 +80,7 @@
   flex-direction: column;
   align-items: flex-end;
   color: #f5f6f7;
-  background-color: darkslategray;
+  background-color: #1e272e;
   margin: auto;
   width: 30%;
   padding: 10px;
@@ -121,6 +121,28 @@
   border-color: #18191a !important;
 }
 
+.time {
+  display: flex;
+  flex-direction: column;
+}
+
+.time_inputs {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+  &_input {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &_label {
+    display: flex;
+    align-self: center;
+    margin-right: 50px;
+  }
+}
+
 @media (max-width: 480px) {
   .add_form {
     width: 100%;
@@ -133,6 +155,11 @@
     img {
       width: 128px;
       height: 128px;
+    }
+  }
+  .time_inputs {
+    &_label {
+      margin-right: 10px;
     }
   }
 }

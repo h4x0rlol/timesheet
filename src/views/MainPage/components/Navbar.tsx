@@ -12,7 +12,7 @@ const NavBar = () => {
   return (
     <div className="header">
       <div className="header_container">
-        <h1 className="header_name">TimeIs</h1>
+        <h1 className="header_name">TimeSheet</h1>
         <div className="header_buttons">
           <p>{username}</p>
           <a onClick={() => dispatch(logout())}>Выйти</a>
