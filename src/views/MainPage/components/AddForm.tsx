@@ -5,7 +5,6 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Alert from "@material-ui/lab/Alert";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -20,7 +19,6 @@ import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
 import SentimentSatisfiedAltIcon from "@material-ui/icons/SentimentSatisfiedAltOutlined";
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 import "./styles/index.scss";
-import { TrendingUpOutlined } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   paper: {

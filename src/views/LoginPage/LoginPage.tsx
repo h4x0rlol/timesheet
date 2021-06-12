@@ -9,9 +9,10 @@ import Alert from "@material-ui/lab/Alert";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
 import { useDispatch, useSelector } from "react-redux";
-import { login, register } from "../../actions/user";
 import { IRootState } from "../../reducers/index";
-import { setError, setUser } from "../../reducers/userReducer";
+import { setUser } from "../../reducers/userReducer";
+import axios from "axios";
+import { store } from "react-notifications-component";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,33 +32,107 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginPage = () => {
   const classes = useStyles();
-  const error = useSelector((state: IRootState) => state.user.error);
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLogginForm, setisLogginForm] = useState<boolean>(true);
   const dispatch = useDispatch();
 
+  const erase = () => {
+    setUsername("");
+    setPassword("");
+  };
+
   const swtichForms = (e) => {
     e.preventDefault();
-    dispatch(setError(""));
     setisLogginForm(!isLogginForm);
-    setUsername("");
-    setPassword("");
+    erase();
   };
 
-  const signIn = (e) => {
-    e.preventDefault();
-    dispatch(setError(""));
-    dispatch(login(username, password));
+  const submitSignIn = async (e) => {
+    try {
+      e.preventDefault();
+      let res = await axios
+        .post(`${process.env.BACKEND_URL}/api/authenticate`, {
+          username: username,
+          password: password,
+        })
+        .then(function (res) {
+          // handle success
+          if (res.status == 200) {
+            dispatch(setUser(res.data));
+            localStorage.setItem("token", res.data.token);
+            console.log(res);
+          }
+        })
+        .catch(function (error) {
+          store.addNotification({
+            title: "Произошла ошибка!",
+            message: error.response.data.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3000,
+              onScreen: true,
+            },
+          });
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const signUp = (e) => {
-    e.preventDefault();
-    dispatch(setError(""));
-    dispatch(register(username, password));
-    setUsername("");
-    setPassword("");
+  const submitSignUp = async (e) => {
+    try {
+      e.preventDefault();
+      let res = await axios
+        .post(`${process.env.BACKEND_URL}/api/register`, {
+          username: username,
+          password: password,
+        })
+        .then(function (res) {
+          // handle success
+          if (res.status == 200) {
+            console.log(res);
+            store.addNotification({
+              title: "Успешно!",
+              message: "Аккаунт зарегестрирован",
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 3000,
+                onScreen: true,
+              },
+            });
+            setisLogginForm(!isLogginForm);
+            erase();
+          }
+        })
+        .catch(function (error) {
+          // handle error
+          store.addNotification({
+            title: "Произошла ошибка!",
+            message: error.response.data.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3000,
+              onScreen: true,
+            },
+          });
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -69,7 +144,7 @@ const LoginPage = () => {
             <Typography component="h1" variant="h5">
               Вход
             </Typography>
-            <form className={classes.form} noValidate onSubmit={signIn}>
+            <form className={classes.form} noValidate onSubmit={submitSignIn}>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -95,11 +170,6 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              {error && (
-                <Alert variant="outlined" severity="error">
-                  {error}
-                </Alert>
-              )}
               <Button
                 type="submit"
                 fullWidth
@@ -126,7 +196,7 @@ const LoginPage = () => {
             <Typography component="h1" variant="h5">
               Регистрация
             </Typography>
-            <form className={classes.form} noValidate onSubmit={signUp}>
+            <form className={classes.form} noValidate onSubmit={submitSignUp}>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -152,17 +222,6 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              {error && error != "Аккаунт успешно зарегестрирован" && (
-                <Alert variant="outlined" severity="error">
-                  {error}
-                </Alert>
-              )}
-
-              {error === "Аккаунт успешно зарегестрирован" && (
-                <Alert variant="outlined" severity="success">
-                  {error}
-                </Alert>
-              )}
               <Button
                 type="submit"
                 fullWidth

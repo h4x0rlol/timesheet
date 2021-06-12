@@ -11,20 +11,20 @@ import "./App.scss";
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false); // true
-  // const isAuth = useSelector((state: IRootState) => state.user.isAuth);
-  const isAuth = true;
+  const isAuth = useSelector((state: IRootState) => state.user.isAuth);
+  // const isAuth = true;
   const dispatch = useDispatch();
 
   const isLoading = () => {
     setTimeout(() => {
-      // setLoading(false);
+      setLoading(false);
     }, 1000);
   };
 
-  // useEffect(() => {
-  //   isLoading();
-  //   dispatch(checkAuth(localStorage.getItem("token")));
-  // }, []);
+  useEffect(() => {
+    isLoading();
+    dispatch(checkAuth(localStorage.getItem("token")));
+  }, []);
 
   return (
     <BrowserRouter>

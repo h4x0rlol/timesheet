@@ -8,7 +8,6 @@ import ModeButtons from "./components/ModeButtons";
 import "./MainPage.scss";
 import NavBar from "./components/Navbar";
 import Modal from "@material-ui/core/Modal";
-import LoginPage from "../LoginPage/LoginPage";
 import AddForm from "./components/AddForm";
 import { showAddForm } from "../../reducers/toiletReducer";
 
