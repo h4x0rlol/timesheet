@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { showAddForm } from "../../../reducers/toiletReducer";
-import { handleShowFullStats } from "../../../actions/toilet";
+import { showAddForm, showFullStats } from "../../../reducers/toiletReducer";
 import "./styles/index.scss";
 
 const MainPageButtons = (props) => {
@@ -13,7 +12,7 @@ const MainPageButtons = (props) => {
 
   return (
     <div className="mainpage_button">
-      <p className="mybtn_show" onClick={() => dispatch(handleShowFullStats())}>
+      <p className="mybtn_show" onClick={() => dispatch(showFullStats())}>
         {!props.isFullStats ? "Полная статистика" : "График"}
       </p>
       <p className="mybtn_add" onClick={handleShow}>
