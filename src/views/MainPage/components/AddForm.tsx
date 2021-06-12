@@ -19,6 +19,9 @@ import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
 import SentimentSatisfiedAltIcon from "@material-ui/icons/SentimentSatisfiedAltOutlined";
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 import "./styles/index.scss";
+import axios from "axios";
+import { store } from "react-notifications-component";
+import { IRootState } from "../../../reducers/index";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -79,6 +82,10 @@ const AddForm = () => {
   const [commentary, setCommentary] = useState("");
   const [rating, setRating] = useState(1);
 
+  const user_id = useSelector(
+    (state: IRootState) => state.user.currentUser.user_id
+  );
+
   const handleShow = () => {
     dispatch(showAddForm());
   };
@@ -113,6 +120,63 @@ const AddForm = () => {
     setEnd(fullTime);
   };
 
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      console.log("send");
+      let res = await axios
+        .post(`${process.env.BACKEND_URL}/api/sendToiletData`, {
+          user_id: user_id,
+          start: start,
+          end: end,
+          enema: +enema,
+          laxative: +laxative,
+          diarrhea: +diarrhea,
+          constipation: +constipation,
+          normal: +normal,
+          commentary: commentary,
+          rating: rating,
+        })
+        .then(function (res) {
+          // handle success
+          if (res.status == 200) {
+            console.log(res);
+            store.addNotification({
+              title: "Успешно!",
+              message: "Данные отправлены",
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 3000,
+                onScreen: true,
+              },
+            });
+            handleShow();
+          }
+        })
+        .catch(function (error) {
+          store.addNotification({
+            title: "Произошла ошибка!",
+            message: error.response.data.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3000,
+              onScreen: true,
+            },
+          });
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className="add_form">
       <a className="close" onClick={handleShow} />
@@ -122,13 +186,7 @@ const AddForm = () => {
           <Typography component="h1" variant="h5" color="inherit" align="left">
             Добавить данные
           </Typography>
-          <form
-            className={classes.form}
-            noValidate
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-          >
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <div className="time">
               <div className="time_inputs">
                 <div className="time_inputs_input">

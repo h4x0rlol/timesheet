@@ -12,8 +12,8 @@ import { setUser } from "./reducers/userReducer";
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false); // true
-  // const isAuth = useSelector((state: IRootState) => state.user.isAuth);
-  const isAuth = true;
+  const isAuth = useSelector((state: IRootState) => state.user.isAuth);
+  // const isAuth = true;
   const dispatch = useDispatch();
 
   const checkAuth = async (token) => {
@@ -41,9 +41,9 @@ const App = () => {
     }
   };
 
-  // useEffect(() => {
-  //   checkAuth(localStorage.getItem("token"));
-  // }, []);
+  useEffect(() => {
+    checkAuth(localStorage.getItem("token"));
+  }, []);
 
   return (
     <BrowserRouter>
