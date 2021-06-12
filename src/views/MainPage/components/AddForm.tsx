@@ -91,7 +91,7 @@ const AddForm = () => {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-          <Typography component="h1" variant="h5" color="inherit">
+          <Typography component="h1" variant="h5" color="inherit" align="left">
             Добавить данные
           </Typography>
           <form className={classes.form} noValidate>
@@ -99,12 +99,6 @@ const AddForm = () => {
               <div className="time_inputs">
                 <div className="time_inputs_input">
                   <TextField
-                    style={{
-                      backgroundColor: "#f5f6f7",
-                    }}
-                    InputLabelProps={{
-                      style: { color: "black", fontSize: "20px" },
-                    }}
                     variant="outlined"
                     margin="normal"
                     required
@@ -118,10 +112,11 @@ const AddForm = () => {
                   <Grid container>
                     <Grid item>
                       <Link
-                        href="#"
+                        // href="#"
                         variant="body2"
                         style={{
-                          textDecoration: "none",
+                          cursor: "pointer",
+                          // textDecoration: "none",
                           fontSize: "20px",
                           color: "#f5f6f7",
                         }}
@@ -135,12 +130,6 @@ const AddForm = () => {
               <div className="time_inputs">
                 <div className="time_inputs_input">
                   <TextField
-                    style={{
-                      backgroundColor: "#f5f6f7",
-                    }}
-                    InputLabelProps={{
-                      style: { color: "black", fontSize: "20px" },
-                    }}
                     variant="outlined"
                     margin="normal"
                     required
@@ -154,10 +143,11 @@ const AddForm = () => {
                   <Grid container>
                     <Grid item>
                       <Link
-                        href="#"
+                        // href="#"
                         variant="body2"
                         style={{
-                          textDecoration: "none",
+                          cursor: "pointer",
+                          // textDecoration: "none",
                           fontSize: "20px",
                           color: "#f5f6f7",
                         }}
@@ -175,9 +165,9 @@ const AddForm = () => {
                 <Checkbox
                   checked={enema}
                   onChange={(e) => setEnema(e.target.checked)}
-                  style={{
-                    color: "#f5f6f7",
-                  }}
+                  // style={{
+                  //   color: "#f5f6f7",
+                  // }}
                 />
               }
               label="Клизма"
@@ -188,9 +178,9 @@ const AddForm = () => {
                 <Checkbox
                   checked={laxative}
                   onChange={(e) => setLaxative(e.target.checked)}
-                  style={{
-                    color: "#f5f6f7",
-                  }}
+                  // style={{
+                  //   color: "#f5f6f7",
+                  // }}
                 />
               }
               label="Слабительное"
@@ -201,9 +191,9 @@ const AddForm = () => {
                 <Checkbox
                   checked={diarrhea}
                   onChange={(e) => setDiarrhea(e.target.checked)}
-                  style={{
-                    color: "#f5f6f7",
-                  }}
+                  // style={{
+                  //   color: "#f5f6f7",
+                  // }}
                 />
               }
               label="Понос"
@@ -214,9 +204,9 @@ const AddForm = () => {
                 <Checkbox
                   checked={constipation}
                   onChange={(e) => setConstipation(e.target.checked)}
-                  style={{
-                    color: "#f5f6f7",
-                  }}
+                  // style={{
+                  //   color: "#f5f6f7",
+                  // }}
                 />
               }
               label="Запор"
@@ -227,9 +217,9 @@ const AddForm = () => {
                 <Checkbox
                   checked={normal}
                   onChange={(e) => setNormal(e.target.checked)}
-                  style={{
-                    color: "#f5f6f7",
-                  }}
+                  // style={{
+                  //   color: "#f5f6f7",
+                  // }}
                 />
               }
               label="Нормальный стул"
@@ -252,12 +242,6 @@ const AddForm = () => {
             </Box>
 
             <TextField
-              style={{
-                backgroundColor: "#f5f6f7",
-              }}
-              InputLabelProps={{
-                style: { color: "black", fontSize: "20px" },
-              }}
               variant="outlined"
               margin="normal"
               fullWidth
@@ -267,10 +251,6 @@ const AddForm = () => {
             />
 
             <Button
-              style={{
-                backgroundColor: "#f5f6f7",
-                color: "black",
-              }}
               type="submit"
               fullWidth
               variant="contained"
