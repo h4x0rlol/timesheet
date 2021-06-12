@@ -83,6 +83,36 @@ const AddForm = () => {
     dispatch(showAddForm());
   };
 
+  const handleStart = (e) => {
+    e.preventDefault();
+    let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    let fullTime = new Date().toLocaleString("ru-Ru", {
+      timeZone: tz,
+    });
+    let dateArray = fullTime.split(/[\s.,]+/);
+    let timeArray = dateArray[3].split(/[\s:]+/);
+    let time = `${timeArray[0]}:${timeArray[1]}`;
+    let day = dateArray[0];
+    let month = dateArray[1];
+    let year = dateArray[2];
+    setStart(fullTime);
+  };
+
+  const handleEnd = (e) => {
+    e.preventDefault();
+    let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    let fullTime = new Date().toLocaleString("ru-Ru", {
+      timeZone: tz,
+    });
+    let dateArray = fullTime.split(/[\s.,]+/);
+    let timeArray = dateArray[3].split(/[\s:]+/);
+    let time = `${timeArray[0]}:${timeArray[1]}`;
+    let day = dateArray[0];
+    let month = dateArray[1];
+    let year = dateArray[2];
+    setEnd(fullTime);
+  };
+
   return (
     <div className="add_form">
       <a className="close" onClick={handleShow} />
@@ -92,7 +122,13 @@ const AddForm = () => {
           <Typography component="h1" variant="h5" color="inherit" align="left">
             Добавить данные
           </Typography>
-          <form className={classes.form} noValidate>
+          <form
+            className={classes.form}
+            noValidate
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
             <div className="time">
               <div className="time_inputs">
                 <div className="time_inputs_input">
@@ -118,6 +154,7 @@ const AddForm = () => {
                           fontSize: "20px",
                           color: "#f5f6f7",
                         }}
+                        onClick={handleStart}
                       >
                         {"Задать"}
                       </Link>
@@ -149,6 +186,7 @@ const AddForm = () => {
                           fontSize: "20px",
                           color: "#f5f6f7",
                         }}
+                        onClick={handleEnd}
                       >
                         {"Задать"}
                       </Link>
@@ -254,10 +292,6 @@ const AddForm = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={(e) => {
-                e.preventDefault();
-                console.log(rating, diarrhea);
-              }}
             >
               Отправить
             </Button>
