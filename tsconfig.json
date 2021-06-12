@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "typeRoots": ["node_modules/@types", "src/types"],
+    "jsx": "react",
+    "esModuleInterop": true,
+    "target": "es5",
+    "module": "commonjs",
+    // "allowJs": true,
+    "baseUrl": "./"
+    // "outFile": "./dist/build.js"
+  }
+}

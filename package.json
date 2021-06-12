@@ -2,9 +2,10 @@
   "name": "timeis",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.ts",
+    "build": "webpack --config webpack.config.ts",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,55 @@
   "bugs": {
     "url": "https://github.com/h4x0rlol/timeis/issues"
   },
-  "homepage": "https://github.com/h4x0rlol/timeis#readme"
+  "homepage": "https://github.com/h4x0rlol/timeis#readme",
+  "dependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/compat-data": "^7.11.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-decorators": "^7.6.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/runtime": "^7.5.5",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
+    "axios": "^0.21.0",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "css-loader": "^3.2.0",
+    "dotenv-webpack": "^7.0.2",
+    "express": "^4.17.1",
+    "file-loader": "^6.0.0",
+    "html-react-parser": "^0.14.0",
+    "node-sass": "^4.14.1",
+    "path": "^0.12.7",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-notifications-component": "^3.1.0",
+    "react-redux": "^7.2.4",
+    "react-router-config": "^5.1.1",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
+    "sass-loader": "^9.0.3",
+    "style-loader": "^1.2.1",
+    "terser-webpack-plugin": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/runtime-corejs2": "^7.0.0",
+    "@types/node": "^15.6.1",
+    "@types/react": "^17.0.8",
+    "@types/react-redux": "^7.1.16",
+    "babel-loader": "^8.1.0",
+    "babel-preset-es2015": "^6.24.1",
+    "cross-env": "^5.2.0",
+    "hard-source-webpack-plugin": "^0.13.1",
+    "redux-devtools-extension": "^2.13.9",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.6.4",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0"
+  }
 }

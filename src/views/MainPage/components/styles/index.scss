@@ -1,0 +1,165 @@
+.mode_buttons {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  a {
+    color: #f5f6f7;
+    font-size: 24px;
+  }
+
+  &_arrowleft {
+    border: solid #f5f6f7;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    margin-left: 15px;
+    cursor: pointer;
+  }
+
+  &_arrowright {
+    border: solid #f5f6f7;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    margin-right: 15px;
+    cursor: pointer;
+  }
+}
+
+.mainpage_button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.mybtn_show {
+  font-size: 20px;
+  margin-right: 10px;
+  color: #25c2a0;
+  cursor: pointer;
+}
+
+.mybtn_add {
+  margin-right: 10px;
+  font-size: 20px;
+  color: #25c2a0;
+  cursor: pointer;
+}
+
+.fullstats {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 120px;
+
+  &_stats {
+    display: flex;
+    justify-content: space-around;
+
+    &_center {
+      display: flex;
+      align-items: center;
+      justify-content: column;
+      flex-direction: column;
+    }
+  }
+
+  p {
+    font-size: 20px;
+    color: #f5f6f7;
+  }
+}
+
+.add_form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: #f5f6f7;
+  background-color: #1e272e;
+  margin: auto;
+  width: 30%;
+  padding: 10px;
+  margin-top: 100px;
+  border-radius: 25px;
+  overflow-y: auto;
+}
+
+.close {
+  display: flex;
+  opacity: 0.5;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: -40px;
+  cursor: pointer;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before,
+.close:after {
+  content: " ";
+  height: 33px;
+  width: 2px;
+  background-color: #f5f6f7;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+
+.MuiFormLabel-root.Mui-focused {
+  color: #18191a !important;
+}
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #18191a !important;
+}
+
+.time {
+  display: flex;
+  flex-direction: column;
+}
+
+.time_inputs {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+  &_input {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &_label {
+    display: flex;
+    align-self: center;
+    margin-right: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .add_form {
+    width: 100%;
+    height: 500px;
+  }
+  .fullstats {
+    p {
+      font-size: 12px;
+    }
+    img {
+      width: 128px;
+      height: 128px;
+    }
+  }
+  .time_inputs {
+    &_label {
+      margin-right: 10px;
+    }
+  }
+}
