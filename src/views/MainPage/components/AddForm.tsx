@@ -125,7 +125,7 @@ const AddForm = () => {
       e.preventDefault();
       console.log("send");
       let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/sendToiletData`, {
+        .post(`https://timeis-backend.herokuapp.com/api/sendToiletData`, {
           user_id: user_id,
           start: start,
           end: end,
