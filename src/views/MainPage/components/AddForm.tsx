@@ -82,9 +82,7 @@ const AddForm = () => {
   const [commentary, setCommentary] = useState("");
   const [rating, setRating] = useState(1);
 
-  const user_id = useSelector(
-    (state: IRootState) => state.user.currentUser.user_id
-  );
+  const token = localStorage.getItem("token");
 
   const handleShow = () => {
     dispatch(showAddForm());
@@ -125,8 +123,8 @@ const AddForm = () => {
       e.preventDefault();
       console.log("send");
       let res = await axios
-        .post(`https://timeis-backend.herokuapp.com/api/sendToiletData`, {
-          user_id: user_id,
+        .post(`${process.env.BACKEND_URL}/api/sendToiletData`, {
+          token: token,
           start: start,
           end: end,
           enema: +enema,

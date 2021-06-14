@@ -11,15 +11,17 @@ import axios from "axios";
 import { setUser } from "./reducers/userReducer";
 
 const App = () => {
-  const [loading, setLoading] = useState<boolean>(true); // true
+  const [loading, setLoading] = useState<boolean>(false); // true
   const isAuth = useSelector((state: IRootState) => state.user.isAuth);
   // const isAuth = true;
   const dispatch = useDispatch();
 
+  // TRY TO ADD ENV TO SERVER FILE
+
   const checkAuth = async (token) => {
     try {
       let res = await axios
-        .post(`https://timeis-backend.herokuapp.com/api/checkAuth`, {
+        .post(`${process.env.BACKEND_URL}/api/checkAuth`, {
           token: token,
         })
         .then(function (res) {
