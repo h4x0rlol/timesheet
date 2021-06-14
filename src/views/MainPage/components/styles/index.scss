@@ -134,12 +134,12 @@
   &_input {
     display: flex;
     flex-direction: row;
+    width: 70%;
   }
 
   &_label {
     display: flex;
     align-self: center;
-    margin-right: 50px;
   }
 }
 
@@ -234,11 +234,6 @@
     img {
       width: 128px;
       height: 128px;
-    }
-  }
-  .time_inputs {
-    &_label {
-      margin-right: 10px;
     }
   }
 }

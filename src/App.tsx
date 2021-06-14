@@ -53,7 +53,7 @@ const App = () => {
         <Route exact path="/">
           {loading ? (
             <div className="loader">
-              <CircularProgress />
+              <CircularProgress style={{ color: "#67e6dc" }} />
             </div>
           ) : (
             <>{!isAuth ? <LoginPage /> : <MainPage />}</>
