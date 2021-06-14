@@ -145,7 +145,7 @@
 
 .rwd-table {
   margin: 1em 0;
-  min-width: 300px; // adjust to your needs
+  min-width: 300px;
 
   tr {
     border-top: 1px solid #ddd;
@@ -153,7 +153,7 @@
   }
 
   th {
-    display: none; // for accessibility, use a visually hidden method here instead! Thanks, reddit!
+    display: none;
   }
 
   td {
@@ -167,13 +167,9 @@
     }
 
     &:before {
-      // content: attr(data-th) ": "; // who knew you could do this? The internet, that's who.
       font-weight: bold;
-
-      // optional stuff to make it look nicer
-      width: 6.5em; // magic number :( adjust according to your own content
+      width: 6.5em;
       display: inline-block;
-      // end options
 
       @media (min-width: 480px) {
         display: none;
@@ -219,6 +215,16 @@
   td:before {
     color: #dd5;
   }
+}
+
+.loading {
+  display: flex;
+  align-self: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.no_stats {
 }
 
 @media (max-width: 480px) {

@@ -94,12 +94,6 @@ const AddForm = () => {
     let fullTime = new Date().toLocaleString("ru-Ru", {
       timeZone: tz,
     });
-    let dateArray = fullTime.split(/[\s.,]+/);
-    let timeArray = dateArray[3].split(/[\s:]+/);
-    let time = `${timeArray[0]}:${timeArray[1]}`;
-    let day = dateArray[0];
-    let month = dateArray[1];
-    let year = dateArray[2];
     setStart(fullTime);
   };
 
@@ -109,12 +103,6 @@ const AddForm = () => {
     let fullTime = new Date().toLocaleString("ru-Ru", {
       timeZone: tz,
     });
-    let dateArray = fullTime.split(/[\s.,]+/);
-    let timeArray = dateArray[3].split(/[\s:]+/);
-    let time = `${timeArray[0]}:${timeArray[1]}`;
-    let day = dateArray[0];
-    let month = dateArray[1];
-    let year = dateArray[2];
     setEnd(fullTime);
   };
 

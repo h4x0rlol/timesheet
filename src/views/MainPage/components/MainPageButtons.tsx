@@ -6,16 +6,16 @@ import "./styles/index.scss";
 const MainPageButtons = (props) => {
   const dispatch = useDispatch();
 
-  const handleShow = () => {
+  const handleShowAddForm = () => {
     dispatch(showAddForm());
   };
 
   return (
     <div className="mainpage_button">
-      <p className="mybtn_show" onClick={() => dispatch(showFullStats())}>
+      <p className="mybtn_show" onClick={props.handleShowFullStats}>
         {!props.isFullStats ? "Полная статистика" : "График"}
       </p>
-      <p className="mybtn_add" onClick={handleShow}>
+      <p className="mybtn_add" onClick={handleShowAddForm}>
         Добавить
       </p>
     </div>
