@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { showAddForm, showFullStats } from "../../../reducers/toiletReducer";
-import "./styles/index.scss";
+import { showAddForm } from "../../../reducers/toiletReducer";
+import "../../styles/index.scss";
 
-const MainPageButtons = (props) => {
+const ToiletMainPageButtons = (props) => {
   const dispatch = useDispatch();
 
   const handleShowAddForm = () => {
@@ -22,4 +22,4 @@ const MainPageButtons = (props) => {
   );
 };
 
-export default MainPageButtons;
+export default ToiletMainPageButtons;

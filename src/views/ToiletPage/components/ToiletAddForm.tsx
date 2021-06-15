@@ -18,10 +18,9 @@ import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied"
 import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
 import SentimentSatisfiedAltIcon from "@material-ui/icons/SentimentSatisfiedAltOutlined";
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
-import "./styles/index.scss";
+import "../../styles/index.scss";
 import axios from "axios";
 import { store } from "react-notifications-component";
-import { IRootState } from "../../../reducers/index";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -69,7 +68,7 @@ function IconContainer(props: IconContainerProps) {
   return <span {...other}>{customIcons[value].icon}</span>;
 }
 
-const AddForm = () => {
+const ToiletAddForm = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [start, setStart] = useState("");
@@ -124,7 +123,6 @@ const AddForm = () => {
           rating: rating,
         })
         .then(function (res) {
-          // handle success
           if (res.status == 200) {
             console.log(res);
             store.addNotification({
@@ -190,11 +188,9 @@ const AddForm = () => {
                   <Grid container>
                     <Grid item>
                       <Link
-                        // href="#"
                         variant="body2"
                         style={{
                           cursor: "pointer",
-                          // textDecoration: "none",
                           fontSize: "20px",
                           color: "#f5f6f7",
                         }}
@@ -222,11 +218,9 @@ const AddForm = () => {
                   <Grid container>
                     <Grid item>
                       <Link
-                        // href="#"
                         variant="body2"
                         style={{
                           cursor: "pointer",
-                          // textDecoration: "none",
                           fontSize: "20px",
                           color: "#f5f6f7",
                         }}
@@ -245,9 +239,6 @@ const AddForm = () => {
                 <Checkbox
                   checked={enema}
                   onChange={(e) => setEnema(e.target.checked)}
-                  // style={{
-                  //   color: "#f5f6f7",
-                  // }}
                 />
               }
               label="Клизма"
@@ -258,9 +249,6 @@ const AddForm = () => {
                 <Checkbox
                   checked={laxative}
                   onChange={(e) => setLaxative(e.target.checked)}
-                  // style={{
-                  //   color: "#f5f6f7",
-                  // }}
                 />
               }
               label="Слабительное"
@@ -271,9 +259,6 @@ const AddForm = () => {
                 <Checkbox
                   checked={diarrhea}
                   onChange={(e) => setDiarrhea(e.target.checked)}
-                  // style={{
-                  //   color: "#f5f6f7",
-                  // }}
                 />
               }
               label="Понос"
@@ -284,9 +269,6 @@ const AddForm = () => {
                 <Checkbox
                   checked={constipation}
                   onChange={(e) => setConstipation(e.target.checked)}
-                  // style={{
-                  //   color: "#f5f6f7",
-                  // }}
                 />
               }
               label="Запор"
@@ -297,9 +279,6 @@ const AddForm = () => {
                 <Checkbox
                   checked={normal}
                   onChange={(e) => setNormal(e.target.checked)}
-                  // style={{
-                  //   color: "#f5f6f7",
-                  // }}
                 />
               }
               label="Нормальный стул"
@@ -346,4 +325,4 @@ const AddForm = () => {
   );
 };
 
-export default AddForm;
+export default ToiletAddForm;

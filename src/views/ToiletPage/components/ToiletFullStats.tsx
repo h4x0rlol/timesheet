@@ -1,8 +1,8 @@
 import React from "react";
-import "./styles/index.scss";
+import "../../styles/index.scss";
 import Pepe from "../../../utils/images/pepe.gif";
 
-const FullStats = (props) => {
+const ToiletFullStats = (props) => {
   return (
     <div className="fullstats">
       {props.statsExist ? (
@@ -79,4 +79,4 @@ const FullStats = (props) => {
   );
 };
 
-export default FullStats;
+export default ToiletFullStats;
