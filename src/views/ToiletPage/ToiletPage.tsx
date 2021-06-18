@@ -10,6 +10,7 @@ import ToiletFullStats from "./components/ToiletFullStats";
 import ToiletMainPageButtons from "./components/ToiletMainPageButtons";
 import Modal from "@material-ui/core/Modal";
 import ToiletAddForm from "./components/ToiletAddForm";
+import ToiletGraph from "./components/ToiletGraph";
 
 const ToiletPage = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const ToiletPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState("");
   const [tz, setTz] = useState("");
-  const [statsExist, setStatsExist] = useState(false);
+  const [error, setError] = useState("");
   const [goings, setGoings] = useState(0);
   const [averageToiletTime, setAverageToiletTime] = useState("");
   const [successfull, setSuccessfull] = useState(0);
@@ -67,14 +68,14 @@ const ToiletPage = () => {
             setMonthTime(`${month[0]}ч ${month[1]}м`);
             let all = res.data.allToiletTime.split(":");
             setAllToiletTime(`${all[0]}ч ${all[1]}м`);
-            setStatsExist(true);
+            setError("");
             setIsLoading(false);
             dispatch(showFullStats());
             console.log(res.data);
           }
         })
         .catch(function (error) {
-          setStatsExist(false);
+          setError(error.response.data.message);
           setIsLoading(false);
           dispatch(showFullStats());
           console.log(error);
@@ -113,13 +114,13 @@ const ToiletPage = () => {
               setMonthTime(`${month[0]}ч ${month[1]}м`);
               let all = res.data.allToiletTime.split(":");
               setAllToiletTime(`${all[0]}ч ${all[1]}м`);
-              setStatsExist(true);
+              setError("");
               setIsLoading(false);
               console.log(res.data);
             }
           })
           .catch(function (error) {
-            setStatsExist(false);
+            setError(error.response.data.message);
             setIsLoading(false);
             console.log(error);
           });
@@ -241,10 +242,10 @@ const ToiletPage = () => {
         ) : (
           <>
             {!isFullStats ? (
-              <div>graph </div>
+              <ToiletGraph />
             ) : (
               <ToiletFullStats
-                statsExist={statsExist}
+                error={error}
                 goings={goings}
                 averageToiletTime={averageToiletTime}
                 successfull={successfull}

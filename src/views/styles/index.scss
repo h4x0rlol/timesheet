@@ -224,6 +224,11 @@
   justify-content: center;
 }
 
+.graph {
+  display: flex;
+  width: 100%;
+}
+
 @media (max-width: 480px) {
   .add_form {
     width: 100%;

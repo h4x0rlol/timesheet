@@ -5,7 +5,7 @@ import Pepe from "../../../utils/images/pepe.gif";
 const ToiletFullStats = (props) => {
   return (
     <div className="fullstats">
-      {props.statsExist ? (
+      {!props.error ? (
         <>
           <table className="rwd-table">
             <tbody>
@@ -74,7 +74,7 @@ const ToiletFullStats = (props) => {
         </>
       ) : (
         <div className="no_stats">
-          <p>Статистика не найдена</p>
+          <p>{props.error}</p>
         </div>
       )}
     </div>
