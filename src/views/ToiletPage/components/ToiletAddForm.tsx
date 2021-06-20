@@ -8,8 +8,8 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
-import { useDispatch, useSelector } from "react-redux";
+import Checkbox from "@material-ui/core/Checkbox";
+import { useDispatch } from "react-redux";
 import { showAddForm } from "../../../reducers/toiletReducer";
 import Box from "@material-ui/core/Box";
 import Rating, { IconContainerProps } from "@material-ui/lab/Rating";
@@ -144,7 +144,9 @@ const ToiletAddForm = () => {
         .catch(function (error) {
           store.addNotification({
             title: "Произошла ошибка!",
-            message: error.response.data.message,
+            message: error.response
+              ? error.response.data.message
+              : error.message,
             type: "danger",
             insert: "top",
             container: "top-right",

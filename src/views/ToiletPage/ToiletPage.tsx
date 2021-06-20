@@ -75,13 +75,18 @@ const ToiletPage = () => {
           }
         })
         .catch(function (error) {
-          setError(error.response.data.message);
+          if (!error.response) {
+            setError(error.message);
+          } else {
+            setError(error.response.data.message);
+          }
           setIsLoading(false);
           dispatch(showFullStats());
           console.log(error);
         });
     } catch (e) {
       console.log(e);
+      setError(e.message);
     }
   };
 
@@ -120,12 +125,17 @@ const ToiletPage = () => {
             }
           })
           .catch(function (error) {
-            setError(error.response.data.message);
+            if (!error.response) {
+              setError(error.message);
+            } else {
+              setError(error.response.data.message);
+            }
             setIsLoading(false);
             console.log(error);
           });
       } catch (e) {
         console.log(e);
+        setError(e.message);
       }
     } else {
       console.log("ss");

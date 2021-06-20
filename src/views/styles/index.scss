@@ -225,8 +225,11 @@
 }
 
 .graph {
-  display: flex;
+  position: relative;
   width: 100%;
+  canvas {
+    width: 100% !important;
+  }
 }
 
 @media (max-width: 480px) {
