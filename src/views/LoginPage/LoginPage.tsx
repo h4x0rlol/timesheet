@@ -5,11 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Alert from "@material-ui/lab/Alert";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
-import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "../../reducers/index";
+import { useDispatch } from "react-redux";
 import { setUser } from "../../reducers/userReducer";
 import axios from "axios";
 import { store } from "react-notifications-component";
@@ -58,7 +56,6 @@ const LoginPage = () => {
           password: password,
         })
         .then(function (res) {
-          // handle success
           if (res.status == 200) {
             dispatch(setUser(res.data));
             localStorage.setItem("token", res.data.token);
@@ -68,7 +65,9 @@ const LoginPage = () => {
         .catch(function (error) {
           store.addNotification({
             title: "Произошла ошибка!",
-            message: error.response.data.message,
+            message: error.response
+              ? error.response.data.message
+              : error.message,
             type: "danger",
             insert: "top",
             container: "top-right",
@@ -94,7 +93,6 @@ const LoginPage = () => {
           password: password,
         })
         .then(function (res) {
-          // handle success
           if (res.status == 200) {
             console.log(res);
             store.addNotification({
@@ -118,7 +116,9 @@ const LoginPage = () => {
           // handle error
           store.addNotification({
             title: "Произошла ошибка!",
-            message: error.response.data.message,
+            message: error.response
+              ? error.response.data.message
+              : error.message,
             type: "danger",
             insert: "top",
             container: "top-right",

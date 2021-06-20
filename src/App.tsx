@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import LoginPage from "./views/LoginPage/LoginPage";
 import MainPage from "./views/MainPage/MainPage";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "./reducers/index";
 import NotFound from "./views/NotFound/NotFound";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./App.scss";
 import axios from "axios";
 import { setUser } from "./reducers/userReducer";
+import { IRootState } from "./reducers";
+
+// TODO
+// Сделать статистику за месяц, неделю, день, год, всего
+// Сделать режим сна
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(true); // true
@@ -23,7 +27,6 @@ const App = () => {
           token: token,
         })
         .then(function (res) {
-          // handle success
           if (res.status == 200) {
             dispatch(setUser(res.data));
             localStorage.setItem("token", res.data.token);
@@ -51,7 +54,7 @@ const App = () => {
         <Route exact path="/">
           {loading ? (
             <div className="loader">
-              <CircularProgress />
+              <CircularProgress style={{ color: "#67e6dc" }} />
             </div>
           ) : (
             <>{!isAuth ? <LoginPage /> : <MainPage />}</>
