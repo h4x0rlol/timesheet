@@ -14,8 +14,8 @@ const ToiletFullStats = (props) => {
                 <td>{props.goings}</td>
               </tr>
               <tr>
-                <td>Всего времени за месяц:</td>
-                <td>{props.monthTime}</td>
+                <td>Всего дней с походами:</td>
+                <td>НАПИСАТЬ</td>
               </tr>
               <tr>
                 <td>Среднее время в туалете:</td>
@@ -68,7 +68,7 @@ const ToiletFullStats = (props) => {
             </tbody>
           </table>
           <div className="fullstats_stats_center">
-            <p>Просрано времени: {props.allToiletTime}</p>
+            <p>Просрано времени за месяц: {props.monthTime}</p>
             <img src={Pepe} alt="Pepe on toilet" />
           </div>
         </>

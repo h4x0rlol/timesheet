@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import LoginPage from "./views/LoginPage/LoginPage";
 import MainPage from "./views/MainPage/MainPage";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "./reducers/index";
 import NotFound from "./views/NotFound/NotFound";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./App.scss";
 import axios from "axios";
 import { setUser } from "./reducers/userReducer";
+import { IRootState } from "./reducers";
+
+// TODO
+// Сделать статистику за месяц, неделю, день, год, всего
+// Сделать режим сна
 
 const App = () => {
-  const [loading, setLoading] = useState<boolean>(false); // true
-  // const isAuth = useSelector((state: IRootState) => state.user.isAuth);
-  const isAuth = true;
+  const [loading, setLoading] = useState<boolean>(true); // true
+  const isAuth = useSelector((state: IRootState) => state.user.isAuth);
+  // const isAuth = true;
   const dispatch = useDispatch();
 
   const checkAuth = async (token) => {
@@ -41,7 +45,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    // checkAuth(localStorage.getItem("token"));
+    checkAuth(localStorage.getItem("token"));
   }, []);
 
   return (

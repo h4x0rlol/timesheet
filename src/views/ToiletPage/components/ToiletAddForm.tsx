@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -21,6 +21,9 @@ import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfie
 import "../../styles/index.scss";
 import axios from "axios";
 import { store } from "react-notifications-component";
+
+// TODO
+// IN USEEFFECT SAVE START TIME IN LOCALSTORAGE
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -80,8 +83,17 @@ const ToiletAddForm = () => {
   const [normal, setNormal] = useState(false);
   const [commentary, setCommentary] = useState("");
   const [rating, setRating] = useState(1);
+  const [token, setToken] = useState("");
 
-  const token = localStorage.getItem("token");
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const savedStartTime = localStorage.getItem("toilet_start");
+    setToken(token);
+    if (savedStartTime) {
+      setStart(savedStartTime);
+    }
+    console.log(savedStartTime);
+  }, []);
 
   const handleShow = () => {
     dispatch(showAddForm());
@@ -93,6 +105,7 @@ const ToiletAddForm = () => {
     let fullTime = new Date().toLocaleString("ru-Ru", {
       timeZone: tz,
     });
+    localStorage.setItem("toilet_start", fullTime);
     setStart(fullTime);
   };
 
@@ -138,6 +151,7 @@ const ToiletAddForm = () => {
                 onScreen: true,
               },
             });
+            localStorage.removeItem("toilet_start");
             handleShow();
           }
         })

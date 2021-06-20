@@ -7,7 +7,7 @@ const ToiletGraph = (props) => {
   const data = {
     labels: arr,
     productNames: [
-      "Gdsiaoudsaiodhjiuosaphdiusahduiosahdiusahdiuosahiudhisuahduisahdiuyosahbdiuosahdusahjndiusahdusahdiosauhduisahdosahd\r\n\nopdsjaoidjsa",
+      "Gdsia",
       ["dsadsa", "dsadsadsa", "kdddd"],
       "PINK-WHITE-GRAY",
       "SEAFOAM-WHITE-GRAY",
@@ -20,30 +20,6 @@ const ToiletGraph = (props) => {
         borderColor: ["rgba(153, 102, 255, 1)"],
         borderWidth: 1,
       },
-      // {
-      //   data: [0, 1.21, 0, 0, 0],
-      //   backgroundColor: ["rgba(153, 102, 255, 0.2)"],
-      //   borderColor: ["rgba(153, 102, 255, 1)"],
-      //   borderWidth: 1,
-      // },
-      // {
-      //   data: [0, 0, 3.55, 0, 0],
-      //   backgroundColor: ["rgba(153, 102, 255, 0.2)"],
-      //   borderColor: ["rgba(153, 102, 255, 1)"],
-      //   borderWidth: 1,
-      // },
-      // {
-      //   data: [0, 0, 0, 3.55, 0],
-      //   backgroundColor: ["rgba(153, 102, 255, 0.2)"],
-      //   borderColor: ["rgba(153, 102, 255, 1)"],
-      //   borderWidth: 1,
-      // },
-      // {
-      //   data: [0, 0, 0, 0, 3.55],
-      //   backgroundColor: ["rgba(153, 102, 255, 0.2)"],
-      //   borderColor: ["rgba(153, 102, 255, 1)"],
-      //   borderWidth: 1,
-      // },
     ],
   };
 
