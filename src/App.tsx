@@ -23,7 +23,7 @@ const App = () => {
   const checkAuth = async (token) => {
     try {
       let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/checkAuth`, {
+        .post(`https://timeis-backend.herokuapp.com/api/checkAuth`, {
           token: token,
         })
         .then(function (res) {

@@ -43,7 +43,7 @@ const ToiletPage = () => {
   const getFullToiletStats = async (token, month, tz) => {
     try {
       let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/getToiletData`, {
+        .post(`https://timeis-backend.herokuapp.com/api/getToiletData`, {
           token: token,
           month: month,
           tz: tz,
@@ -94,7 +94,7 @@ const ToiletPage = () => {
     if (isFullStats) {
       try {
         let res = await axios
-          .post(`${process.env.BACKEND_URL}/api/getToiletData`, {
+          .post(`https://timeis-backend.herokuapp.com/api/getToiletData`, {
             token: token,
             month: month,
             tz: tz,
