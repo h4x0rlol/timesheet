@@ -7,7 +7,7 @@ import { nextMonth, previousMonth } from "../../reducers/dateReducer";
 import { showAddForm, showFullStats } from "../../reducers/toiletReducer";
 import { monthsArray } from "../../utils/constants";
 import ToiletFullStats from "./components/ToiletFullStats";
-import ToiletMainPageButtons from "./components/ToiletMainPageButtons";
+import ToiletButtons from "./components/ToiletButtons";
 import Modal from "@material-ui/core/Modal";
 import ToiletAddForm from "./components/ToiletAddForm";
 import ToiletGraph from "./components/ToiletGraph";
@@ -43,21 +43,6 @@ const ToiletPage = () => {
     laxatives: 0,
     monthTime: "",
   });
-  // const [goings, setGoings] = useState(0);
-  // const [averageToiletTime, setAverageToiletTime] = useState("");
-  // const [successfull, setSuccessfull] = useState(0);
-  // const [notSuccessfull, setNotSuccessfull] = useState(0);
-  // const [neutral, setNeutral] = useState(0);
-  // const [successfullPercent, setSuccessfullPercent] = useState("");
-  // const [daysSkiped, setDaysSkiped] = useState(0);
-  // const [averageRating, setAverageRating] = useState("");
-  // const [diarrheas, setDiarrheas] = useState(0);
-  // const [constipations, setConstipations] = useState(0);
-  // const [normals, setNormals] = useState(0);
-  // const [enemas, setEnemas] = useState(0);
-  // const [laxatives, setLaxatives] = useState(0);
-  // const [monthTime, setMonthTime] = useState("");
-  // const [allToiletTime, setAllToiletTime] = useState("");
 
   const getFullToiletStats = async (token, month, tz) => {
     try {
@@ -69,24 +54,6 @@ const ToiletPage = () => {
         })
         .then(function (res) {
           if (res.status == 200) {
-            // setGoings(res.data.goings);
-            // let avg = res.data.averageToiletTime.split(":");
-            // setAverageToiletTime(`${avg[0]}ч ${avg[1]}м`);
-            // setSuccessfull(res.data.successfull);
-            // setNotSuccessfull(res.data.notSuccessfull);
-            // setNeutral(res.data.neutral);
-            // setSuccessfullPercent(`${res.data.successfullPercent} %`);
-            // setDaysSkiped(res.data.daysSkiped);
-            // setAverageRating(res.data.averageRating);
-            // setDiarrheas(res.data.diarrheas);
-            // setConstipations(res.data.constipations);
-            // setNormals(res.data.normals);
-            // setEnemas(res.data.enemas);
-            // setLaxatives(res.data.laxatives);
-            // let month = res.data.monthTime.split(":");
-            // setMonthTime(`${month[0]}ч ${month[1]}м`);
-            // let all = res.data.allToiletTime.split(":");
-            // setAllToiletTime(`${all[0]}ч ${all[1]}м`);
             setMonthData(res.data.monthToiletData);
             setError("");
             setIsLoading(false);
@@ -121,24 +88,6 @@ const ToiletPage = () => {
           })
           .then(function (res) {
             if (res.status == 200) {
-              // setGoings(res.data.goings);
-              // let avg = res.data.averageToiletTime.split(":");
-              // setAverageToiletTime(`${avg[0]}ч ${avg[1]}м`);
-              // setSuccessfull(res.data.successfull);
-              // setNotSuccessfull(res.data.notSuccessfull);
-              // setNeutral(res.data.neutral);
-              // setSuccessfullPercent(`${res.data.successfullPercent} %`);
-              // setDaysSkiped(res.data.daysSkiped);
-              // setAverageRating(res.data.averageRating);
-              // setDiarrheas(res.data.diarrheas);
-              // setConstipations(res.data.constipations);
-              // setNormals(res.data.normals);
-              // setEnemas(res.data.enemas);
-              // setLaxatives(res.data.laxatives);
-              // let month = res.data.monthTime.split(":");
-              // setMonthTime(`${month[0]}ч ${month[1]}м`);
-              // let all = res.data.allToiletTime.split(":");
-              // setAllToiletTime(`${all[0]}ч ${all[1]}м`);
               setMonthData(res.data.monthToiletData);
               setError("");
               setIsLoading(false);
@@ -219,7 +168,7 @@ const ToiletPage = () => {
   return (
     <>
       <div className="mainpage_buttons">
-        <div className="mainpage_buttons_month">
+        {/* <div className="mainpage_buttons_month">
           <i
             className="arrow left"
             style={
@@ -257,8 +206,8 @@ const ToiletPage = () => {
                 : () => {}
             }
           ></i>
-        </div>
-        <ToiletMainPageButtons
+        </div> */}
+        <ToiletButtons
           isFullStats={isFullStats}
           handleShowFullStats={handleShowFullStats}
           handleShowGraph={handleShowGraph}
@@ -275,7 +224,14 @@ const ToiletPage = () => {
             {!isFullStats ? (
               <ToiletGraph />
             ) : (
-              <ToiletFullStats error={error} monthData={monthData} />
+              <ToiletFullStats
+                isLoading={isLoading}
+                date={date}
+                handlePreviousMonth={handlePreviousMonth}
+                handleNextMonth={handleNextMonth}
+                error={error}
+                monthData={monthData}
+              />
             )}
           </>
         )}

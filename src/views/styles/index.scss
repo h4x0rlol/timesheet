@@ -66,12 +66,19 @@
       align-items: center;
       justify-content: column;
       flex-direction: column;
-    }
-  }
+      margin-bottom: 200px;
 
-  p {
-    font-size: 45px;
-    color: #67e6dc;
+      &_fulltime {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        p {
+          font-size: 45px;
+          color: #67e6dc;
+        }
+      }
+    }
   }
 }
 
@@ -239,6 +246,12 @@
   }
   .fullstats {
     flex-direction: column-reverse;
+    &_stats {
+      &_center {
+        margin-bottom: 5px;
+      }
+    }
+
     p {
       font-size: 16px;
     }

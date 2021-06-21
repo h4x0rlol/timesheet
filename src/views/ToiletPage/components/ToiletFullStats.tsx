@@ -1,6 +1,7 @@
 import React from "react";
 import "../../styles/index.scss";
 import Pepe from "../../../utils/images/pepe.gif";
+import ToiletTimeButtons from "./ToiletTimeButtons";
 
 const ToiletFullStats = (props) => {
   return (
@@ -72,8 +73,18 @@ const ToiletFullStats = (props) => {
             </tbody>
           </table>
           <div className="fullstats_stats_center">
-            <p>Просрано времени за месяц: {props.monthData.monthTime}</p>
-            <img src={Pepe} alt="Pepe on toilet" />
+            <div className="fullstats_stats_center_time_arrows">
+              <ToiletTimeButtons
+                isLoading={props.isLoading}
+                date={props.date}
+                handlePreviousMonth={props.handlePreviousMonth}
+                handleNextMonth={props.handleNextMonth}
+              />
+            </div>
+            <div className="fullstats_stats_center_fulltime">
+              <p>Просрано времени за месяц: {props.monthData.monthTime}</p>
+              <img src={Pepe} alt="Pepe on toilet" />
+            </div>
           </div>
         </>
       ) : (
