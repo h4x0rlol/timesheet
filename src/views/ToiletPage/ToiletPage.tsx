@@ -11,6 +11,7 @@ import ToiletMainPageButtons from "./components/ToiletMainPageButtons";
 import Modal from "@material-ui/core/Modal";
 import ToiletAddForm from "./components/ToiletAddForm";
 import ToiletGraph from "./components/ToiletGraph";
+import monthToiletData from "../../types/data";
 
 const ToiletPage = () => {
   const dispatch = useDispatch();
@@ -24,54 +25,73 @@ const ToiletPage = () => {
   const [token, setToken] = useState("");
   const [tz, setTz] = useState("");
   const [error, setError] = useState("");
-  const [goings, setGoings] = useState(0);
-  const [averageToiletTime, setAverageToiletTime] = useState("");
-  const [successfull, setSuccessfull] = useState(0);
-  const [notSuccessfull, setNotSuccessfull] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [successfullPercent, setSuccessfullPercent] = useState("");
-  const [daysSkiped, setDaysSkiped] = useState(0);
-  const [averageRating, setAverageRating] = useState("");
-  const [diarrheas, setDiarrheas] = useState(0);
-  const [constipations, setConstipations] = useState(0);
-  const [normals, setNormals] = useState(0);
-  const [enemas, setEnemas] = useState(0);
-  const [laxatives, setLaxatives] = useState(0);
-  const [monthTime, setMonthTime] = useState("");
-  const [allToiletTime, setAllToiletTime] = useState("");
+  const [monthData, setMonthData] = useState<monthToiletData>({
+    goings: 0,
+    days: 0,
+    averageGoings: 0,
+    averageToiletTime: "",
+    successfull: 0,
+    notSuccessfull: 0,
+    neutral: 0,
+    successfullPercent: "",
+    daysSkiped: 0,
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    monthTime: "",
+  });
+  // const [goings, setGoings] = useState(0);
+  // const [averageToiletTime, setAverageToiletTime] = useState("");
+  // const [successfull, setSuccessfull] = useState(0);
+  // const [notSuccessfull, setNotSuccessfull] = useState(0);
+  // const [neutral, setNeutral] = useState(0);
+  // const [successfullPercent, setSuccessfullPercent] = useState("");
+  // const [daysSkiped, setDaysSkiped] = useState(0);
+  // const [averageRating, setAverageRating] = useState("");
+  // const [diarrheas, setDiarrheas] = useState(0);
+  // const [constipations, setConstipations] = useState(0);
+  // const [normals, setNormals] = useState(0);
+  // const [enemas, setEnemas] = useState(0);
+  // const [laxatives, setLaxatives] = useState(0);
+  // const [monthTime, setMonthTime] = useState("");
+  // const [allToiletTime, setAllToiletTime] = useState("");
 
   const getFullToiletStats = async (token, month, tz) => {
     try {
       let res = await axios
-        .post(`https://timeis-backend.herokuapp.com/api/getToiletData`, {
+        .post(`${process.env.BACKEND_URL}/api/getMonthToiletData`, {
           token: token,
           month: month,
           tz: tz,
         })
         .then(function (res) {
           if (res.status == 200) {
-            setGoings(res.data.goings);
-            let avg = res.data.averageToiletTime.split(":");
-            setAverageToiletTime(`${avg[0]}ч ${avg[1]}м`);
-            setSuccessfull(res.data.successfull);
-            setNotSuccessfull(res.data.notSuccessfull);
-            setNeutral(res.data.neutral);
-            setSuccessfullPercent(`${res.data.successfullPercent} %`);
-            setDaysSkiped(res.data.daysSkiped);
-            setAverageRating(res.data.averageRating);
-            setDiarrheas(res.data.diarrheas);
-            setConstipations(res.data.constipations);
-            setNormals(res.data.normals);
-            setEnemas(res.data.enemas);
-            setLaxatives(res.data.laxatives);
-            let month = res.data.monthTime.split(":");
-            setMonthTime(`${month[0]}ч ${month[1]}м`);
-            let all = res.data.allToiletTime.split(":");
-            setAllToiletTime(`${all[0]}ч ${all[1]}м`);
+            // setGoings(res.data.goings);
+            // let avg = res.data.averageToiletTime.split(":");
+            // setAverageToiletTime(`${avg[0]}ч ${avg[1]}м`);
+            // setSuccessfull(res.data.successfull);
+            // setNotSuccessfull(res.data.notSuccessfull);
+            // setNeutral(res.data.neutral);
+            // setSuccessfullPercent(`${res.data.successfullPercent} %`);
+            // setDaysSkiped(res.data.daysSkiped);
+            // setAverageRating(res.data.averageRating);
+            // setDiarrheas(res.data.diarrheas);
+            // setConstipations(res.data.constipations);
+            // setNormals(res.data.normals);
+            // setEnemas(res.data.enemas);
+            // setLaxatives(res.data.laxatives);
+            // let month = res.data.monthTime.split(":");
+            // setMonthTime(`${month[0]}ч ${month[1]}м`);
+            // let all = res.data.allToiletTime.split(":");
+            // setAllToiletTime(`${all[0]}ч ${all[1]}м`);
+            setMonthData(res.data.monthToiletData);
             setError("");
             setIsLoading(false);
             dispatch(showFullStats());
-            console.log(res.data);
+            console.log(monthData);
           }
         })
         .catch(function (error) {
@@ -94,31 +114,32 @@ const ToiletPage = () => {
     if (isFullStats) {
       try {
         let res = await axios
-          .post(`https://timeis-backend.herokuapp.com/api/getToiletData`, {
+          .post(`${process.env.BACKEND_URL}/api/getMonthToiletData`, {
             token: token,
             month: month,
             tz: tz,
           })
           .then(function (res) {
             if (res.status == 200) {
-              setGoings(res.data.goings);
-              let avg = res.data.averageToiletTime.split(":");
-              setAverageToiletTime(`${avg[0]}ч ${avg[1]}м`);
-              setSuccessfull(res.data.successfull);
-              setNotSuccessfull(res.data.notSuccessfull);
-              setNeutral(res.data.neutral);
-              setSuccessfullPercent(`${res.data.successfullPercent} %`);
-              setDaysSkiped(res.data.daysSkiped);
-              setAverageRating(res.data.averageRating);
-              setDiarrheas(res.data.diarrheas);
-              setConstipations(res.data.constipations);
-              setNormals(res.data.normals);
-              setEnemas(res.data.enemas);
-              setLaxatives(res.data.laxatives);
-              let month = res.data.monthTime.split(":");
-              setMonthTime(`${month[0]}ч ${month[1]}м`);
-              let all = res.data.allToiletTime.split(":");
-              setAllToiletTime(`${all[0]}ч ${all[1]}м`);
+              // setGoings(res.data.goings);
+              // let avg = res.data.averageToiletTime.split(":");
+              // setAverageToiletTime(`${avg[0]}ч ${avg[1]}м`);
+              // setSuccessfull(res.data.successfull);
+              // setNotSuccessfull(res.data.notSuccessfull);
+              // setNeutral(res.data.neutral);
+              // setSuccessfullPercent(`${res.data.successfullPercent} %`);
+              // setDaysSkiped(res.data.daysSkiped);
+              // setAverageRating(res.data.averageRating);
+              // setDiarrheas(res.data.diarrheas);
+              // setConstipations(res.data.constipations);
+              // setNormals(res.data.normals);
+              // setEnemas(res.data.enemas);
+              // setLaxatives(res.data.laxatives);
+              // let month = res.data.monthTime.split(":");
+              // setMonthTime(`${month[0]}ч ${month[1]}м`);
+              // let all = res.data.allToiletTime.split(":");
+              // setAllToiletTime(`${all[0]}ч ${all[1]}м`);
+              setMonthData(res.data.monthToiletData);
               setError("");
               setIsLoading(false);
               console.log(res.data);
@@ -254,24 +275,7 @@ const ToiletPage = () => {
             {!isFullStats ? (
               <ToiletGraph />
             ) : (
-              <ToiletFullStats
-                error={error}
-                goings={goings}
-                averageToiletTime={averageToiletTime}
-                successfull={successfull}
-                notSuccessfull={notSuccessfull}
-                neutral={neutral}
-                successfullPercent={successfullPercent}
-                daysSkiped={daysSkiped}
-                averageRating={averageRating}
-                diarrheas={diarrheas}
-                constipations={constipations}
-                normals={normals}
-                enemas={enemas}
-                laxatives={laxatives}
-                monthTime={monthTime}
-                allToiletTime={allToiletTime}
-              />
+              <ToiletFullStats error={error} monthData={monthData} />
             )}
           </>
         )}

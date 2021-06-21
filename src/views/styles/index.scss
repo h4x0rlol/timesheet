@@ -144,8 +144,8 @@
 }
 
 .rwd-table {
-  margin: 1em 0;
   min-width: 300px;
+  border-spacing: 1px;
 
   tr {
     border-top: 1px solid #ddd;
@@ -238,7 +238,7 @@
     height: 500px;
   }
   .fullstats {
-    flex-direction: column;
+    flex-direction: column-reverse;
     p {
       font-size: 16px;
     }

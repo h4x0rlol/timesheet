@@ -11,64 +11,68 @@ const ToiletFullStats = (props) => {
             <tbody>
               <tr>
                 <td>Количество походов:</td>
-                <td>{props.goings}</td>
+                <td>{props.monthData.goings}</td>
               </tr>
               <tr>
                 <td>Всего дней с походами:</td>
-                <td>НАПИСАТЬ</td>
+                <td>{props.monthData.days}</td>
+              </tr>
+              <tr>
+                <td>Среднее кол-во походов в день:</td>
+                <td>{props.monthData.averageGoings}</td>
               </tr>
               <tr>
                 <td>Среднее время в туалете:</td>
-                <td>{props.averageToiletTime}</td>
+                <td>{props.monthData.averageToiletTime}</td>
               </tr>
               <tr>
                 <td>Успешных походов:</td>
-                <td>{props.successfull}</td>
+                <td>{props.monthData.successfull}</td>
               </tr>
               <tr>
                 <td>Безуспешных походов:</td>
-                <td>{props.notSuccessfull}</td>
+                <td>{props.monthData.notSuccessfull}</td>
               </tr>
               <tr>
                 <td>Нейтральных походов:</td>
-                <td>{props.neutral}</td>
+                <td>{props.monthData.neutral}</td>
               </tr>
               <tr>
                 <td>Процент успешных походов:</td>
-                <td>{props.successfullPercent}</td>
+                <td>{props.monthData.successfullPercent}</td>
               </tr>
               <tr>
                 <td>Пропущено дней:</td>
-                <td>{props.daysSkiped}</td>
+                <td>{props.monthData.daysSkiped}</td>
               </tr>
               <tr>
                 <td>Средняя оценка похода:</td>
-                <td>{props.averageRating}</td>
+                <td>{props.monthData.averageRating}</td>
               </tr>
               <tr>
                 <td>Количество поносов:</td>
-                <td>{props.diarrheas}</td>
+                <td>{props.monthData.diarrheas}</td>
               </tr>
               <tr>
                 <td>Количество запоров:</td>
-                <td>{props.constipations}</td>
+                <td>{props.monthData.constipations}</td>
               </tr>
               <tr>
                 <td>Количество нормальных походов::</td>
-                <td>{props.normals}</td>
+                <td>{props.monthData.normals}</td>
               </tr>
               <tr>
                 <td>Походов с клизмой:</td>
-                <td>{props.enemas}</td>
+                <td>{props.monthData.enemas}</td>
               </tr>
               <tr>
                 <td>Походов со слабительным:</td>
-                <td>{props.laxatives}</td>
+                <td>{props.monthData.laxatives}</td>
               </tr>
             </tbody>
           </table>
           <div className="fullstats_stats_center">
-            <p>Просрано времени за месяц: {props.monthTime}</p>
+            <p>Просрано времени за месяц: {props.monthData.monthTime}</p>
             <img src={Pepe} alt="Pepe on toilet" />
           </div>
         </>
