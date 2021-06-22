@@ -19,13 +19,12 @@ const ToiletTimeButtons = (props) => {
           onClick={
             !props.isLoading
               ? () => {
-                  //   props.handlePreviousMonth();
-                  setkek(true);
+                  props.handlePreviousTimeMode();
                 }
               : () => {}
           }
         ></i>
-        <p className="mode_name">Месяц</p>
+        <p className="mode_name">{props.timeMode}</p>
         <i
           className="arrow right"
           style={
@@ -38,7 +37,7 @@ const ToiletTimeButtons = (props) => {
           onClick={
             !props.isLoading
               ? () => {
-                  //   props.handleNextMonth();
+                  props.handleNextTimeMode();
                 }
               : () => {}
           }

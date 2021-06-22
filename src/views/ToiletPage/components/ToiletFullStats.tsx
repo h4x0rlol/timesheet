@@ -100,8 +100,11 @@ const ToiletFullStats = (props) => {
         <ToiletTimeButtons
           isLoading={props.isLoading}
           date={props.date}
+          timeMode={props.timeMode}
           handlePreviousMonth={props.handlePreviousMonth}
           handleNextMonth={props.handleNextMonth}
+          handleNextTimeMode={props.handleNextTimeMode}
+          handlePreviousTimeMode={props.handlePreviousTimeMode}
         />
       </div>
     </>

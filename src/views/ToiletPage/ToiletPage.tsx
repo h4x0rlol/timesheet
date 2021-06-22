@@ -12,10 +12,12 @@ import ToiletAddForm from "./components/ToiletAddForm";
 import ToiletGraph from "./components/ToiletGraph";
 import monthToiletData from "../../types/data";
 import { CircularProgress } from "@material-ui/core";
+import { nextTimeMode, previousTimeMode } from "../../reducers/timeModeReducer";
 
 const ToiletPage = () => {
   const dispatch = useDispatch();
   const date = useSelector((state: IRootState) => state.date);
+  const timeMode = useSelector((state: IRootState) => state.timeMode.timeMode);
   const isFullStats = useSelector(
     (state: IRootState) => state.toilet.showFullStats
   );
@@ -76,37 +78,6 @@ const ToiletPage = () => {
     }
   };
 
-  // const changeMonth = async (token, month, tz) => {
-  //   try {
-  //     let res = await axios
-  //       .post(`${process.env.BACKEND_URL}/api/getMonthToiletData`, {
-  //         token: token,
-  //         month: month,
-  //         tz: tz,
-  //       })
-  //       .then(function (res) {
-  //         if (res.status == 200) {
-  //           setMonthData(res.data.monthToiletData);
-  //           setError("");
-  //           setIsLoading(false);
-  //           console.log(res.data);
-  //         }
-  //       })
-  //       .catch(function (error) {
-  //         if (!error.response) {
-  //           setError(error.message);
-  //         } else {
-  //           setError(error.response.data.message);
-  //         }
-  //         setIsLoading(false);
-  //         console.log(error);
-  //       });
-  //   } catch (e) {
-  //     console.log(e);
-  //     setError(e.message);
-  //   }
-  // };
-
   useEffect(() => {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     setTz(tz);
@@ -135,6 +106,14 @@ const ToiletPage = () => {
 
   const select = (store) => {
     return store.date.month;
+  };
+
+  const handleNextTimeMode = async () => {
+    dispatch(nextTimeMode());
+  };
+
+  const handlePreviousTimeMode = async () => {
+    dispatch(previousTimeMode());
   };
 
   const handlePreviousMonth = async () => {
@@ -188,8 +167,11 @@ const ToiletPage = () => {
           <ToiletFullStats
             isLoading={isLoading}
             date={date}
+            timeMode={timeMode}
             handlePreviousMonth={handlePreviousMonth}
             handleNextMonth={handleNextMonth}
+            handleNextTimeMode={handleNextTimeMode}
+            handlePreviousTimeMode={handlePreviousTimeMode}
             error={error}
             monthData={monthData}
           />
