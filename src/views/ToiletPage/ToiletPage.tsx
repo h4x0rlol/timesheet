@@ -1,4 +1,3 @@
-import { CircularProgress } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +11,7 @@ import Modal from "@material-ui/core/Modal";
 import ToiletAddForm from "./components/ToiletAddForm";
 import ToiletGraph from "./components/ToiletGraph";
 import monthToiletData from "../../types/data";
+import { CircularProgress } from "@material-ui/core";
 
 const ToiletPage = () => {
   const dispatch = useDispatch();
@@ -44,12 +44,13 @@ const ToiletPage = () => {
     monthTime: "",
   });
 
-  const getFullToiletStats = async (token, month, tz) => {
+  const getMonthToiletData = async (token, month, year, tz) => {
     try {
       let res = await axios
         .post(`${process.env.BACKEND_URL}/api/getMonthToiletData`, {
           token: token,
           month: month,
+          year: year,
           tz: tz,
         })
         .then(function (res) {
@@ -57,7 +58,6 @@ const ToiletPage = () => {
             setMonthData(res.data.monthToiletData);
             setError("");
             setIsLoading(false);
-            dispatch(showFullStats());
             console.log(monthData);
           }
         })
@@ -68,7 +68,6 @@ const ToiletPage = () => {
             setError(error.response.data.message);
           }
           setIsLoading(false);
-          dispatch(showFullStats());
           console.log(error);
         });
     } catch (e) {
@@ -77,41 +76,36 @@ const ToiletPage = () => {
     }
   };
 
-  const changeMonth = async (token, month, tz) => {
-    if (isFullStats) {
-      try {
-        let res = await axios
-          .post(`${process.env.BACKEND_URL}/api/getMonthToiletData`, {
-            token: token,
-            month: month,
-            tz: tz,
-          })
-          .then(function (res) {
-            if (res.status == 200) {
-              setMonthData(res.data.monthToiletData);
-              setError("");
-              setIsLoading(false);
-              console.log(res.data);
-            }
-          })
-          .catch(function (error) {
-            if (!error.response) {
-              setError(error.message);
-            } else {
-              setError(error.response.data.message);
-            }
-            setIsLoading(false);
-            console.log(error);
-          });
-      } catch (e) {
-        console.log(e);
-        setError(e.message);
-      }
-    } else {
-      console.log("ss");
-      setIsLoading(false);
-    }
-  };
+  // const changeMonth = async (token, month, tz) => {
+  //   try {
+  //     let res = await axios
+  //       .post(`${process.env.BACKEND_URL}/api/getMonthToiletData`, {
+  //         token: token,
+  //         month: month,
+  //         tz: tz,
+  //       })
+  //       .then(function (res) {
+  //         if (res.status == 200) {
+  //           setMonthData(res.data.monthToiletData);
+  //           setError("");
+  //           setIsLoading(false);
+  //           console.log(res.data);
+  //         }
+  //       })
+  //       .catch(function (error) {
+  //         if (!error.response) {
+  //           setError(error.message);
+  //         } else {
+  //           setError(error.response.data.message);
+  //         }
+  //         setIsLoading(false);
+  //         console.log(error);
+  //       });
+  //   } catch (e) {
+  //     console.log(e);
+  //     setError(e.message);
+  //   }
+  // };
 
   useEffect(() => {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -123,10 +117,12 @@ const ToiletPage = () => {
   const handleShowFullStats = async () => {
     setIsLoading(true);
     let month = (monthsArray.indexOf(date.month) + 1).toString();
+    let year = date.year;
     if (month.length === 1) {
       month = `0${month}`;
     }
-    await getFullToiletStats(token, month, tz);
+    await getMonthToiletData(token, month, year, tz);
+    dispatch(showFullStats());
   };
 
   const handleShowGraph = async () => {
@@ -147,10 +143,11 @@ const ToiletPage = () => {
     let currentValue = select(store.getState());
     console.log(currentValue);
     let month = (monthsArray.indexOf(currentValue) + 1).toString();
+    let year = date.year;
     if (month.length === 1) {
       month = `0${month}`;
     }
-    await changeMonth(token, month, tz);
+    await getMonthToiletData(token, month, year, tz);
   };
 
   const handleNextMonth = async () => {
@@ -159,54 +156,16 @@ const ToiletPage = () => {
     console.log(currentValue);
     setIsLoading(true);
     let month = (monthsArray.indexOf(currentValue) + 1).toString();
+    let year = date.year;
     if (month.length === 1) {
       month = `0${month}`;
     }
-    await changeMonth(token, month, tz);
+    await getMonthToiletData(token, month, year, tz);
   };
 
   return (
     <>
       <div className="mainpage_buttons">
-        {/* <div className="mainpage_buttons_month">
-          <i
-            className="arrow left"
-            style={
-              !isLoading
-                ? {
-                    cursor: "pointer",
-                  }
-                : {}
-            }
-            onClick={
-              !isLoading
-                ? () => {
-                    handlePreviousMonth();
-                  }
-                : () => {}
-            }
-          ></i>
-          <p className="month_name">
-            {date.month} ({date.year})
-          </p>
-          <i
-            className="arrow right"
-            style={
-              !isLoading
-                ? {
-                    cursor: "pointer",
-                  }
-                : {}
-            }
-            onClick={
-              !isLoading
-                ? () => {
-                    handleNextMonth();
-                  }
-                : () => {}
-            }
-          ></i>
-        </div> */}
         <ToiletButtons
           isFullStats={isFullStats}
           handleShowFullStats={handleShowFullStats}
@@ -215,25 +174,25 @@ const ToiletPage = () => {
         />
       </div>
       <div className="mainpage_graph">
-        {isLoading ? (
-          <div className="loading">
-            <CircularProgress style={{ color: "#67e6dc" }} />
-          </div>
-        ) : (
+        {!isFullStats ? (
           <>
-            {!isFullStats ? (
+            {!isLoading ? (
               <ToiletGraph />
             ) : (
-              <ToiletFullStats
-                isLoading={isLoading}
-                date={date}
-                handlePreviousMonth={handlePreviousMonth}
-                handleNextMonth={handleNextMonth}
-                error={error}
-                monthData={monthData}
-              />
+              <div className="graph_loader">
+                <CircularProgress style={{ color: "#67e6dc" }} />
+              </div>
             )}
           </>
+        ) : (
+          <ToiletFullStats
+            isLoading={isLoading}
+            date={date}
+            handlePreviousMonth={handlePreviousMonth}
+            handleNextMonth={handleNextMonth}
+            error={error}
+            monthData={monthData}
+          />
         )}
       </div>
       <Modal

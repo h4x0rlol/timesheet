@@ -44,48 +44,45 @@ const ToiletTimeButtons = (props) => {
           }
         ></i>
       </div>
-
-      {kek && (
-        <div className="mainpage_buttons_month">
-          <i
-            className="arrow left"
-            style={
-              !props.isLoading
-                ? {
-                    cursor: "pointer",
-                  }
-                : {}
-            }
-            onClick={
-              !props.isLoading
-                ? () => {
-                    props.handlePreviousMonth();
-                  }
-                : () => {}
-            }
-          ></i>
-          <p className="month_name">
-            {props.date.month} ({props.date.year})
-          </p>
-          <i
-            className="arrow right"
-            style={
-              !props.isLoading
-                ? {
-                    cursor: "pointer",
-                  }
-                : {}
-            }
-            onClick={
-              !props.isLoading
-                ? () => {
-                    props.handleNextMonth();
-                  }
-                : () => {}
-            }
-          ></i>
-        </div>
-      )}
+      <div className="mainpage_buttons_month">
+        <i
+          className="arrow left"
+          style={
+            !props.isLoading
+              ? {
+                  cursor: "pointer",
+                }
+              : {}
+          }
+          onClick={
+            !props.isLoading
+              ? () => {
+                  props.handlePreviousMonth();
+                }
+              : () => {}
+          }
+        ></i>
+        <p className="month_name">
+          {props.date.month} ({props.date.year})
+        </p>
+        <i
+          className="arrow right"
+          style={
+            !props.isLoading
+              ? {
+                  cursor: "pointer",
+                }
+              : {}
+          }
+          onClick={
+            !props.isLoading
+              ? () => {
+                  props.handleNextMonth();
+                }
+              : () => {}
+          }
+        ></i>
+      </div>
     </>
   );
 };

@@ -57,6 +57,11 @@
   width: 100%;
   justify-content: space-evenly;
 
+  &_no_stats {
+    color: #f5f6f7;
+    font-size: 45px;
+  }
+
   &_stats {
     display: flex;
     justify-content: space-around;
@@ -66,7 +71,7 @@
       align-items: center;
       justify-content: column;
       flex-direction: column;
-      margin-bottom: 200px;
+      // margin-bottom: 200px;
 
       &_fulltime {
         display: flex;
@@ -224,7 +229,7 @@
   }
 }
 
-.loading {
+.graph_loader {
   display: flex;
   align-self: center;
   width: 100%;
@@ -237,6 +242,12 @@
   canvas {
     width: 100% !important;
   }
+}
+
+.fullstats_loader {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
 }
 
 @media (max-width: 480px) {
