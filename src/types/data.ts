@@ -1,7 +1,7 @@
 export default interface monthToiletData {
   goings: number;
   days: number;
-  averageGoings: number;
+  averageGoings: string;
   averageToiletTime: string;
   successfull: number;
   notSuccessfull: number;

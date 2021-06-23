@@ -299,3 +299,21 @@
     }
   }
 }
+
+@media (max-height: 740px) {
+  .toilet_time_arrows {
+    top: 28%;
+  }
+}
+
+@media (max-height: 670px) {
+  .toilet_time_arrows {
+    top: 32%;
+  }
+}
+
+@media (max-height: 570px) {
+  .toilet_time_arrows {
+    top: 36%;
+  }
+}

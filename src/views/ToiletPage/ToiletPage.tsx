@@ -30,7 +30,7 @@ const ToiletPage = () => {
   const [monthData, setMonthData] = useState<monthToiletData>({
     goings: 0,
     days: 0,
-    averageGoings: 0,
+    averageGoings: "",
     averageToiletTime: "",
     successfull: 0,
     notSuccessfull: 0,
