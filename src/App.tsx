@@ -10,10 +10,6 @@ import axios from "axios";
 import { setUser } from "./reducers/userReducer";
 import { IRootState } from "./reducers";
 
-// TODO
-// Сделать статистику за месяц, неделю, день, год, всего
-// Сделать режим сна
-
 const App = () => {
   const [loading, setLoading] = useState<boolean>(true); // true
   const isAuth = useSelector((state: IRootState) => state.user.isAuth);

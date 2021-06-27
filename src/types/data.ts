@@ -1,4 +1,4 @@
-export default interface monthToiletData {
+export interface monthToiletData {
   goings: number;
   days: number;
   averageGoings: string;
