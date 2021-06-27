@@ -68,7 +68,7 @@
 
 /*! exports provided: defaultMergeProps, wrapMergePropsFunc, whenMergePropsIsFunction, whenMergePropsIsOmitted, default */
 
-/*! exports provided: defaults, Animation, Animations, ArcElement, BarController, BarElement, BasePlatform, BasicPlatform, BubbleController, CategoryScale, Chart, DatasetController, Decimation, DomPlatform, DoughnutController, Element, Filler, Interaction, Legend, LineController, LineElement, LinearScale, LogarithmicScale, PieController, PointElement, PolarAreaController, RadarController, RadialLinearScale, Scale, ScatterController, Ticks, TimeScale, TimeSeriesScale, Title, Tooltip, _adapters, animator, controllers, elements, layouts, plugins, registerables, registry, scales */
+/*! exports provided: defaults, Animation, Animations, ArcElement, BarController, BarElement, BasePlatform, BasicPlatform, BubbleController, CategoryScale, Chart, DatasetController, Decimation, DomPlatform, DoughnutController, Element, Filler, Interaction, Legend, LineController, LineElement, LinearScale, LogarithmicScale, PieController, PointElement, PolarAreaController, RadarController, RadialLinearScale, Scale, ScatterController, SubTitle, Ticks, TimeScale, TimeSeriesScale, Title, Tooltip, _adapters, animator, controllers, elements, layouts, plugins, registerables, registry, scales */
 
 /*! exports provided: detectScrollType, getNormalizedScrollLeft */
 
@@ -3076,10 +3076,6 @@
   !*** ./node_modules/@material-ui/core/esm/withMobileDialog/withMobileDialog.js ***!
   \*********************************************************************************/
 
-/*!*********************************************************************************!*\
-  !*** ./node_modules/history/node_modules/@babel/runtime/helpers/esm/extends.js ***!
-  \*********************************************************************************/
-
 /*!**********************************************************************************!*\
   !*** ./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js ***!
   \**********************************************************************************/
@@ -3128,10 +3124,6 @@
   !*** ./node_modules/@material-ui/core/esm/TablePagination/TablePaginationActions.js ***!
   \**************************************************************************************/
 
-/*!**************************************************************************************!*\
-  !*** ./node_modules/react-router/node_modules/@babel/runtime/helpers/esm/extends.js ***!
-  \**************************************************************************************/
-
 /*!***************************************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/internal/svg-icons/CheckBoxOutlineBlank.js ***!
   \***************************************************************************************/
@@ -3156,10 +3148,6 @@
   !*** ./node_modules/@material-ui/core/node_modules/react-is/cjs/react-is.development.js ***!
   \******************************************************************************************/
 
-/*!******************************************************************************************!*\
-  !*** ./node_modules/react-router-dom/node_modules/@babel/runtime/helpers/esm/extends.js ***!
-  \******************************************************************************************/
-
 /*!*******************************************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/ExpansionPanelActions/ExpansionPanelActions.js ***!
   \*******************************************************************************************/
@@ -3176,16 +3164,8 @@
   !*** ./node_modules/@material-ui/utils/node_modules/react-is/cjs/react-is.development.js ***!
   \*******************************************************************************************/
 
-/*!********************************************************************************************!*\
-  !*** ./node_modules/react-router/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js ***!
-  \********************************************************************************************/
-
 /*!*********************************************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/BottomNavigationAction/BottomNavigationAction.js ***!
-  \*********************************************************************************************/
-
-/*!*********************************************************************************************!*\
-  !*** ./node_modules/react-router/node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js ***!
   \*********************************************************************************************/
 
 /*!***********************************************************************************************!*\
@@ -3196,16 +3176,8 @@
   !*** ./node_modules/jss-plugin-rule-value-function/dist/jss-plugin-rule-value-function.esm.js ***!
   \************************************************************************************************/
 
-/*!************************************************************************************************!*\
-  !*** ./node_modules/react-router-dom/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js ***!
-  \************************************************************************************************/
-
 /*!*************************************************************************************************!*\
   !*** ./node_modules/@material-ui/styles/esm/createGenerateClassName/createGenerateClassName.js ***!
-  \*************************************************************************************************/
-
-/*!*************************************************************************************************!*\
-  !*** ./node_modules/react-router-dom/node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js ***!
   \*************************************************************************************************/
 
 /*!***************************************************************************************************!*\
@@ -3219,14 +3191,6 @@
 /*!***********************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/style/theme.scss ***!
   \***********************************************************************************************************/
-
-/*!***********************************************************************************************************!*\
-  !*** ./node_modules/react-router/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js ***!
-  \***********************************************************************************************************/
-
-/*!***************************************************************************************************************!*\
-  !*** ./node_modules/react-router-dom/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js ***!
-  \***************************************************************************************************************/
 
 /*!******************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/views/styles/index.scss ***!
