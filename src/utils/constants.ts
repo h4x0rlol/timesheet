@@ -13,6 +13,6 @@ export const monthsArray = [
   "Декабрь",
 ];
 
-export const timeModeArray = ["Сегодня", "Месяц", "Год", "Всего"];
+export const timeModeArray = ["Сегодня", "Неделя", "Месяц", "Год", "Всего"];
 
 export const today = new Date();

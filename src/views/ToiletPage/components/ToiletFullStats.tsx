@@ -101,8 +101,10 @@ const ToiletFullStats = (props) => {
           isLoading={props.isLoading}
           date={props.date}
           timeMode={props.timeMode}
-          handlePreviousMonth={props.handlePreviousMonth}
+          handleNextYear={props.handleNextYear}
+          handlePreviousYear={props.handlePreviousYear}
           handleNextMonth={props.handleNextMonth}
+          handlePreviousMonth={props.handlePreviousMonth}
           handleNextTimeMode={props.handleNextTimeMode}
           handlePreviousTimeMode={props.handlePreviousTimeMode}
         />

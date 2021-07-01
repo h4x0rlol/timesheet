@@ -2,7 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState, store } from "../../reducers/index";
-import { nextMonth, previousMonth } from "../../reducers/dateReducer";
+import {
+  nextMonth,
+  nextYear,
+  previousMonth,
+  previousYear,
+} from "../../reducers/dateReducer";
 import { showAddForm, showFullStats } from "../../reducers/toiletReducer";
 import { monthsArray } from "../../utils/constants";
 import ToiletFullStats from "./components/ToiletFullStats";
@@ -10,7 +15,7 @@ import ToiletButtons from "./components/ToiletButtons";
 import Modal from "@material-ui/core/Modal";
 import ToiletAddForm from "./components/ToiletAddForm";
 import ToiletGraph from "./components/ToiletGraph";
-import monthToiletData from "../../types/data";
+import { monthToiletData } from "../../types/data";
 import { CircularProgress } from "@material-ui/core";
 import { nextTimeMode, previousTimeMode } from "../../reducers/timeModeReducer";
 
@@ -104,7 +109,11 @@ const ToiletPage = () => {
     dispatch(showAddForm());
   };
 
-  const select = (store) => {
+  const selectYear = (store) => {
+    return store.date.year;
+  };
+
+  const selectMonth = (store) => {
     return store.date.month;
   };
 
@@ -116,13 +125,26 @@ const ToiletPage = () => {
     dispatch(previousTimeMode());
   };
 
+  const handlePreviousYear = async () => {
+    dispatch(previousYear());
+    // setIsLoading(true);
+    let year = selectYear(store.getState());
+    console.log(year);
+  };
+
+  const handleNextYear = async () => {
+    dispatch(nextYear());
+    // setIsLoading(true);
+    let year = selectYear(store.getState());
+    console.log(year);
+  };
+
   const handlePreviousMonth = async () => {
     dispatch(previousMonth());
     setIsLoading(true);
-    let currentValue = select(store.getState());
-    console.log(currentValue);
+    let currentValue = selectMonth(store.getState());
     let month = (monthsArray.indexOf(currentValue) + 1).toString();
-    let year = date.year;
+    let year = selectYear(store.getState());
     if (month.length === 1) {
       month = `0${month}`;
     }
@@ -131,7 +153,7 @@ const ToiletPage = () => {
 
   const handleNextMonth = async () => {
     dispatch(nextMonth());
-    let currentValue = select(store.getState());
+    let currentValue = selectMonth(store.getState());
     console.log(currentValue);
     setIsLoading(true);
     let month = (monthsArray.indexOf(currentValue) + 1).toString();
@@ -168,8 +190,10 @@ const ToiletPage = () => {
             isLoading={isLoading}
             date={date}
             timeMode={timeMode}
-            handlePreviousMonth={handlePreviousMonth}
+            handleNextYear={handleNextYear}
+            handlePreviousYear={handlePreviousYear}
             handleNextMonth={handleNextMonth}
+            handlePreviousMonth={handlePreviousMonth}
             handleNextTimeMode={handleNextTimeMode}
             handlePreviousTimeMode={handlePreviousTimeMode}
             error={error}

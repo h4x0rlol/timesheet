@@ -12,7 +12,7 @@ export default function timeModeReducer(state = defaultState, action) {
     case NEXT_TIME_MODE:
       let currentModeN = timeModeArray.indexOf(state.timeMode);
       let nextModeIndex = currentModeN + 1;
-      if (nextModeIndex > 3) {
+      if (nextModeIndex > 4) {
         nextModeIndex = 0;
       }
       let nextMode = timeModeArray[nextModeIndex];
@@ -24,7 +24,7 @@ export default function timeModeReducer(state = defaultState, action) {
       let currentModeP = timeModeArray.indexOf(state.timeMode);
       let previousModeIndex = currentModeP - 1;
       if (previousModeIndex < 0) {
-        previousModeIndex = 3;
+        previousModeIndex = 4;
       }
       let previousMode = timeModeArray[previousModeIndex];
       return {
