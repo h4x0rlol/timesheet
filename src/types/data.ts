@@ -16,3 +16,15 @@ export interface monthToiletData {
   laxatives: number;
   monthTime: string;
 }
+
+export interface dayToiletData {
+  goings: number;
+  dayTime: string;
+  averageRating: string;
+  diarrheas: number;
+  constipations: number;
+  normals: number;
+  enemas: number;
+  laxatives: number;
+  comments: string[];
+}

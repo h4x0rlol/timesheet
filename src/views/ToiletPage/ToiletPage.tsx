@@ -9,13 +9,13 @@ import {
   previousYear,
 } from "../../reducers/dateReducer";
 import { showAddForm, showFullStats } from "../../reducers/toiletReducer";
-import { monthsArray } from "../../utils/constants";
+import { monthsArray, timeModeArray } from "../../utils/constants";
 import ToiletFullStats from "./components/ToiletFullStats";
 import ToiletButtons from "./components/ToiletButtons";
 import Modal from "@material-ui/core/Modal";
 import ToiletAddForm from "./components/ToiletAddForm";
 import ToiletGraph from "./components/ToiletGraph";
-import { monthToiletData } from "../../types/data";
+import { dayToiletData, monthToiletData } from "../../types/data";
 import { CircularProgress } from "@material-ui/core";
 import { nextTimeMode, previousTimeMode } from "../../reducers/timeModeReducer";
 
@@ -51,6 +51,18 @@ const ToiletPage = () => {
     monthTime: "",
   });
 
+  const [dayData, setDayData] = useState<dayToiletData>({
+    goings: 0,
+    dayTime: "",
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    comments: [],
+  });
+
   const getMonthToiletData = async (token, month, year, tz) => {
     try {
       let res = await axios
@@ -65,7 +77,37 @@ const ToiletPage = () => {
             setMonthData(res.data.monthToiletData);
             setError("");
             setIsLoading(false);
-            console.log(monthData);
+            console.log(res.data.monthToiletData);
+          }
+        })
+        .catch(function (error) {
+          if (!error.response) {
+            setError(error.message);
+          } else {
+            setError(error.response.data.message);
+          }
+          setIsLoading(false);
+          console.log(error);
+        });
+    } catch (e) {
+      console.log(e);
+      setError(e.message);
+    }
+  };
+
+  const getDayToiletData = async (token, time) => {
+    try {
+      let res = await axios
+        .post(`${process.env.BACKEND_URL}/api/getDayToiletData`, {
+          token: token,
+          time: time,
+        })
+        .then(function (res) {
+          if (res.status == 200) {
+            setDayData(res.data.dayToiletData);
+            setError("");
+            setIsLoading(false);
+            console.log(res.data.dayToiletData);
           }
         })
         .catch(function (error) {
@@ -92,12 +134,10 @@ const ToiletPage = () => {
 
   const handleShowFullStats = async () => {
     setIsLoading(true);
-    let month = (monthsArray.indexOf(date.month) + 1).toString();
-    let year = date.year;
-    if (month.length === 1) {
-      month = `0${month}`;
-    }
-    await getMonthToiletData(token, month, year, tz);
+    let time = new Date().toLocaleString("ru-Ru", {
+      timeZone: tz,
+    });
+    await getDayToiletData(token, time);
     dispatch(showFullStats());
   };
 
@@ -107,6 +147,10 @@ const ToiletPage = () => {
 
   const handleShowAddForm = () => {
     dispatch(showAddForm());
+  };
+
+  const selectTimeMode = (store) => {
+    return store.timeMode.timeMode;
   };
 
   const selectYear = (store) => {
@@ -119,10 +163,36 @@ const ToiletPage = () => {
 
   const handleNextTimeMode = async () => {
     dispatch(nextTimeMode());
+    // setIsLoading(true);
+    let currentTimeMode = selectTimeMode(store.getState());
+    if (currentTimeMode == timeModeArray[0]) {
+      console.log("сегодня");
+    } else if (currentTimeMode == timeModeArray[1]) {
+      console.log("неделя");
+    } else if (currentTimeMode == timeModeArray[2]) {
+      console.log("месяц");
+    } else if (currentTimeMode == timeModeArray[3]) {
+      console.log("год");
+    } else if (currentTimeMode == timeModeArray[4]) {
+      console.log("всего");
+    }
   };
 
   const handlePreviousTimeMode = async () => {
     dispatch(previousTimeMode());
+    // setIsLoading(true);
+    let currentTimeMode = selectTimeMode(store.getState());
+    if (currentTimeMode == timeModeArray[0]) {
+      console.log("сегодня");
+    } else if (currentTimeMode == timeModeArray[1]) {
+      console.log("неделя");
+    } else if (currentTimeMode == timeModeArray[2]) {
+      console.log("месяц");
+    } else if (currentTimeMode == timeModeArray[3]) {
+      console.log("год");
+    } else if (currentTimeMode == timeModeArray[4]) {
+      console.log("всего");
+    }
   };
 
   const handlePreviousYear = async () => {
@@ -198,6 +268,7 @@ const ToiletPage = () => {
             handlePreviousTimeMode={handlePreviousTimeMode}
             error={error}
             monthData={monthData}
+            dayData={dayData}
           />
         )}
       </div>
