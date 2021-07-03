@@ -4,6 +4,7 @@ const NEXT_MONTH = "NEXT_MONTH";
 const PREVIOUS_MONTH = "PREVIOUS_MONTH";
 const NEXT_YEAR = "NEXT_YEAR";
 const PREVIOUS_YEAR = "PREVIOUS_YEAR";
+const SET_TODAY = "SET_TODAY";
 
 const defaultState = {
   year: today.getFullYear(),
@@ -50,6 +51,8 @@ export default function dateReducer(state = defaultState, action) {
         ...state,
         year: state.year - 1,
       };
+    case SET_TODAY:
+      return defaultState;
     default:
       return state;
   }
@@ -59,3 +62,4 @@ export const nextMonth = () => ({ type: NEXT_MONTH });
 export const previousMonth = () => ({ type: PREVIOUS_MONTH });
 export const nextYear = () => ({ type: NEXT_YEAR });
 export const previousYear = () => ({ type: PREVIOUS_YEAR });
+export const setToday = () => ({ type: SET_TODAY });

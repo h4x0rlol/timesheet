@@ -7,6 +7,7 @@ import {
   nextYear,
   previousMonth,
   previousYear,
+  setToday,
 } from "../../reducers/dateReducer";
 import { showAddForm, showFullStats } from "../../reducers/toiletReducer";
 import { monthsArray, timeModeArray } from "../../utils/constants";
@@ -15,7 +16,13 @@ import ToiletButtons from "./components/ToiletButtons";
 import Modal from "@material-ui/core/Modal";
 import ToiletAddForm from "./components/ToiletAddForm";
 import ToiletGraph from "./components/ToiletGraph";
-import { dayToiletData, monthToiletData } from "../../types/data";
+import {
+  allTimeToiletData,
+  dayToiletData,
+  monthToiletData,
+  weekToiletData,
+  yearToiletData,
+} from "../../types/data";
 import { CircularProgress } from "@material-ui/core";
 import { nextTimeMode, previousTimeMode } from "../../reducers/timeModeReducer";
 import { getDateFromStore, getTimeModeFromStore } from "../../utils/functions";
@@ -73,16 +80,71 @@ const ToiletPage = () => {
     comments: [],
   });
 
+  const [weekData, setWeekData] = useState<weekToiletData>({
+    goings: 0,
+    days: 0,
+    averageGoings: "",
+    averageToiletTime: "",
+    successfull: 0,
+    notSuccessfull: 0,
+    neutral: 0,
+    successfullPercent: "",
+    daysSkiped: 0,
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    weekTime: "",
+  });
+
+  const [yearData, setYearData] = useState<yearToiletData>({
+    goings: 0,
+    days: 0,
+    averageGoings: "",
+    averageToiletTime: "",
+    successfull: 0,
+    notSuccessfull: 0,
+    neutral: 0,
+    successfullPercent: "",
+    daysSkiped: 0,
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    yearTime: "",
+  });
+
+  const [allTimeData, setAllTimeData] = useState<allTimeToiletData>({
+    goings: 0,
+    days: 0,
+    averageGoings: "",
+    averageToiletTime: "",
+    successfull: 0,
+    notSuccessfull: 0,
+    neutral: 0,
+    successfullPercent: "",
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    allTime: "",
+  });
+
   // API calls
 
-  const getMonthToiletData = async (token, month, year, tz) => {
+  const getMonthToiletData = async (token, month, year) => {
     try {
       let res = await axios
         .post(`${process.env.BACKEND_URL}/api/getMonthToiletData`, {
           token: token,
           month: month,
           year: year,
-          tz: tz,
         })
         .then(function (res) {
           if (res.status == 200) {
@@ -137,6 +199,96 @@ const ToiletPage = () => {
     }
   };
 
+  const getWeekToiletData = async (token, time) => {
+    try {
+      let res = await axios
+        .post(`${process.env.BACKEND_URL}/api/getWeekToiletData`, {
+          token: token,
+          time: time,
+        })
+        .then(function (res) {
+          if (res.status == 200) {
+            setWeekData(res.data.weekToiletData);
+            setError("");
+            setIsLoading(false);
+            console.log(res.data.weekToiletData);
+          }
+        })
+        .catch(function (error) {
+          if (!error.response) {
+            setError(error.message);
+          } else {
+            setError(error.response.data.message);
+          }
+          setIsLoading(false);
+          console.log(error);
+        });
+    } catch (e) {
+      console.log(e);
+      setError(e.message);
+    }
+  };
+
+  const getYearToiletData = async (token, time, year) => {
+    try {
+      let res = await axios
+        .post(`${process.env.BACKEND_URL}/api/getYearToiletData`, {
+          token: token,
+          time: time,
+          year: year,
+        })
+        .then(function (res) {
+          if (res.status == 200) {
+            setYearData(res.data.yearToiletData);
+            setError("");
+            setIsLoading(false);
+            console.log(res.data.yearToiletData);
+          }
+        })
+        .catch(function (error) {
+          if (!error.response) {
+            setError(error.message);
+          } else {
+            setError(error.response.data.message);
+          }
+          setIsLoading(false);
+          console.log(error);
+        });
+    } catch (e) {
+      console.log(e);
+      setError(e.message);
+    }
+  };
+
+  const getAllTImeToiletData = async (token) => {
+    try {
+      let res = await axios
+        .post(`${process.env.BACKEND_URL}/api/geAllTimeToiletData`, {
+          token: token,
+        })
+        .then(function (res) {
+          if (res.status == 200) {
+            setAllTimeData(res.data.allTImeToiletData);
+            setError("");
+            setIsLoading(false);
+            console.log(res.data.allTImeToiletData);
+          }
+        })
+        .catch(function (error) {
+          if (!error.response) {
+            setError(error.message);
+          } else {
+            setError(error.response.data.message);
+          }
+          setIsLoading(false);
+          console.log(error);
+        });
+    } catch (e) {
+      console.log(e);
+      setError(e.message);
+    }
+  };
+
   // Handlers
 
   const handleShowFullStats = async () => {
@@ -158,50 +310,78 @@ const ToiletPage = () => {
 
   const handleNextTimeMode = async () => {
     dispatch(nextTimeMode());
-    // setIsLoading(true);
+    dispatch(setToday());
+    setIsLoading(true);
     let currentTimeModeState = getTimeModeFromStore(store.getState());
+    let currentDateState = getDateFromStore(store.getState());
+    let time = new Date().toLocaleString("ru-Ru", {
+      timeZone: tz,
+    });
+    let month = (monthsArray.indexOf(currentDateState.month) + 1).toString();
+    if (month.length === 1) {
+      month = `0${month}`;
+    }
+    let year = currentDateState.year;
     if (currentTimeModeState.timeMode == timeModeArray[0]) {
-      console.log("сегодня");
+      await getDayToiletData(token, time);
     } else if (currentTimeModeState.timeMode == timeModeArray[1]) {
-      console.log("неделя");
+      await getWeekToiletData(token, time);
     } else if (currentTimeModeState.timeMode == timeModeArray[2]) {
-      console.log("месяц");
+      await getMonthToiletData(token, month, year);
     } else if (currentTimeModeState.timeMode == timeModeArray[3]) {
-      console.log("год");
+      await getYearToiletData(token, time, year);
     } else if (currentTimeModeState.timeMode == timeModeArray[4]) {
-      console.log("всего");
+      await getAllTImeToiletData(token);
     }
   };
 
   const handlePreviousTimeMode = async () => {
     dispatch(previousTimeMode());
-    // setIsLoading(true);
+    dispatch(setToday());
+    setIsLoading(true);
     let currentTimeModeState = getTimeModeFromStore(store.getState());
+    let currentDateState = getDateFromStore(store.getState());
+    let time = new Date().toLocaleString("ru-Ru", {
+      timeZone: tz,
+    });
+    let month = (monthsArray.indexOf(currentDateState.month) + 1).toString();
+    if (month.length === 1) {
+      month = `0${month}`;
+    }
+    let year = currentDateState.year;
     if (currentTimeModeState.timeMode == timeModeArray[0]) {
-      console.log("сегодня");
+      await getDayToiletData(token, time);
     } else if (currentTimeModeState.timeMode == timeModeArray[1]) {
-      console.log("неделя");
+      await getWeekToiletData(token, time);
     } else if (currentTimeModeState.timeMode == timeModeArray[2]) {
-      console.log("месяц");
+      await getMonthToiletData(token, month, year);
     } else if (currentTimeModeState.timeMode == timeModeArray[3]) {
-      console.log("год");
+      await getYearToiletData(token, time, year);
     } else if (currentTimeModeState.timeMode == timeModeArray[4]) {
-      console.log("всего");
+      await getAllTImeToiletData(token);
     }
   };
 
   const handlePreviousYear = async () => {
     dispatch(previousYear());
-    // setIsLoading(true);
+    setIsLoading(true);
+    let time = new Date().toLocaleString("ru-Ru", {
+      timeZone: tz,
+    });
     let currentDateState = getDateFromStore(store.getState());
-    console.log(currentDateState.year);
+    let year = currentDateState.year;
+    await getYearToiletData(token, time, year);
   };
 
   const handleNextYear = async () => {
     dispatch(nextYear());
-    // setIsLoading(true);
+    setIsLoading(true);
+    let time = new Date().toLocaleString("ru-Ru", {
+      timeZone: tz,
+    });
     let currentDateState = getDateFromStore(store.getState());
-    console.log(currentDateState.year);
+    let year = currentDateState.year;
+    await getYearToiletData(token, time, year);
   };
 
   const handlePreviousMonth = async () => {
@@ -213,7 +393,7 @@ const ToiletPage = () => {
     if (month.length === 1) {
       month = `0${month}`;
     }
-    await getMonthToiletData(token, month, year, tz);
+    await getMonthToiletData(token, month, year);
   };
 
   const handleNextMonth = async () => {
@@ -225,7 +405,7 @@ const ToiletPage = () => {
     if (month.length === 1) {
       month = `0${month}`;
     }
-    await getMonthToiletData(token, month, year, tz);
+    await getMonthToiletData(token, month, year);
   };
 
   return (
