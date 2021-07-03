@@ -18,8 +18,11 @@ import ToiletGraph from "./components/ToiletGraph";
 import { dayToiletData, monthToiletData } from "../../types/data";
 import { CircularProgress } from "@material-ui/core";
 import { nextTimeMode, previousTimeMode } from "../../reducers/timeModeReducer";
+import { getDateFromStore, getTimeModeFromStore } from "../../utils/functions";
 
 const ToiletPage = () => {
+  // Utils
+
   const dispatch = useDispatch();
   const date = useSelector((state: IRootState) => state.date);
   const timeMode = useSelector((state: IRootState) => state.timeMode.timeMode);
@@ -27,6 +30,13 @@ const ToiletPage = () => {
     (state: IRootState) => state.toilet.showFullStats
   );
   const toiletState = useSelector((state: IRootState) => state.toilet);
+
+  useEffect(() => {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    setTz(tz);
+    const token = localStorage.getItem("token");
+    setToken(token);
+  }, []);
 
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState("");
@@ -62,6 +72,8 @@ const ToiletPage = () => {
     laxatives: 0,
     comments: [],
   });
+
+  // API calls
 
   const getMonthToiletData = async (token, month, year, tz) => {
     try {
@@ -125,12 +137,7 @@ const ToiletPage = () => {
     }
   };
 
-  useEffect(() => {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    setTz(tz);
-    const token = localStorage.getItem("token");
-    setToken(token);
-  }, []);
+  // Handlers
 
   const handleShowFullStats = async () => {
     setIsLoading(true);
@@ -149,31 +156,19 @@ const ToiletPage = () => {
     dispatch(showAddForm());
   };
 
-  const selectTimeMode = (store) => {
-    return store.timeMode.timeMode;
-  };
-
-  const selectYear = (store) => {
-    return store.date.year;
-  };
-
-  const selectMonth = (store) => {
-    return store.date.month;
-  };
-
   const handleNextTimeMode = async () => {
     dispatch(nextTimeMode());
     // setIsLoading(true);
-    let currentTimeMode = selectTimeMode(store.getState());
-    if (currentTimeMode == timeModeArray[0]) {
+    let currentTimeModeState = getTimeModeFromStore(store.getState());
+    if (currentTimeModeState.timeMode == timeModeArray[0]) {
       console.log("сегодня");
-    } else if (currentTimeMode == timeModeArray[1]) {
+    } else if (currentTimeModeState.timeMode == timeModeArray[1]) {
       console.log("неделя");
-    } else if (currentTimeMode == timeModeArray[2]) {
+    } else if (currentTimeModeState.timeMode == timeModeArray[2]) {
       console.log("месяц");
-    } else if (currentTimeMode == timeModeArray[3]) {
+    } else if (currentTimeModeState.timeMode == timeModeArray[3]) {
       console.log("год");
-    } else if (currentTimeMode == timeModeArray[4]) {
+    } else if (currentTimeModeState.timeMode == timeModeArray[4]) {
       console.log("всего");
     }
   };
@@ -181,16 +176,16 @@ const ToiletPage = () => {
   const handlePreviousTimeMode = async () => {
     dispatch(previousTimeMode());
     // setIsLoading(true);
-    let currentTimeMode = selectTimeMode(store.getState());
-    if (currentTimeMode == timeModeArray[0]) {
+    let currentTimeModeState = getTimeModeFromStore(store.getState());
+    if (currentTimeModeState.timeMode == timeModeArray[0]) {
       console.log("сегодня");
-    } else if (currentTimeMode == timeModeArray[1]) {
+    } else if (currentTimeModeState.timeMode == timeModeArray[1]) {
       console.log("неделя");
-    } else if (currentTimeMode == timeModeArray[2]) {
+    } else if (currentTimeModeState.timeMode == timeModeArray[2]) {
       console.log("месяц");
-    } else if (currentTimeMode == timeModeArray[3]) {
+    } else if (currentTimeModeState.timeMode == timeModeArray[3]) {
       console.log("год");
-    } else if (currentTimeMode == timeModeArray[4]) {
+    } else if (currentTimeModeState.timeMode == timeModeArray[4]) {
       console.log("всего");
     }
   };
@@ -198,23 +193,23 @@ const ToiletPage = () => {
   const handlePreviousYear = async () => {
     dispatch(previousYear());
     // setIsLoading(true);
-    let year = selectYear(store.getState());
-    console.log(year);
+    let currentDateState = getDateFromStore(store.getState());
+    console.log(currentDateState.year);
   };
 
   const handleNextYear = async () => {
     dispatch(nextYear());
     // setIsLoading(true);
-    let year = selectYear(store.getState());
-    console.log(year);
+    let currentDateState = getDateFromStore(store.getState());
+    console.log(currentDateState.year);
   };
 
   const handlePreviousMonth = async () => {
     dispatch(previousMonth());
     setIsLoading(true);
-    let currentValue = selectMonth(store.getState());
-    let month = (monthsArray.indexOf(currentValue) + 1).toString();
-    let year = selectYear(store.getState());
+    let currentDateState = getDateFromStore(store.getState());
+    let month = (monthsArray.indexOf(currentDateState.month) + 1).toString();
+    let year = currentDateState.year;
     if (month.length === 1) {
       month = `0${month}`;
     }
@@ -223,11 +218,10 @@ const ToiletPage = () => {
 
   const handleNextMonth = async () => {
     dispatch(nextMonth());
-    let currentValue = selectMonth(store.getState());
-    console.log(currentValue);
+    let currentDateState = getDateFromStore(store.getState());
     setIsLoading(true);
-    let month = (monthsArray.indexOf(currentValue) + 1).toString();
-    let year = date.year;
+    let month = (monthsArray.indexOf(currentDateState.month) + 1).toString();
+    let year = currentDateState.year;
     if (month.length === 1) {
       month = `0${month}`;
     }
