@@ -12,7 +12,7 @@ module.exports = {
   // mode: "production",
   mode: "development",
   output: {
-    path: __dirname + "/dist",
+    path: __dirname + "/docs",
     filename: "build.js",
   },
   resolve: {
@@ -45,8 +45,8 @@ module.exports = {
         loader: "file-loader",
         options: {
           name: "[name].[ext]",
-          outputPath: "/dist/assets/",
-          publicPath: "/dist/assets/",
+          outputPath: "/docs/assets/",
+          publicPath: "/docs/assets/",
         },
       },
       {
