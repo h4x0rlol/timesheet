@@ -443,6 +443,9 @@ const ToiletPage = () => {
             error={error}
             monthData={monthData}
             dayData={dayData}
+            weekData={weekData}
+            yearData={yearData}
+            allTimeData={allTimeData}
           />
         )}
       </div>
