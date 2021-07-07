@@ -321,9 +321,8 @@ const ToiletFullStats = (props) => {
             )}
           </>
         )}
-
-        <div className="fullstats_stats_center">
-          {!props.error && !props.isLoading && (
+        {!props.error && !props.isLoading && (
+          <div className="fullstats_stats_center">
             <div className="fullstats_stats_center_fulltime">
               {props.timeMode == timeModeArray[0] && (
                 <p>Просрано времени за день: {props.dayData.dayTime}</p>
@@ -342,8 +341,8 @@ const ToiletFullStats = (props) => {
               )}
               <img src={Pepe} alt="Pepe on toilet" />
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       <div className="toilet_time_arrows">
         <ToiletTimeButtons
