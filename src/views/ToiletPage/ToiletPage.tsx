@@ -1,4 +1,5 @@
 import axios from "axios";
+import "../styles/ToiletPage.scss";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState, store } from "../../reducers/index";
@@ -410,7 +411,7 @@ const ToiletPage = () => {
 
   return (
     <>
-      <div className="mainpage_buttons">
+      <div className="toiletpage_buttons">
         <ToiletButtons
           isFullStats={isFullStats}
           handleShowFullStats={handleShowFullStats}
@@ -418,7 +419,7 @@ const ToiletPage = () => {
           handleShowAddForm={handleShowAddForm}
         />
       </div>
-      <div className="mainpage_graph">
+      <div className="toiletpage_graph">
         {!isFullStats ? (
           <>
             {!isLoading ? (

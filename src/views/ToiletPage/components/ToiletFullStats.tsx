@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/index.scss";
+import "../../styles/ToiletFullStats.scss";
 import Pepe from "../../../utils/images/pepe.gif";
 import ToiletTimeButtons from "./ToiletTimeButtons";
 import { CircularProgress } from "@material-ui/core";

@@ -1,0 +1,25 @@
+.toiletpage_button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.mybtn_show {
+  font-size: 20px;
+  margin-right: 10px;
+  color: #f5f6f7;
+  cursor: pointer;
+}
+
+.mybtn_add {
+  margin-right: 10px;
+  font-size: 20px;
+  color: #f5f6f7;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .toiletpage_button {
+    margin-left: 10px;
+  }
+}

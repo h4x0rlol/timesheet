@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/index.scss";
+import "../../styles/ModeButtons.scss";
 
 const ModeButtons = () => {
   return (

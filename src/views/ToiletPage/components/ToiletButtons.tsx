@@ -1,9 +1,9 @@
 import React from "react";
-import "../../styles/index.scss";
+import "../../styles/ToiletButtons.scss";
 
 const ToiletButtons = (props) => {
   return (
-    <div className="mainpage_button">
+    <div className="toiletpage_button">
       <p
         className="mybtn_show"
         onClick={

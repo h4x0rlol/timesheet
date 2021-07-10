@@ -9,8 +9,7 @@ module.exports = {
       safe: true,
     }),
   ],
-  // mode: "production",
-  mode: "development",
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
   output: {
     path: __dirname + "/dist",
     filename: "build.js",

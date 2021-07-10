@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../../styles/index.scss";
+import "../../styles/ToiletGraph.scss";
 import ChartComponent from "react-chartjs-2";
 
 const ToiletGraph = (props) => {

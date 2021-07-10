@@ -3,14 +3,14 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { timeModeArray } from "../../../utils/constants";
 import { IRootState } from "../../../reducers/index";
-import "../../styles/index.scss";
+import "../../styles/ToiletTimeButtons.scss";
 
 const ToiletTimeButtons = (props) => {
   const timeMode = useSelector((state: IRootState) => state.timeMode.timeMode);
 
   return (
     <>
-      <div className="mainpage_buttons_month">
+      <div className="toiletpage_buttons_month">
         <i
           className="arrow left"
           style={
@@ -48,7 +48,7 @@ const ToiletTimeButtons = (props) => {
         ></i>
       </div>
       {(timeMode == timeModeArray[2] || timeMode == timeModeArray[3]) && (
-        <div className="mainpage_buttons_month">
+        <div className="toiletpage_buttons_month">
           <i
             className="arrow left"
             style={
