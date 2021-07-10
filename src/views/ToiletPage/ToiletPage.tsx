@@ -142,7 +142,7 @@ const ToiletPage = () => {
   const getMonthToiletData = async (token, month, year) => {
     try {
       let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/getMonthToiletData`, {
+        .post(`https://timeis-backend.herokuapp.com/api/getMonthToiletData`, {
           token: token,
           month: month,
           year: year,
@@ -173,7 +173,7 @@ const ToiletPage = () => {
   const getDayToiletData = async (token, time) => {
     try {
       let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/getDayToiletData`, {
+        .post(`https://timeis-backend.herokuapp.com/api/getDayToiletData`, {
           token: token,
           time: time,
         })
@@ -203,7 +203,7 @@ const ToiletPage = () => {
   const getWeekToiletData = async (token, time) => {
     try {
       let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/getWeekToiletData`, {
+        .post(`https://timeis-backend.herokuapp.com/api/getWeekToiletData`, {
           token: token,
           time: time,
         })
@@ -233,7 +233,7 @@ const ToiletPage = () => {
   const getYearToiletData = async (token, time, year) => {
     try {
       let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/getYearToiletData`, {
+        .post(`https://timeis-backend.herokuapp.com/api/getYearToiletData`, {
           token: token,
           time: time,
           year: year,
@@ -264,7 +264,7 @@ const ToiletPage = () => {
   const getAllTImeToiletData = async (token) => {
     try {
       let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/geAllTimeToiletData`, {
+        .post(`https://timeis-backend.herokuapp.com/api/geAllTimeToiletData`, {
           token: token,
         })
         .then(function (res) {
