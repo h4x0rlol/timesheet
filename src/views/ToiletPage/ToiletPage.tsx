@@ -1,77 +1,158 @@
-import { CircularProgress } from "@material-ui/core";
 import axios from "axios";
+import "../styles/ToiletPage.scss";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState, store } from "../../reducers/index";
-import { nextMonth, previousMonth } from "../../reducers/dateReducer";
+import {
+  nextMonth,
+  nextYear,
+  previousMonth,
+  previousYear,
+  setToday,
+} from "../../reducers/dateReducer";
 import { showAddForm, showFullStats } from "../../reducers/toiletReducer";
-import { monthsArray } from "../../utils/constants";
+import { monthsArray, timeModeArray } from "../../utils/constants";
 import ToiletFullStats from "./components/ToiletFullStats";
-import ToiletMainPageButtons from "./components/ToiletMainPageButtons";
+import ToiletButtons from "./components/ToiletButtons";
 import Modal from "@material-ui/core/Modal";
 import ToiletAddForm from "./components/ToiletAddForm";
 import ToiletGraph from "./components/ToiletGraph";
+import {
+  allTimeToiletData,
+  dayToiletData,
+  monthToiletData,
+  weekToiletData,
+  yearToiletData,
+} from "../../types/data";
+import { CircularProgress } from "@material-ui/core";
+import { nextTimeMode, previousTimeMode } from "../../reducers/timeModeReducer";
+import { getDateFromStore, getTimeModeFromStore } from "../../utils/functions";
 
 const ToiletPage = () => {
+  // Utils
+
   const dispatch = useDispatch();
   const date = useSelector((state: IRootState) => state.date);
+  const timeMode = useSelector((state: IRootState) => state.timeMode.timeMode);
   const isFullStats = useSelector(
     (state: IRootState) => state.toilet.showFullStats
   );
   const toiletState = useSelector((state: IRootState) => state.toilet);
 
+  useEffect(() => {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    setTz(tz);
+    const token = localStorage.getItem("token");
+    setToken(token);
+  }, []);
+
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState("");
   const [tz, setTz] = useState("");
   const [error, setError] = useState("");
-  const [goings, setGoings] = useState(0);
-  const [averageToiletTime, setAverageToiletTime] = useState("");
-  const [successfull, setSuccessfull] = useState(0);
-  const [notSuccessfull, setNotSuccessfull] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [successfullPercent, setSuccessfullPercent] = useState("");
-  const [daysSkiped, setDaysSkiped] = useState(0);
-  const [averageRating, setAverageRating] = useState("");
-  const [diarrheas, setDiarrheas] = useState(0);
-  const [constipations, setConstipations] = useState(0);
-  const [normals, setNormals] = useState(0);
-  const [enemas, setEnemas] = useState(0);
-  const [laxatives, setLaxatives] = useState(0);
-  const [monthTime, setMonthTime] = useState("");
-  const [allToiletTime, setAllToiletTime] = useState("");
+  const [monthData, setMonthData] = useState<monthToiletData>({
+    goings: 0,
+    days: 0,
+    averageGoings: "",
+    averageToiletTime: "",
+    successfull: 0,
+    notSuccessfull: 0,
+    neutral: 0,
+    successfullPercent: "",
+    daysSkiped: 0,
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    monthTime: "",
+  });
 
-  const getFullToiletStats = async (token, month, tz) => {
+  const [dayData, setDayData] = useState<dayToiletData>({
+    goings: 0,
+    dayTime: "",
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    comments: [],
+  });
+
+  const [weekData, setWeekData] = useState<weekToiletData>({
+    goings: 0,
+    days: 0,
+    averageGoings: "",
+    averageToiletTime: "",
+    successfull: 0,
+    notSuccessfull: 0,
+    neutral: 0,
+    successfullPercent: "",
+    daysSkiped: 0,
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    weekTime: "",
+  });
+
+  const [yearData, setYearData] = useState<yearToiletData>({
+    goings: 0,
+    days: 0,
+    averageGoings: "",
+    averageToiletTime: "",
+    successfull: 0,
+    notSuccessfull: 0,
+    neutral: 0,
+    successfullPercent: "",
+    daysSkiped: 0,
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    yearTime: "",
+  });
+
+  const [allTimeData, setAllTimeData] = useState<allTimeToiletData>({
+    goings: 0,
+    days: 0,
+    averageGoings: "",
+    averageToiletTime: "",
+    successfull: 0,
+    notSuccessfull: 0,
+    neutral: 0,
+    successfullPercent: "",
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    allTime: "",
+  });
+
+  // API calls
+
+  const getMonthToiletData = async (token, month, year) => {
     try {
       let res = await axios
-        .post(`https://timeis-backend.herokuapp.com/api/getToiletData`, {
+        .post(`https://timeis-backend.herokuapp.com/api/getMonthToiletData`, {
           token: token,
           month: month,
-          tz: tz,
+          year: year,
         })
         .then(function (res) {
           if (res.status == 200) {
-            setGoings(res.data.goings);
-            let avg = res.data.averageToiletTime.split(":");
-            setAverageToiletTime(`${avg[0]}ч ${avg[1]}м`);
-            setSuccessfull(res.data.successfull);
-            setNotSuccessfull(res.data.notSuccessfull);
-            setNeutral(res.data.neutral);
-            setSuccessfullPercent(`${res.data.successfullPercent} %`);
-            setDaysSkiped(res.data.daysSkiped);
-            setAverageRating(res.data.averageRating);
-            setDiarrheas(res.data.diarrheas);
-            setConstipations(res.data.constipations);
-            setNormals(res.data.normals);
-            setEnemas(res.data.enemas);
-            setLaxatives(res.data.laxatives);
-            let month = res.data.monthTime.split(":");
-            setMonthTime(`${month[0]}ч ${month[1]}м`);
-            let all = res.data.allToiletTime.split(":");
-            setAllToiletTime(`${all[0]}ч ${all[1]}м`);
+            setMonthData(res.data.monthToiletData);
             setError("");
             setIsLoading(false);
-            dispatch(showFullStats());
-            console.log(res.data);
+            console.log(res.data.monthToiletData);
           }
         })
         .catch(function (error) {
@@ -81,7 +162,6 @@ const ToiletPage = () => {
             setError(error.response.data.message);
           }
           setIsLoading(false);
-          dispatch(showFullStats());
           console.log(error);
         });
     } catch (e) {
@@ -90,73 +170,135 @@ const ToiletPage = () => {
     }
   };
 
-  const changeMonth = async (token, month, tz) => {
-    if (isFullStats) {
-      try {
-        let res = await axios
-          .post(`https://timeis-backend.herokuapp.com/api/getToiletData`, {
-            token: token,
-            month: month,
-            tz: tz,
-          })
-          .then(function (res) {
-            if (res.status == 200) {
-              setGoings(res.data.goings);
-              let avg = res.data.averageToiletTime.split(":");
-              setAverageToiletTime(`${avg[0]}ч ${avg[1]}м`);
-              setSuccessfull(res.data.successfull);
-              setNotSuccessfull(res.data.notSuccessfull);
-              setNeutral(res.data.neutral);
-              setSuccessfullPercent(`${res.data.successfullPercent} %`);
-              setDaysSkiped(res.data.daysSkiped);
-              setAverageRating(res.data.averageRating);
-              setDiarrheas(res.data.diarrheas);
-              setConstipations(res.data.constipations);
-              setNormals(res.data.normals);
-              setEnemas(res.data.enemas);
-              setLaxatives(res.data.laxatives);
-              let month = res.data.monthTime.split(":");
-              setMonthTime(`${month[0]}ч ${month[1]}м`);
-              let all = res.data.allToiletTime.split(":");
-              setAllToiletTime(`${all[0]}ч ${all[1]}м`);
-              setError("");
-              setIsLoading(false);
-              console.log(res.data);
-            }
-          })
-          .catch(function (error) {
-            if (!error.response) {
-              setError(error.message);
-            } else {
-              setError(error.response.data.message);
-            }
+  const getDayToiletData = async (token, time) => {
+    try {
+      let res = await axios
+        .post(`https://timeis-backend.herokuapp.com/api/getDayToiletData`, {
+          token: token,
+          time: time,
+        })
+        .then(function (res) {
+          if (res.status == 200) {
+            setDayData(res.data.dayToiletData);
+            setError("");
             setIsLoading(false);
-            console.log(error);
-          });
-      } catch (e) {
-        console.log(e);
-        setError(e.message);
-      }
-    } else {
-      console.log("ss");
-      setIsLoading(false);
+            console.log(res.data.dayToiletData);
+          }
+        })
+        .catch(function (error) {
+          if (!error.response) {
+            setError(error.message);
+          } else {
+            setError(error.response.data.message);
+          }
+          setIsLoading(false);
+          console.log(error);
+        });
+    } catch (e) {
+      console.log(e);
+      setError(e.message);
     }
   };
 
-  useEffect(() => {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    setTz(tz);
-    const token = localStorage.getItem("token");
-    setToken(token);
-  }, []);
+  const getWeekToiletData = async (token, time) => {
+    try {
+      let res = await axios
+        .post(`https://timeis-backend.herokuapp.com/api/getWeekToiletData`, {
+          token: token,
+          time: time,
+        })
+        .then(function (res) {
+          if (res.status == 200) {
+            setWeekData(res.data.weekToiletData);
+            setError("");
+            setIsLoading(false);
+            console.log(res.data.weekToiletData);
+          }
+        })
+        .catch(function (error) {
+          if (!error.response) {
+            setError(error.message);
+          } else {
+            setError(error.response.data.message);
+          }
+          setIsLoading(false);
+          console.log(error);
+        });
+    } catch (e) {
+      console.log(e);
+      setError(e.message);
+    }
+  };
+
+  const getYearToiletData = async (token, time, year) => {
+    try {
+      let res = await axios
+        .post(`https://timeis-backend.herokuapp.com/api/getYearToiletData`, {
+          token: token,
+          time: time,
+          year: year,
+        })
+        .then(function (res) {
+          if (res.status == 200) {
+            setYearData(res.data.yearToiletData);
+            setError("");
+            setIsLoading(false);
+            console.log(res.data.yearToiletData);
+          }
+        })
+        .catch(function (error) {
+          if (!error.response) {
+            setError(error.message);
+          } else {
+            setError(error.response.data.message);
+          }
+          setIsLoading(false);
+          console.log(error);
+        });
+    } catch (e) {
+      console.log(e);
+      setError(e.message);
+    }
+  };
+
+  const getAllTImeToiletData = async (token) => {
+    try {
+      let res = await axios
+        .post(`https://timeis-backend.herokuapp.com/api/geAllTimeToiletData`, {
+          token: token,
+        })
+        .then(function (res) {
+          if (res.status == 200) {
+            setAllTimeData(res.data.allTImeToiletData);
+            setError("");
+            setIsLoading(false);
+            console.log(res.data.allTImeToiletData);
+          }
+        })
+        .catch(function (error) {
+          if (!error.response) {
+            setError(error.message);
+          } else {
+            setError(error.response.data.message);
+          }
+          setIsLoading(false);
+          console.log(error);
+        });
+    } catch (e) {
+      console.log(e);
+      setError(e.message);
+    }
+  };
+
+  // Handlers
 
   const handleShowFullStats = async () => {
     setIsLoading(true);
-    let month = (monthsArray.indexOf(date.month) + 1).toString();
-    if (month.length === 1) {
-      month = `0${month}`;
-    }
-    await getFullToiletStats(token, month, tz);
+    let time = new Date().toLocaleString("ru-Ru", {
+      timeZone: tz,
+    });
+    await getDayToiletData(token, time);
+    dispatch(showFullStats());
   };
 
   const handleShowGraph = async () => {
@@ -167,113 +309,145 @@ const ToiletPage = () => {
     dispatch(showAddForm());
   };
 
-  const select = (store) => {
-    return store.date.month;
+  const handleNextTimeMode = async () => {
+    dispatch(nextTimeMode());
+    dispatch(setToday());
+    setIsLoading(true);
+    let currentTimeModeState = getTimeModeFromStore(store.getState());
+    let currentDateState = getDateFromStore(store.getState());
+    let time = new Date().toLocaleString("ru-Ru", {
+      timeZone: tz,
+    });
+    let month = (monthsArray.indexOf(currentDateState.month) + 1).toString();
+    if (month.length === 1) {
+      month = `0${month}`;
+    }
+    let year = currentDateState.year;
+    if (currentTimeModeState.timeMode == timeModeArray[0]) {
+      await getDayToiletData(token, time);
+    } else if (currentTimeModeState.timeMode == timeModeArray[1]) {
+      await getWeekToiletData(token, time);
+    } else if (currentTimeModeState.timeMode == timeModeArray[2]) {
+      await getMonthToiletData(token, month, year);
+    } else if (currentTimeModeState.timeMode == timeModeArray[3]) {
+      await getYearToiletData(token, time, year);
+    } else if (currentTimeModeState.timeMode == timeModeArray[4]) {
+      await getAllTImeToiletData(token);
+    }
+  };
+
+  const handlePreviousTimeMode = async () => {
+    dispatch(previousTimeMode());
+    dispatch(setToday());
+    setIsLoading(true);
+    let currentTimeModeState = getTimeModeFromStore(store.getState());
+    let currentDateState = getDateFromStore(store.getState());
+    let time = new Date().toLocaleString("ru-Ru", {
+      timeZone: tz,
+    });
+    let month = (monthsArray.indexOf(currentDateState.month) + 1).toString();
+    if (month.length === 1) {
+      month = `0${month}`;
+    }
+    let year = currentDateState.year;
+    if (currentTimeModeState.timeMode == timeModeArray[0]) {
+      await getDayToiletData(token, time);
+    } else if (currentTimeModeState.timeMode == timeModeArray[1]) {
+      await getWeekToiletData(token, time);
+    } else if (currentTimeModeState.timeMode == timeModeArray[2]) {
+      await getMonthToiletData(token, month, year);
+    } else if (currentTimeModeState.timeMode == timeModeArray[3]) {
+      await getYearToiletData(token, time, year);
+    } else if (currentTimeModeState.timeMode == timeModeArray[4]) {
+      await getAllTImeToiletData(token);
+    }
+  };
+
+  const handlePreviousYear = async () => {
+    dispatch(previousYear());
+    setIsLoading(true);
+    let time = new Date().toLocaleString("ru-Ru", {
+      timeZone: tz,
+    });
+    let currentDateState = getDateFromStore(store.getState());
+    let year = currentDateState.year;
+    await getYearToiletData(token, time, year);
+  };
+
+  const handleNextYear = async () => {
+    dispatch(nextYear());
+    setIsLoading(true);
+    let time = new Date().toLocaleString("ru-Ru", {
+      timeZone: tz,
+    });
+    let currentDateState = getDateFromStore(store.getState());
+    let year = currentDateState.year;
+    await getYearToiletData(token, time, year);
   };
 
   const handlePreviousMonth = async () => {
     dispatch(previousMonth());
     setIsLoading(true);
-    let currentValue = select(store.getState());
-    console.log(currentValue);
-    let month = (monthsArray.indexOf(currentValue) + 1).toString();
+    let currentDateState = getDateFromStore(store.getState());
+    let month = (monthsArray.indexOf(currentDateState.month) + 1).toString();
+    let year = currentDateState.year;
     if (month.length === 1) {
       month = `0${month}`;
     }
-    await changeMonth(token, month, tz);
+    await getMonthToiletData(token, month, year);
   };
 
   const handleNextMonth = async () => {
     dispatch(nextMonth());
-    let currentValue = select(store.getState());
-    console.log(currentValue);
+    let currentDateState = getDateFromStore(store.getState());
     setIsLoading(true);
-    let month = (monthsArray.indexOf(currentValue) + 1).toString();
+    let month = (monthsArray.indexOf(currentDateState.month) + 1).toString();
+    let year = currentDateState.year;
     if (month.length === 1) {
       month = `0${month}`;
     }
-    await changeMonth(token, month, tz);
+    await getMonthToiletData(token, month, year);
   };
 
   return (
     <>
-      <div className="mainpage_buttons">
-        <div className="mainpage_buttons_month">
-          <i
-            className="arrow left"
-            style={
-              !isLoading
-                ? {
-                    cursor: "pointer",
-                  }
-                : {}
-            }
-            onClick={
-              !isLoading
-                ? () => {
-                    handlePreviousMonth();
-                  }
-                : () => {}
-            }
-          ></i>
-          <p className="month_name">
-            {date.month} ({date.year})
-          </p>
-          <i
-            className="arrow right"
-            style={
-              !isLoading
-                ? {
-                    cursor: "pointer",
-                  }
-                : {}
-            }
-            onClick={
-              !isLoading
-                ? () => {
-                    handleNextMonth();
-                  }
-                : () => {}
-            }
-          ></i>
-        </div>
-        <ToiletMainPageButtons
+      <div className="toiletpage_buttons">
+        <ToiletButtons
           isFullStats={isFullStats}
           handleShowFullStats={handleShowFullStats}
           handleShowGraph={handleShowGraph}
           handleShowAddForm={handleShowAddForm}
         />
       </div>
-      <div className="mainpage_graph">
-        {isLoading ? (
-          <div className="loading">
-            <CircularProgress style={{ color: "#67e6dc" }} />
-          </div>
-        ) : (
+      <div className="toiletpage_graph">
+        {!isFullStats ? (
           <>
-            {!isFullStats ? (
+            {!isLoading ? (
               <ToiletGraph />
             ) : (
-              <ToiletFullStats
-                error={error}
-                goings={goings}
-                averageToiletTime={averageToiletTime}
-                successfull={successfull}
-                notSuccessfull={notSuccessfull}
-                neutral={neutral}
-                successfullPercent={successfullPercent}
-                daysSkiped={daysSkiped}
-                averageRating={averageRating}
-                diarrheas={diarrheas}
-                constipations={constipations}
-                normals={normals}
-                enemas={enemas}
-                laxatives={laxatives}
-                monthTime={monthTime}
-                allToiletTime={allToiletTime}
-              />
+              <div className="graph_loader">
+                <CircularProgress style={{ color: "#67e6dc" }} />
+              </div>
             )}
           </>
+        ) : (
+          <ToiletFullStats
+            isLoading={isLoading}
+            date={date}
+            timeMode={timeMode}
+            handleNextYear={handleNextYear}
+            handlePreviousYear={handlePreviousYear}
+            handleNextMonth={handleNextMonth}
+            handlePreviousMonth={handlePreviousMonth}
+            handleNextTimeMode={handleNextTimeMode}
+            handlePreviousTimeMode={handlePreviousTimeMode}
+            error={error}
+            monthData={monthData}
+            dayData={dayData}
+            weekData={weekData}
+            yearData={yearData}
+            allTimeData={allTimeData}
+          />
         )}
       </div>
       <Modal

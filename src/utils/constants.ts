@@ -12,4 +12,7 @@ export const monthsArray = [
   "Ноябрь",
   "Декабрь",
 ];
+
+export const timeModeArray = ["Сегодня", "Неделя", "Месяц", "Год", "Всего"];
+
 export const today = new Date();

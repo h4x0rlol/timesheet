@@ -1,0 +1,55 @@
+.toiletpage_buttons_month {
+  display: flex;
+  align-items: center;
+
+  &_buttons {
+    &_all_time {
+      margin-left: 10px;
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+
+    &_month {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+
+      &_arrows {
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+.month_name {
+  color: #67e6dc;
+  font-size: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.mode_name {
+  color: #67e6dc;
+  font-size: 25px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.arrow {
+  border: solid #f5f6f7;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 5px;
+}
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}

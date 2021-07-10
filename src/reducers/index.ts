@@ -4,11 +4,13 @@ import thunk from "redux-thunk";
 import toiletReducer from "./toiletReducer";
 import userReducer from "./userReducer";
 import dateReducer from "../reducers/dateReducer";
+import timeModeReducer from "../reducers/timeModeReducer";
 
 const rootReducer = combineReducers({
   user: userReducer,
   toilet: toiletReducer,
   date: dateReducer,
+  timeMode: timeModeReducer,
 });
 
 export const store = createStore(

@@ -1,11 +1,9 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { showAddForm } from "../../../reducers/toiletReducer";
-import "../../styles/index.scss";
+import "../../styles/ToiletButtons.scss";
 
-const ToiletMainPageButtons = (props) => {
+const ToiletButtons = (props) => {
   return (
-    <div className="mainpage_button">
+    <div className="toiletpage_button">
       <p
         className="mybtn_show"
         onClick={
@@ -21,4 +19,4 @@ const ToiletMainPageButtons = (props) => {
   );
 };
 
-export default ToiletMainPageButtons;
+export default ToiletButtons;
