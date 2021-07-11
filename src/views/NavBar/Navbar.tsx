@@ -14,7 +14,7 @@ const NavBar = () => {
   const handleLogout = async () => {
     try {
       let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/logout`, {
+        .post(`https://timesheet-backend.herokuapp.com/api/logout`, {
           username: username,
         })
         .then(function (res) {

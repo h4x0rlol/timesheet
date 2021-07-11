@@ -123,7 +123,7 @@ const ToiletAddForm = () => {
       e.preventDefault();
       console.log("send");
       let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/sendToiletData`, {
+        .post(`https://timesheet-backend.herokuapp.com/api/sendToiletData`, {
           token: token,
           start: start,
           end: end,

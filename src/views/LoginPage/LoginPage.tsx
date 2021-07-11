@@ -51,7 +51,7 @@ const LoginPage = () => {
     try {
       e.preventDefault();
       let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/authenticate`, {
+        .post(`https://timesheet-backend.herokuapp.com/api/authenticate`, {
           username: username,
           password: password,
         })
@@ -88,7 +88,7 @@ const LoginPage = () => {
     try {
       e.preventDefault();
       let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/register`, {
+        .post(`https://timesheet-backend.herokuapp.com/api/register`, {
           username: username,
           password: password,
         })
