@@ -269,10 +269,10 @@ const ToiletPage = () => {
         })
         .then(function (res) {
           if (res.status == 200) {
-            setAllTimeData(res.data.allTImeToiletData);
+            setAllTimeData(res.data.allTimeToiletData);
             setError("");
             setIsLoading(false);
-            console.log(res.data.allTImeToiletData);
+            console.log(res.data.allTimeToiletData);
           }
         })
         .catch(function (error) {
