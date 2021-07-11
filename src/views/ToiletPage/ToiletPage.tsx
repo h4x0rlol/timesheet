@@ -142,11 +142,14 @@ const ToiletPage = () => {
   const getMonthToiletData = async (token, month, year) => {
     try {
       let res = await axios
-        .post(`https://timeis-backend.herokuapp.com/api/getMonthToiletData`, {
-          token: token,
-          month: month,
-          year: year,
-        })
+        .post(
+          `https://timesheet-backend.herokuapp.com/api/getMonthToiletData`,
+          {
+            token: token,
+            month: month,
+            year: year,
+          }
+        )
         .then(function (res) {
           if (res.status == 200) {
             setMonthData(res.data.monthToiletData);
@@ -173,7 +176,7 @@ const ToiletPage = () => {
   const getDayToiletData = async (token, time) => {
     try {
       let res = await axios
-        .post(`https://timeis-backend.herokuapp.com/api/getDayToiletData`, {
+        .post(`https://timesheet-backend.herokuapp.com/api/getDayToiletData`, {
           token: token,
           time: time,
         })
@@ -203,7 +206,7 @@ const ToiletPage = () => {
   const getWeekToiletData = async (token, time) => {
     try {
       let res = await axios
-        .post(`https://timeis-backend.herokuapp.com/api/getWeekToiletData`, {
+        .post(`https://timesheet-backend.herokuapp.com/api/getWeekToiletData`, {
           token: token,
           time: time,
         })
@@ -233,7 +236,7 @@ const ToiletPage = () => {
   const getYearToiletData = async (token, time, year) => {
     try {
       let res = await axios
-        .post(`https://timeis-backend.herokuapp.com/api/getYearToiletData`, {
+        .post(`https://timesheet-backend.herokuapp.com/api/getYearToiletData`, {
           token: token,
           time: time,
           year: year,
@@ -264,15 +267,18 @@ const ToiletPage = () => {
   const getAllTImeToiletData = async (token) => {
     try {
       let res = await axios
-        .post(`https://timeis-backend.herokuapp.com/api/geAllTimeToiletData`, {
-          token: token,
-        })
+        .post(
+          `https://timesheet-backend.herokuapp.com/api/geAllTimeToiletData`,
+          {
+            token: token,
+          }
+        )
         .then(function (res) {
           if (res.status == 200) {
-            setAllTimeData(res.data.allTImeToiletData);
+            setAllTimeData(res.data.allTimeToiletData);
             setError("");
             setIsLoading(false);
-            console.log(res.data.allTImeToiletData);
+            console.log(res.data.allTimeToiletData);
           }
         })
         .catch(function (error) {
