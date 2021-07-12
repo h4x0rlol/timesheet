@@ -50,7 +50,7 @@ const ToiletFullStats = (props) => {
                     <tr>
                       <td>Комментарии:</td>
                       {props.dayData.comments.map((comment, index) => (
-                        <tr>
+                        <tr key={index}>
                           <td>
                             {index + 1} - {comment}
                             <br />

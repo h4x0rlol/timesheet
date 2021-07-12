@@ -12,7 +12,6 @@ export default function userReducer(state = defaultState, action) {
         ...state,
         currentUser: action.user,
         isAuth: true,
-        registred: false,
       };
     case LOGOUT:
       localStorage.removeItem("token");
@@ -20,7 +19,6 @@ export default function userReducer(state = defaultState, action) {
         ...state,
         currentUser: {},
         isAuth: false,
-        registred: false,
       };
 
     default:

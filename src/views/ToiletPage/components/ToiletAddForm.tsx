@@ -22,9 +22,6 @@ import "../../styles/ToiletAddForm.scss";
 import axios from "axios";
 import { store } from "react-notifications-component";
 
-// TODO
-// IN USEEFFECT SAVE START TIME IN LOCALSTORAGE
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
