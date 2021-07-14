@@ -294,10 +294,27 @@ const ToiletPage = () => {
 
   const handleShowFullStats = async () => {
     setIsLoading(true);
+    let currentTimeModeState = getTimeModeFromStore(store.getState());
+    let currentDateState = getDateFromStore(store.getState());
     let time = new Date().toLocaleString("ru-Ru", {
       timeZone: tz,
     });
-    await getDayToiletData(token, time);
+    let month = (monthsArray.indexOf(currentDateState.month) + 1).toString();
+    if (month.length === 1) {
+      month = `0${month}`;
+    }
+    let year = currentDateState.year;
+    if (currentTimeModeState.timeMode == timeModeArray[0]) {
+      await getDayToiletData(token, time);
+    } else if (currentTimeModeState.timeMode == timeModeArray[1]) {
+      await getWeekToiletData(token, time);
+    } else if (currentTimeModeState.timeMode == timeModeArray[2]) {
+      await getMonthToiletData(token, month, year);
+    } else if (currentTimeModeState.timeMode == timeModeArray[3]) {
+      await getYearToiletData(token, time, year);
+    } else if (currentTimeModeState.timeMode == timeModeArray[4]) {
+      await getAllTImeToiletData(token);
+    }
     dispatch(showFullStats());
   };
 
@@ -417,6 +434,15 @@ const ToiletPage = () => {
           handleShowFullStats={handleShowFullStats}
           handleShowGraph={handleShowGraph}
           handleShowAddForm={handleShowAddForm}
+          isLoading={isLoading}
+          date={date}
+          timeMode={timeMode}
+          handleNextYear={handleNextYear}
+          handlePreviousYear={handlePreviousYear}
+          handleNextMonth={handleNextMonth}
+          handlePreviousMonth={handlePreviousMonth}
+          handleNextTimeMode={handleNextTimeMode}
+          handlePreviousTimeMode={handlePreviousTimeMode}
         />
       </div>
       <div className="toiletpage_graph">

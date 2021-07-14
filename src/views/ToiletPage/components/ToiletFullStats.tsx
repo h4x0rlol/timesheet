@@ -351,19 +351,6 @@ const ToiletFullStats = (props) => {
           </div>
         )}
       </div>
-      <div className="toilet_time_arrows">
-        <ToiletTimeButtons
-          isLoading={props.isLoading}
-          date={props.date}
-          timeMode={props.timeMode}
-          handleNextYear={props.handleNextYear}
-          handlePreviousYear={props.handlePreviousYear}
-          handleNextMonth={props.handleNextMonth}
-          handlePreviousMonth={props.handlePreviousMonth}
-          handleNextTimeMode={props.handleNextTimeMode}
-          handlePreviousTimeMode={props.handlePreviousTimeMode}
-        />
-      </div>
     </>
   );
 };
