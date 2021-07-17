@@ -41,3 +41,5 @@ export const daysOfWeek = [
   "Суббота",
   "Воскресенье",
 ];
+
+export const modeArray = ["Туалет", "Сон"];

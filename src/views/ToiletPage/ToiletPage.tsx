@@ -34,7 +34,7 @@ import {
   getYearToiletData,
 } from "../../utils/Api/ToiletRequests";
 
-const ToiletPage = () => {
+const ToiletPage = (props) => {
   // Utils
 
   const dispatch = useDispatch();
@@ -46,21 +46,94 @@ const ToiletPage = () => {
   const toiletState = useSelector((state: IRootState) => state.toilet);
 
   useEffect(() => {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    setTz(tz);
-    const token = localStorage.getItem("token");
-    setToken(token);
+    const currentTimeModeState = getTimeModeFromStore(store.getState());
+    handleRequests(currentTimeModeState.timeMode);
   }, []);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [token, setToken] = useState("");
-  const [tz, setTz] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-  const [monthData, setMonthData] = useState<monthToiletData>();
-  const [dayData, setDayData] = useState<dayToiletData>();
-  const [weekData, setWeekData] = useState<weekToiletData>();
-  const [yearData, setYearData] = useState<yearToiletData>();
-  const [allTimeData, setAllTimeData] = useState<allTimeToiletData>();
+  const [monthData, setMonthData] = useState<monthToiletData>({
+    goings: 0,
+    days: 0,
+    averageGoings: "",
+    averageToiletTime: "",
+    successfull: 0,
+    notSuccessfull: 0,
+    neutral: 0,
+    successfullPercent: "",
+    daysSkiped: 0,
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    monthTime: "",
+  });
+  const [dayData, setDayData] = useState<dayToiletData>({
+    goings: 0,
+    dayTime: "",
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    comments: [],
+  });
+  const [weekData, setWeekData] = useState<weekToiletData>({
+    goings: 0,
+    days: 0,
+    averageGoings: "",
+    averageToiletTime: "",
+    successfull: 0,
+    notSuccessfull: 0,
+    neutral: 0,
+    successfullPercent: "",
+    daysSkiped: 0,
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    weekTime: "",
+  });
+  const [yearData, setYearData] = useState<yearToiletData>({
+    goings: 0,
+    days: 0,
+    averageGoings: "",
+    averageToiletTime: "",
+    successfull: 0,
+    notSuccessfull: 0,
+    neutral: 0,
+    successfullPercent: "",
+    daysSkiped: 0,
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    yearTime: "",
+  });
+  const [allTimeData, setAllTimeData] = useState<allTimeToiletData>({
+    goings: 0,
+    days: 0,
+    averageGoings: "",
+    averageToiletTime: "",
+    successfull: 0,
+    notSuccessfull: 0,
+    neutral: 0,
+    successfullPercent: "",
+    averageRating: "",
+    diarrheas: 0,
+    constipations: 0,
+    normals: 0,
+    enemas: 0,
+    laxatives: 0,
+    allTime: "",
+  });
 
   // Handlers
 
@@ -68,7 +141,7 @@ const ToiletPage = () => {
     setIsLoading(true);
     const currentDateState = getDateFromStore(store.getState());
     const time = new Date().toLocaleString("ru-Ru", {
-      timeZone: tz,
+      timeZone: props.tz,
     });
     let month = (monthsArray.indexOf(currentDateState.month) + 1).toString();
     if (month.length === 1) {
@@ -76,27 +149,27 @@ const ToiletPage = () => {
     }
     const year = currentDateState.year;
     if (timeMode == timeModeArray[0]) {
-      const res = await getDayToiletData(token, time);
+      const res = await getDayToiletData(props.token, time);
       setDayData(res.data);
       setError(res.error);
       setIsLoading(res.isLoading);
     } else if (timeMode == timeModeArray[1]) {
-      const res = await getWeekToiletData(token, time);
+      const res = await getWeekToiletData(props.token, time);
       setWeekData(res.data);
       setError(res.error);
       setIsLoading(res.isLoading);
     } else if (timeMode == timeModeArray[2]) {
-      const res = await getMonthToiletData(token, month, year);
+      const res = await getMonthToiletData(props.token, month, year);
       setMonthData(res.data);
       setError(res.error);
       setIsLoading(res.isLoading);
     } else if (timeMode == timeModeArray[3]) {
-      const res = await getYearToiletData(token, time, year);
+      const res = await getYearToiletData(props.token, time, year);
       setYearData(res.data);
       setError(res.error);
       setIsLoading(res.isLoading);
     } else if (timeMode == timeModeArray[4]) {
-      const res = await getAllTImeToiletData(token);
+      const res = await getAllTImeToiletData(props.token);
       setAllTimeData(res.data);
       setError(res.error);
       setIsLoading(res.isLoading);

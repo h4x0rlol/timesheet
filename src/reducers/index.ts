@@ -5,12 +5,14 @@ import toiletReducer from "./toiletReducer";
 import userReducer from "./userReducer";
 import dateReducer from "../reducers/dateReducer";
 import timeModeReducer from "../reducers/timeModeReducer";
+import modeReducer from "./modeReducer";
 
 const rootReducer = combineReducers({
   user: userReducer,
   toilet: toiletReducer,
   date: dateReducer,
   timeMode: timeModeReducer,
+  mode: modeReducer,
 });
 
 export const store = createStore(

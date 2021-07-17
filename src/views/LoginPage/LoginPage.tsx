@@ -9,8 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../reducers/userReducer";
-import axios from "axios";
-import { store } from "react-notifications-component";
+import { login, register } from "../../utils/Api/UserRequests";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,90 +47,20 @@ const LoginPage = () => {
   };
 
   const submitSignIn = async (e) => {
-    try {
-      e.preventDefault();
-      let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/authenticate`, {
-          username: username,
-          password: password,
-        })
-        .then(function (res) {
-          if (res.status == 200) {
-            dispatch(setUser(res.data));
-            localStorage.setItem("token", res.data.token);
-            console.log(res);
-          }
-        })
-        .catch(function (error) {
-          store.addNotification({
-            title: "Произошла ошибка!",
-            message: error.response
-              ? error.response.data.message
-              : error.message,
-            type: "danger",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animate__animated", "animate__fadeIn"],
-            animationOut: ["animate__animated", "animate__fadeOut"],
-            dismiss: {
-              duration: 3000,
-              onScreen: true,
-            },
-          });
-        });
-    } catch (e) {
-      console.log(e);
+    e.preventDefault();
+    const res = await login(username, password);
+    if (res.user) {
+      dispatch(setUser(res.user));
+      localStorage.setItem("token", res.user.token);
     }
   };
 
   const submitSignUp = async (e) => {
-    try {
-      e.preventDefault();
-      let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/register`, {
-          username: username,
-          password: password,
-        })
-        .then(function (res) {
-          if (res.status == 200) {
-            console.log(res);
-            store.addNotification({
-              title: "Успешно!",
-              message: "Аккаунт зарегестрирован",
-              type: "success",
-              insert: "top",
-              container: "top-right",
-              animationIn: ["animate__animated", "animate__fadeIn"],
-              animationOut: ["animate__animated", "animate__fadeOut"],
-              dismiss: {
-                duration: 3000,
-                onScreen: true,
-              },
-            });
-            setisLogginForm(!isLogginForm);
-            erase();
-          }
-        })
-        .catch(function (error) {
-          // handle error
-          store.addNotification({
-            title: "Произошла ошибка!",
-            message: error.response
-              ? error.response.data.message
-              : error.message,
-            type: "danger",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animate__animated", "animate__fadeIn"],
-            animationOut: ["animate__animated", "animate__fadeOut"],
-            dismiss: {
-              duration: 3000,
-              onScreen: true,
-            },
-          });
-        });
-    } catch (e) {
-      console.log(e);
+    e.preventDefault();
+    const res = await register(username, password);
+    if (res.user) {
+      dispatch(setUser(res.user));
+      localStorage.setItem("token", res.user.token);
     }
   };
 

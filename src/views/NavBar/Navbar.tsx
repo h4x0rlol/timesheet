@@ -1,10 +1,10 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../../reducers";
 import { logout } from "../../reducers/userReducer";
 import "../styles/NavBar.scss";
 import { daysOfWeek, monthsForTime } from "../../utils/constants";
+import { logoutFunc } from "../../utils/Api/UserRequests";
 
 const NavBar = () => {
   const username = useSelector(
@@ -22,26 +22,13 @@ const NavBar = () => {
   }, []);
 
   const handleLogout = async () => {
-    try {
-      let res = await axios
-        .post(`${process.env.BACKEND_URL}/api/logout`, {
-          username: username,
-        })
-        .then(function (res) {
-          if (res.status == 200) {
-            dispatch(logout());
-            console.log(res);
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } catch (e) {
-      console.log(e);
+    const res = await logoutFunc(username);
+    if (res.success) {
+      dispatch(logout());
     }
   };
 
-  const clockTimer = async (width) => {
+  const clockTimer = (width) => {
     const date = new Date();
     const time = [date.getHours(), date.getMinutes()];
     const dayOfWeek = date.getDay();
