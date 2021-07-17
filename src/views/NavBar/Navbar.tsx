@@ -32,6 +32,7 @@ const NavBar = () => {
     const date = new Date();
     const time = [date.getHours(), date.getMinutes()];
     const dayOfWeek = date.getDay();
+    console.log(dayOfWeek);
     const day = date.getDate();
     const month = date.getMonth();
 
@@ -45,9 +46,7 @@ const NavBar = () => {
     }
 
     if (width > 480) {
-      const current = `${daysOfWeek[dayOfWeek - 1]}, ${day} ${
-        monthsForTime[month]
-      } - ${time[0]}:${time[1]}`;
+      const current = `${daysOfWeek[dayOfWeek]}, ${day} ${monthsForTime[month]} - ${time[0]}:${time[1]}`;
       setClock(current);
     } else {
       setOnlyTime(`${time[0]}:${time[1]}`);
