@@ -32,7 +32,6 @@ const NavBar = () => {
     const date = new Date();
     const time = [date.getHours(), date.getMinutes()];
     const dayOfWeek = date.getDay();
-    console.log(dayOfWeek);
     const day = date.getDate();
     const month = date.getMonth();
 
