@@ -6,42 +6,35 @@ import { useDispatch, useSelector } from "react-redux";
 import NotFound from "./views/NotFound/NotFound";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./App.scss";
-import axios from "axios";
 import { setUser } from "./reducers/userReducer";
 import { IRootState } from "./reducers";
+import { checkAuth } from "./utils/Api/UserRequests";
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(true); // true
   const isAuth = useSelector((state: IRootState) => state.user.isAuth);
+  const [tz, setTz] = useState("");
+  const [token, setToken] = useState("");
   // const isAuth = true;
   const dispatch = useDispatch();
 
-  const checkAuth = async (token) => {
-    try {
-      let res = await axios
-        .post(`https://timesheet-backend.herokuapp.com/api/checkAuth`, {
-          token: token,
-        })
-        .then(function (res) {
-          if (res.status == 200) {
-            dispatch(setUser(res.data));
-            localStorage.setItem("token", res.data.token);
-            console.log(res);
-            setLoading(false);
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-          setLoading(false);
-        });
-    } catch (e) {
+  const handleCheckAuth = async (token) => {
+    const res = await checkAuth(token);
+    if (res.user) {
+      dispatch(setUser(res.user));
+      localStorage.setItem("token", res.user.token);
       setLoading(false);
-      console.log(e);
+    } else {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    checkAuth(localStorage.getItem("token"));
+    const ltoken = localStorage.getItem("token");
+    handleCheckAuth(ltoken);
+    setToken(ltoken);
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    setTz(timeZone);
   }, []);
 
   return (
@@ -53,7 +46,7 @@ const App = () => {
               <CircularProgress style={{ color: "#67e6dc" }} />
             </div>
           ) : (
-            <>{!isAuth ? <LoginPage /> : <MainPage />}</>
+            <>{!isAuth ? <LoginPage /> : <MainPage tz={tz} token={token} />}</>
           )}
         </Route>
         <Route component={NotFound} />

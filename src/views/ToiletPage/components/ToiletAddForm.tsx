@@ -19,11 +19,7 @@ import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
 import SentimentSatisfiedAltIcon from "@material-ui/icons/SentimentSatisfiedAltOutlined";
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 import "../../styles/ToiletAddForm.scss";
-import axios from "axios";
-import { store } from "react-notifications-component";
-
-// TODO
-// IN USEEFFECT SAVE START TIME IN LOCALSTORAGE
+import { sendToiletData } from "../../../utils/Api/ToiletRequests";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -119,61 +115,22 @@ const ToiletAddForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-      console.log("send");
-      let res = await axios
-        .post(`https://timesheet-backend.herokuapp.com/api/sendToiletData`, {
-          token: token,
-          start: start,
-          end: end,
-          enema: +enema,
-          laxative: +laxative,
-          diarrhea: +diarrhea,
-          constipation: +constipation,
-          normal: +normal,
-          commentary: commentary,
-          rating: rating,
-        })
-        .then(function (res) {
-          if (res.status == 200) {
-            console.log(res);
-            store.addNotification({
-              title: "Успешно!",
-              message: "Данные отправлены",
-              type: "success",
-              insert: "top",
-              container: "top-right",
-              animationIn: ["animate__animated", "animate__fadeIn"],
-              animationOut: ["animate__animated", "animate__fadeOut"],
-              dismiss: {
-                duration: 3000,
-                onScreen: true,
-              },
-            });
-            localStorage.removeItem("toilet_start");
-            handleShow();
-          }
-        })
-        .catch(function (error) {
-          store.addNotification({
-            title: "Произошла ошибка!",
-            message: error.response
-              ? error.response.data.message
-              : error.message,
-            type: "danger",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animate__animated", "animate__fadeIn"],
-            animationOut: ["animate__animated", "animate__fadeOut"],
-            dismiss: {
-              duration: 3000,
-              onScreen: true,
-            },
-          });
-        });
-    } catch (e) {
-      console.log(e);
+    e.preventDefault();
+    const res = await sendToiletData(
+      token,
+      start,
+      end,
+      enema,
+      laxative,
+      diarrhea,
+      constipation,
+      normal,
+      commentary,
+      rating
+    );
+    if (res.success) {
+      localStorage.removeItem("toilet_start");
+      handleShow();
     }
   };
 

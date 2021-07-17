@@ -18,6 +18,10 @@
     margin: 0 auto;
   }
 
+  &_time {
+    color: #f5f6f7;
+  }
+
   &_name {
     font-size: 24px;
     margin: 0;
@@ -31,7 +35,6 @@
     align-items: center;
     p {
       color: #f5f6f7;
-      text-decoration: none;
       margin-right: 10px;
     }
     a {
@@ -47,6 +50,10 @@
   .header_name {
     font-size: 16px;
     margin-left: 5px;
+  }
+
+  .header_time {
+    font-size: 16px;
   }
 
   .header_buttons a {

@@ -4,10 +4,10 @@
   align-items: flex-end;
   color: #f5f6f7;
   background-color: #1e272e;
-  margin: auto;
   width: fit-content;
+  width: -moz-fit-content;
   padding: 10px;
-  margin-top: 100px;
+  margin: 100px auto auto;
   border-radius: 25px;
   overflow-y: auto;
 }

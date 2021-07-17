@@ -1,13 +1,12 @@
 .fullstats {
   display: flex;
+  justify-content: center;
   align-items: center;
   width: 100%;
 
   &_no_stats {
     color: #f5f6f7;
     font-size: 45px;
-    margin-left: 200px;
-    margin-top: -200px;
   }
 
   &_stats {
@@ -17,7 +16,6 @@
     &_center {
       display: flex;
       align-items: center;
-      justify-content: column;
       flex-direction: column;
       flex-grow: 2;
 
@@ -38,8 +36,6 @@
 .fullstats_loader {
   display: flex;
   justify-content: center;
-  margin-left: 400px;
-  margin-top: -550px;
 }
 
 .toilet_time_arrows {
@@ -47,6 +43,13 @@
   top: 20%;
   left: 60%;
 }
+
+.table {
+  display: flex;
+  width: 40%;
+  margin-left: 15px;
+}
+
 
 .rwd-table {
   min-width: 300px;
@@ -101,13 +104,13 @@
   }
 }
 
+
 .rwd-table {
   background: #485460;
   color: #34e7e4;
   border-radius: 0.4em;
   overflow: hidden;
   flex-grow: 1;
-  margin-left: 60px;
   tr {
     border-color: lighten(#34495e, 10%);
   }
@@ -125,7 +128,7 @@
 }
 
 @media (max-width: 480px) {
-  .rwd-table {
+  .table {
     width: 100%;
     margin-left: 0px;
   }
@@ -145,8 +148,7 @@
 
   .fullstats {
     flex-direction: column-reverse;
-    margin-top: 100px;
-    justify-content: space-evenly;
+
     &_no_stats {
       margin-left: 0px;
       margin-top: 0px;

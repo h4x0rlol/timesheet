@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../../styles/ToiletGraph.scss";
 import ChartComponent from "react-chartjs-2";
 
-const ToiletGraph = (props) => {
+const ToiletGraph = () => {
   const arr = [...Array(5)].map((_, i) => i + 1);
   const data = {
     labels: arr,
     productNames: [
-      "Gdsia",
-      ["dsadsa", "dsadsadsa", "kdddd"],
-      "PINK-WHITE-GRAY",
-      "SEAFOAM-WHITE-GRAY",
-      "YELLOW-WHITE-GRAY",
+      "Not implemented yet",
+      ["Not implemented yet", "Not implemented yet", "Not implemented yet"],
+      "Not implemented yet",
+      "Not implemented yet",
+      "Not implemented yet",
     ],
     datasets: [
       {
@@ -36,12 +36,10 @@ const ToiletGraph = (props) => {
         padding: 20,
         callbacks: {
           title: function (context) {
-            const title = "";
-            return title;
+            return "";
           },
           label: function (context) {
-            const label = data.productNames[context.dataIndex];
-            return label;
+            return data.productNames[context.dataIndex];
           },
         },
       },

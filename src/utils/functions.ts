@@ -5,3 +5,7 @@ export const getTimeModeFromStore = (store) => {
 export const getDateFromStore = (store) => {
   return store.date;
 };
+
+export const getModeFromStore = (store) => {
+  return store.mode;
+};
