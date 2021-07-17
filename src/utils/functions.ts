@@ -9,3 +9,7 @@ export const getDateFromStore = (store) => {
 export const getModeFromStore = (store) => {
   return store.mode;
 };
+
+export const getUserFromStore = (store) => {
+  return store.user;
+};
