@@ -154,7 +154,6 @@ const ToiletPage = (props) => {
       month = `0${month}`;
     }
     const year = currentDateState.year;
-    console.log(token);
     if (timeMode == timeModeArray[0]) {
       const res = await getDayToiletData(token, time);
       setDayData(res.data);

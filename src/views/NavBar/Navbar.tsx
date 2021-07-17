@@ -45,9 +45,7 @@ const NavBar = () => {
     }
 
     if (width > 480) {
-      const current = `${daysOfWeek[dayOfWeek - 1]}, ${day} ${
-        monthsForTime[month]
-      } - ${time[0]}:${time[1]}`;
+      const current = `${daysOfWeek[dayOfWeek]}, ${day} ${monthsForTime[month]} - ${time[0]}:${time[1]}`;
       setClock(current);
     } else {
       setOnlyTime(`${time[0]}:${time[1]}`);
