@@ -6,63 +6,22 @@ const ToiletButtons = (props) => {
   return (
     <>
       <div className="toiletpage_buttons_mode">
-        <i
-          className="arrow left"
-          style={
-            !props.isLoading
-              ? {
-                  cursor: "pointer",
-                }
-              : {}
-          }
-          onClick={
-            !props.isLoading
-              ? () => {
-                  props.handlePreviousTimeMode();
-                }
-              : () => {}
-          }
-        />
+        <i className="arrow left" onClick={props.handlePreviousTimeMode} />
         <p className="mode_name">{props.timeMode}</p>
-        <i
-          className="arrow right"
-          style={
-            !props.isLoading
-              ? {
-                  cursor: "pointer",
-                }
-              : {}
-          }
-          onClick={
-            !props.isLoading
-              ? () => {
-                  props.handleNextTimeMode();
-                }
-              : () => {}
-          }
-        />
+        <i className="arrow right" onClick={props.handleNextTimeMode} />
         {(props.timeMode == timeModeArray[2] ||
           props.timeMode == timeModeArray[3]) && (
           <div className="toiletpage_buttons_mode">
             <i
               className="arrow left"
-              style={
-                !props.isLoading
-                  ? {
-                      cursor: "pointer",
-                    }
-                  : {}
-              }
               onClick={
-                !props.isLoading
-                  ? props.timeMode == timeModeArray[2]
-                    ? () => {
-                        props.handlePreviousMonth();
-                      }
-                    : () => {
-                        props.handlePreviousYear();
-                      }
-                  : () => {}
+                props.timeMode == timeModeArray[2]
+                  ? () => {
+                      props.handlePreviousMonth();
+                    }
+                  : () => {
+                      props.handlePreviousYear();
+                    }
               }
             />
             {props.timeMode == timeModeArray[2] ? (
@@ -74,23 +33,14 @@ const ToiletButtons = (props) => {
             )}
             <i
               className="arrow right"
-              style={
-                !props.isLoading
-                  ? {
-                      cursor: "pointer",
-                    }
-                  : {}
-              }
               onClick={
-                !props.isLoading
-                  ? props.timeMode == timeModeArray[2]
-                    ? () => {
-                        props.handleNextMonth();
-                      }
-                    : () => {
-                        props.handleNextYear();
-                      }
-                  : () => {}
+                props.timeMode == timeModeArray[2]
+                  ? () => {
+                      props.handleNextMonth();
+                    }
+                  : () => {
+                      props.handleNextYear();
+                    }
               }
             />
           </div>
