@@ -14,7 +14,6 @@ const App = () => {
   const [loading, setLoading] = useState<boolean>(true); // true
   const isAuth = useSelector((state: IRootState) => state.user.isAuth);
   const [tz, setTz] = useState("");
-  const [token, setToken] = useState("");
   // const isAuth = true;
   const dispatch = useDispatch();
 
@@ -30,9 +29,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    const ltoken = localStorage.getItem("token");
-    handleCheckAuth(ltoken);
-    setToken(ltoken);
+    const token = localStorage.getItem("token");
+    handleCheckAuth(token);
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     setTz(timeZone);
   }, []);
@@ -46,7 +44,7 @@ const App = () => {
               <CircularProgress style={{ color: "#67e6dc" }} />
             </div>
           ) : (
-            <>{!isAuth ? <LoginPage /> : <MainPage tz={tz} token={token} />}</>
+            <>{!isAuth ? <LoginPage /> : <MainPage tz={tz} />}</>
           )}
         </Route>
         <Route component={NotFound} />

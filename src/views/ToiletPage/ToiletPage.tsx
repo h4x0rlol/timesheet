@@ -25,7 +25,11 @@ import {
 } from "../../types/data";
 import { CircularProgress } from "@material-ui/core";
 import { nextTimeMode, previousTimeMode } from "../../reducers/timeModeReducer";
-import { getDateFromStore, getTimeModeFromStore } from "../../utils/functions";
+import {
+  getDateFromStore,
+  getTimeModeFromStore,
+  getUserFromStore,
+} from "../../utils/functions";
 import {
   getAllTImeToiletData,
   getDayToiletData,
@@ -50,6 +54,7 @@ const ToiletPage = (props) => {
     handleRequests(currentTimeModeState.timeMode);
   }, []);
 
+  // const [token, setToken] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [monthData, setMonthData] = useState<monthToiletData>({
@@ -139,7 +144,8 @@ const ToiletPage = (props) => {
 
   const handleRequests = async (timeMode) => {
     setIsLoading(true);
-    const currentDateState = getDateFromStore(store.getState());
+    const token = await getUserFromStore(store.getState()).currentUser.token;
+    const currentDateState = await getDateFromStore(store.getState());
     const time = new Date().toLocaleString("ru-Ru", {
       timeZone: props.tz,
     });
@@ -148,28 +154,29 @@ const ToiletPage = (props) => {
       month = `0${month}`;
     }
     const year = currentDateState.year;
+    console.log(token);
     if (timeMode == timeModeArray[0]) {
-      const res = await getDayToiletData(props.token, time);
+      const res = await getDayToiletData(token, time);
       setDayData(res.data);
       setError(res.error);
       setIsLoading(res.isLoading);
     } else if (timeMode == timeModeArray[1]) {
-      const res = await getWeekToiletData(props.token, time);
+      const res = await getWeekToiletData(token, time);
       setWeekData(res.data);
       setError(res.error);
       setIsLoading(res.isLoading);
     } else if (timeMode == timeModeArray[2]) {
-      const res = await getMonthToiletData(props.token, month, year);
+      const res = await getMonthToiletData(token, month, year);
       setMonthData(res.data);
       setError(res.error);
       setIsLoading(res.isLoading);
     } else if (timeMode == timeModeArray[3]) {
-      const res = await getYearToiletData(props.token, time, year);
+      const res = await getYearToiletData(token, time, year);
       setYearData(res.data);
       setError(res.error);
       setIsLoading(res.isLoading);
     } else if (timeMode == timeModeArray[4]) {
-      const res = await getAllTImeToiletData(props.token);
+      const res = await getAllTImeToiletData(token);
       setAllTimeData(res.data);
       setError(res.error);
       setIsLoading(res.isLoading);
@@ -177,7 +184,7 @@ const ToiletPage = (props) => {
   };
 
   const handleShowFullStats = async () => {
-    const currentTimeModeState = getTimeModeFromStore(store.getState());
+    const currentTimeModeState = await getTimeModeFromStore(store.getState());
     await handleRequests(currentTimeModeState.timeMode);
     dispatch(showFullStats());
   };
@@ -193,38 +200,38 @@ const ToiletPage = (props) => {
   const handleNextTimeMode = async () => {
     dispatch(nextTimeMode());
     dispatch(setToday());
-    const currentTimeModeState = getTimeModeFromStore(store.getState());
+    const currentTimeModeState = await getTimeModeFromStore(store.getState());
     await handleRequests(currentTimeModeState.timeMode);
   };
 
   const handlePreviousTimeMode = async () => {
     dispatch(previousTimeMode());
     dispatch(setToday());
-    const currentTimeModeState = getTimeModeFromStore(store.getState());
+    const currentTimeModeState = await getTimeModeFromStore(store.getState());
     await handleRequests(currentTimeModeState.timeMode);
   };
 
   const handlePreviousYear = async () => {
     dispatch(previousYear());
-    const currentTimeModeState = getTimeModeFromStore(store.getState());
+    const currentTimeModeState = await getTimeModeFromStore(store.getState());
     await handleRequests(currentTimeModeState.timeMode);
   };
 
   const handleNextYear = async () => {
     dispatch(nextYear());
-    const currentTimeModeState = getTimeModeFromStore(store.getState());
+    const currentTimeModeState = await getTimeModeFromStore(store.getState());
     await handleRequests(currentTimeModeState.timeMode);
   };
 
   const handlePreviousMonth = async () => {
     dispatch(previousMonth());
-    const currentTimeModeState = getTimeModeFromStore(store.getState());
+    const currentTimeModeState = await getTimeModeFromStore(store.getState());
     await handleRequests(currentTimeModeState.timeMode);
   };
 
   const handleNextMonth = async () => {
     dispatch(nextMonth());
-    const currentTimeModeState = getTimeModeFromStore(store.getState());
+    const currentTimeModeState = await getTimeModeFromStore(store.getState());
     await handleRequests(currentTimeModeState.timeMode);
   };
 

@@ -18,9 +18,7 @@ const MainPage = (props) => {
       <div className="mainpage_mode">
         <ModeButtons modeState={modeState} />
       </div>
-      {modeState.mode == modeArray[0] && (
-        <ToiletPage tz={props.tz} token={props.token} />
-      )}
+      {modeState.mode == modeArray[0] && <ToiletPage tz={props.tz} />}
       {modeState.mode == modeArray[1] && <SleepPage />}
     </main>
   );
