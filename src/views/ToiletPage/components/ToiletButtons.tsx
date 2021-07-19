@@ -1,10 +1,8 @@
 import React from "react";
 import "../../styles/ToiletButtons.scss";
 import { timeModeArray, typesOfStats } from "../../../utils/constants";
-import { useDispatch } from "react-redux";
 
 const ToiletButtons = (props) => {
-  const dispatch = useDispatch();
   return (
     <>
       {props.stats.typeOfStats != typesOfStats[2] ? (

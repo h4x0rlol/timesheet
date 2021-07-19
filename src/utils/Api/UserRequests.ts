@@ -4,7 +4,9 @@ import { User } from "../../types/user";
 
 export const logoutFunc: (
   username
-) => Promise<{ success: boolean; error: string }> = async (username) => {
+) => Promise<{ success: boolean; error: string }> = async (
+  username: string
+) => {
   try {
     return new Promise(async (resolve, reject) => {
       await axios
@@ -37,8 +39,8 @@ export const logoutFunc: (
 };
 
 export const login: (username, password) => Promise<{ user: User }> = async (
-  username,
-  password
+  username: string,
+  password: string
 ) => {
   try {
     return new Promise(async (resolve, reject) => {
@@ -85,8 +87,8 @@ export const login: (username, password) => Promise<{ user: User }> = async (
 };
 
 export const register: (username, password) => Promise<{ user: User }> = async (
-  username,
-  password
+  username: string,
+  password: string
 ) => {
   try {
     return new Promise(async (resolve, reject) => {
@@ -145,7 +147,9 @@ export const register: (username, password) => Promise<{ user: User }> = async (
   }
 };
 
-export const checkAuth: (token) => Promise<{ user: User }> = async (token) => {
+export const checkAuth: (token) => Promise<{ user: User }> = async (
+  token: string
+) => {
   try {
     return new Promise(async (resolve, reject) => {
       await axios

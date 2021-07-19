@@ -13,7 +13,7 @@ export const getMonthToiletData: (
   month,
   year
 ) => Promise<{ isLoading: boolean; data: monthToiletData; error: string }> =
-  async (token, month, year) => {
+  async (token: string, month: string, year: number) => {
     try {
       return new Promise(async (resolve, reject) => {
         await axios
@@ -64,7 +64,7 @@ export const getDayToiletData: (
   token,
   time
 ) => Promise<{ isLoading: boolean; data: dayToiletData; error: string }> =
-  async (token, time) => {
+  async (token: string, time: string) => {
     try {
       return new Promise(async (resolve, reject) => {
         await axios
@@ -114,7 +114,7 @@ export const getWeekToiletData: (
   token,
   time
 ) => Promise<{ isLoading: boolean; data: weekToiletData; error: string }> =
-  async (token, time) => {
+  async (token: string, time: string) => {
     try {
       return new Promise(async (resolve, reject) => {
         await axios
@@ -167,7 +167,7 @@ export const getYearToiletData: (
   time,
   year
 ) => Promise<{ isLoading: boolean; data: yearToiletData; error: string }> =
-  async (token, time, year) => {
+  async (token: string, time: string, year: number) => {
     try {
       return new Promise(async (resolve, reject) => {
         await axios
@@ -217,7 +217,7 @@ export const getYearToiletData: (
 export const getAllTImeToiletData: (
   token
 ) => Promise<{ isLoading: boolean; data: allTimeToiletData; error: string }> =
-  async (token) => {
+  async (token: string) => {
     try {
       return new Promise(async (resolve, reject) => {
         await axios
@@ -274,16 +274,16 @@ export const sendToiletData: (
   commentary,
   rating
 ) => Promise<{ success: boolean }> = async (
-  token,
-  start,
-  end,
-  enema,
-  laxative,
-  diarrhea,
-  constipation,
-  normal,
-  commentary,
-  rating
+  token: string,
+  start: string,
+  end: string,
+  enema: boolean,
+  laxative: boolean,
+  diarrhea: boolean,
+  constipation: boolean,
+  normal: boolean,
+  commentary: string,
+  rating: number
 ) => {
   try {
     return new Promise(async (resolve, reject) => {

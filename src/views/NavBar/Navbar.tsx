@@ -28,7 +28,7 @@ const NavBar = () => {
     }
   };
 
-  const clockTimer = (width) => {
+  const clockTimer = (width: number) => {
     const date = new Date();
     const time = [date.getHours(), date.getMinutes()];
     const dayOfWeek = date.getDay();
