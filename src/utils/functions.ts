@@ -13,3 +13,7 @@ export const getModeFromStore = (store) => {
 export const getUserFromStore = (store) => {
   return store.user;
 };
+
+export const getStatsTypeFromStore = (store) => {
+  return store.stats;
+};

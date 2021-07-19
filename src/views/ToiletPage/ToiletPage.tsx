@@ -9,8 +9,11 @@ import {
   previousYear,
   setToday,
 } from "../../reducers/dateReducer";
-import { showAddForm, showFullStats } from "../../reducers/toiletReducer";
-import { monthsArray, timeModeArray } from "../../utils/constants";
+import {
+  monthsArray,
+  timeModeArray,
+  typesOfStats,
+} from "../../utils/constants";
 import ToiletFullStats from "./components/ToiletFullStats";
 import ToiletButtons from "./components/ToiletButtons";
 import Modal from "@material-ui/core/Modal";
@@ -27,6 +30,7 @@ import { CircularProgress } from "@material-ui/core";
 import { nextTimeMode, previousTimeMode } from "../../reducers/timeModeReducer";
 import {
   getDateFromStore,
+  getStatsTypeFromStore,
   getTimeModeFromStore,
   getUserFromStore,
 } from "../../utils/functions";
@@ -37,24 +41,22 @@ import {
   getWeekToiletData,
   getYearToiletData,
 } from "../../utils/Api/ToiletRequests";
+import { nextTypeOfStats, showAddForm } from "../../reducers/statsReducer";
 
 const ToiletPage = (props) => {
   // Utils
 
   const dispatch = useDispatch();
+
   const date = useSelector((state: IRootState) => state.date);
   const timeMode = useSelector((state: IRootState) => state.timeMode.timeMode);
-  const isFullStats = useSelector(
-    (state: IRootState) => state.toilet.showFullStats
-  );
-  const toiletState = useSelector((state: IRootState) => state.toilet);
+  const stats = useSelector((state: IRootState) => state.stats);
 
   useEffect(() => {
-    const currentTimeModeState = getTimeModeFromStore(store.getState());
-    handleRequests(currentTimeModeState.timeMode);
+    const stats = getStatsTypeFromStore(store.getState());
+    checkForStatsType(stats.typeOfStats);
   }, []);
 
-  // const [token, setToken] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [monthData, setMonthData] = useState<monthToiletData>({
@@ -142,7 +144,7 @@ const ToiletPage = (props) => {
 
   // Handlers
 
-  const handleRequests = async (timeMode) => {
+  const makeFullStatsRequests = async (timeMode: string) => {
     setIsLoading(true);
     const token = await getUserFromStore(store.getState()).currentUser.token;
     const currentDateState = await getDateFromStore(store.getState());
@@ -182,14 +184,31 @@ const ToiletPage = (props) => {
     }
   };
 
-  const handleShowFullStats = async () => {
-    const currentTimeModeState = await getTimeModeFromStore(store.getState());
-    await handleRequests(currentTimeModeState.timeMode);
-    dispatch(showFullStats());
+  const makeGraphRequests = async (timeMode: string) => {
+    console.log("Graph data");
+    setIsLoading(false);
   };
 
-  const handleShowGraph = async () => {
-    dispatch(showFullStats());
+  const makeTablesFromDbRequests = async () => {
+    console.log("Tables from DB data");
+    setIsLoading(false);
+  };
+
+  const checkForStatsType = async (type: string) => {
+    const currentTimeModeState = await getTimeModeFromStore(store.getState());
+    if (type === typesOfStats[0]) {
+      await makeGraphRequests(currentTimeModeState.timeMode);
+    } else if (type === typesOfStats[1]) {
+      await makeFullStatsRequests(currentTimeModeState.timeMode);
+    } else if (type === typesOfStats[2]) {
+      await makeTablesFromDbRequests();
+    }
+  };
+
+  const handleSwitchStatsTypes = async () => {
+    dispatch(nextTypeOfStats());
+    const stats = getStatsTypeFromStore(store.getState());
+    await checkForStatsType(stats.typeOfStats);
   };
 
   const handleShowAddForm = () => {
@@ -199,48 +218,47 @@ const ToiletPage = (props) => {
   const handleNextTimeMode = async () => {
     dispatch(nextTimeMode());
     dispatch(setToday());
-    const currentTimeModeState = await getTimeModeFromStore(store.getState());
-    await handleRequests(currentTimeModeState.timeMode);
+    const stats = getStatsTypeFromStore(store.getState());
+    await checkForStatsType(stats.typeOfStats);
   };
 
   const handlePreviousTimeMode = async () => {
     dispatch(previousTimeMode());
     dispatch(setToday());
-    const currentTimeModeState = await getTimeModeFromStore(store.getState());
-    await handleRequests(currentTimeModeState.timeMode);
+    const stats = getStatsTypeFromStore(store.getState());
+    await checkForStatsType(stats.typeOfStats);
   };
 
   const handlePreviousYear = async () => {
     dispatch(previousYear());
-    const currentTimeModeState = await getTimeModeFromStore(store.getState());
-    await handleRequests(currentTimeModeState.timeMode);
+    const stats = getStatsTypeFromStore(store.getState());
+    await checkForStatsType(stats.typeOfStats);
   };
 
   const handleNextYear = async () => {
     dispatch(nextYear());
-    const currentTimeModeState = await getTimeModeFromStore(store.getState());
-    await handleRequests(currentTimeModeState.timeMode);
+    const stats = getStatsTypeFromStore(store.getState());
+    await checkForStatsType(stats.typeOfStats);
   };
 
   const handlePreviousMonth = async () => {
     dispatch(previousMonth());
-    const currentTimeModeState = await getTimeModeFromStore(store.getState());
-    await handleRequests(currentTimeModeState.timeMode);
+    const stats = getStatsTypeFromStore(store.getState());
+    await checkForStatsType(stats.typeOfStats);
   };
 
   const handleNextMonth = async () => {
     dispatch(nextMonth());
-    const currentTimeModeState = await getTimeModeFromStore(store.getState());
-    await handleRequests(currentTimeModeState.timeMode);
+    const stats = getStatsTypeFromStore(store.getState());
+    await checkForStatsType(stats.typeOfStats);
   };
 
   return (
     <>
       <div className="toiletpage_buttons">
         <ToiletButtons
-          isFullStats={isFullStats}
-          handleShowFullStats={handleShowFullStats}
-          handleShowGraph={handleShowGraph}
+          handleSwitchStatsTypes={handleSwitchStatsTypes}
+          stats={stats}
           handleShowAddForm={handleShowAddForm}
           isLoading={isLoading}
           date={date}
@@ -254,38 +272,42 @@ const ToiletPage = (props) => {
         />
       </div>
       <div className="toiletpage_graph">
-        {!isFullStats ? (
-          <>
-            {!isLoading ? (
-              <ToiletGraph />
-            ) : (
-              <div className="graph_loader">
-                <CircularProgress style={{ color: "#67e6dc" }} />
-              </div>
-            )}
-          </>
+        {!isLoading ? (
+          stats.typeOfStats == typesOfStats[0] ? (
+            <ToiletGraph />
+          ) : stats.typeOfStats == typesOfStats[1] ? (
+            <ToiletFullStats
+              isLoading={isLoading}
+              date={date}
+              timeMode={timeMode}
+              handleNextYear={handleNextYear}
+              handlePreviousYear={handlePreviousYear}
+              handleNextMonth={handleNextMonth}
+              handlePreviousMonth={handlePreviousMonth}
+              handleNextTimeMode={handleNextTimeMode}
+              handlePreviousTimeMode={handlePreviousTimeMode}
+              error={error}
+              monthData={monthData}
+              dayData={dayData}
+              weekData={weekData}
+              yearData={yearData}
+              allTimeData={allTimeData}
+            />
+          ) : stats.typeOfStats == typesOfStats[2] ? (
+            <div>Таблицы из БД</div>
+          ) : (
+            <div className="graph_loader">
+              <CircularProgress style={{ color: "#67e6dc" }} />
+            </div>
+          )
         ) : (
-          <ToiletFullStats
-            isLoading={isLoading}
-            date={date}
-            timeMode={timeMode}
-            handleNextYear={handleNextYear}
-            handlePreviousYear={handlePreviousYear}
-            handleNextMonth={handleNextMonth}
-            handlePreviousMonth={handlePreviousMonth}
-            handleNextTimeMode={handleNextTimeMode}
-            handlePreviousTimeMode={handlePreviousTimeMode}
-            error={error}
-            monthData={monthData}
-            dayData={dayData}
-            weekData={weekData}
-            yearData={yearData}
-            allTimeData={allTimeData}
-          />
+          <div className="graph_loader">
+            <CircularProgress style={{ color: "#67e6dc" }} />
+          </div>
         )}
       </div>
       <Modal
-        open={toiletState.showAddForm}
+        open={stats.showAddForm}
         onClose={handleShowAddForm}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"

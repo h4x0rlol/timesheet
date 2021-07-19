@@ -17,7 +17,7 @@ const App = () => {
   // const isAuth = true;
   const dispatch = useDispatch();
 
-  const handleCheckAuth = async (token) => {
+  const handleCheckAuth = async (token: string) => {
     const res = await checkAuth(token);
     if (res.user) {
       dispatch(setUser(res.user));

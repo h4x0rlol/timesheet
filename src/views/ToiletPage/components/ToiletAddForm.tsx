@@ -10,7 +10,7 @@ import Link from "@material-ui/core/Link";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { useDispatch } from "react-redux";
-import { showAddForm } from "../../../reducers/toiletReducer";
+import { showAddForm } from "../../../reducers/statsReducer";
 import Box from "@material-ui/core/Box";
 import Rating, { IconContainerProps } from "@material-ui/lab/Rating";
 import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";

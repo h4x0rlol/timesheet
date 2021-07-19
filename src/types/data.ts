@@ -1,4 +1,4 @@
-export interface monthToiletData {
+export type monthToiletData = {
   goings: number;
   days: number;
   averageGoings: string;
@@ -17,7 +17,7 @@ export interface monthToiletData {
   monthTime: string;
 }
 
-export interface dayToiletData {
+export type  dayToiletData = {
   goings: number;
   dayTime: string;
   averageRating: string;
@@ -29,7 +29,7 @@ export interface dayToiletData {
   comments: string[];
 }
 
-export interface weekToiletData {
+export type weekToiletData = {
   goings: number;
   days: number;
   averageGoings: string;
@@ -48,7 +48,7 @@ export interface weekToiletData {
   weekTime: string;
 }
 
-export interface yearToiletData {
+export type yearToiletData = {
   goings: number;
   days: number;
   averageGoings: string;
@@ -67,7 +67,7 @@ export interface yearToiletData {
   yearTime: string;
 }
 
-export interface allTimeToiletData {
+export type allTimeToiletData = {
   goings: number;
   days: number;
   averageGoings: string;

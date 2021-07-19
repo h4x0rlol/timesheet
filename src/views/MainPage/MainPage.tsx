@@ -9,11 +9,11 @@ import { modeArray } from "../../utils/constants";
 import SleepPage from "../SleepPage/SleepPage";
 
 const MainPage = (props) => {
-  const toiletState = useSelector((state: IRootState) => state.toilet);
+  const stats = useSelector((state: IRootState) => state.stats);
   const modeState = useSelector((state: IRootState) => state.mode);
 
   return (
-    <main className={toiletState.showAddForm ? "mainpage_blur" : "mainpage"}>
+    <main className={stats.showAddForm ? "mainpage_blur" : "mainpage"}>
       <NavBar />
       <div className="mainpage_mode">
         <ModeButtons modeState={modeState} />

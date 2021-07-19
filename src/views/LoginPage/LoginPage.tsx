@@ -52,7 +52,6 @@ const LoginPage = () => {
     if (res.user) {
       dispatch(setUser(res.user));
       localStorage.setItem("token", res.user.token);
-      console.log(localStorage.getItem("token"));
     }
   };
 

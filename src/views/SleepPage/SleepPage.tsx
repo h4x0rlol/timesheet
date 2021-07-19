@@ -1,17 +1,9 @@
 import React from "react";
+import "../styles/SleepPage.scss";
 
 const SleepPage = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexGrow: 1,
-        color: "#f5f6f7",
-        fontSize: "40px",
-      }}
-    >
+    <div className="sleep_page">
       <p>Not implemented yet</p>
     </div>
   );

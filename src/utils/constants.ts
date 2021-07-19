@@ -43,3 +43,5 @@ export const daysOfWeek = [
 ];
 
 export const modeArray = ["Туалет", "Сон"];
+
+export const typesOfStats = ["График", "Полная статистика", "Таблицы"];
