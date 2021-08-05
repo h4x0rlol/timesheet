@@ -1,0 +1,54 @@
+{
+  "name": "timeis",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node server.ts",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.ts",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h4x0rlol/timeis.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/h4x0rlol/timeis/issues"
+  },
+  "homepage": "https://github.com/h4x0rlol/timeis#readme",
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
+    "axios": "^0.21.0",
+    "chart.js": "^3.3.2",
+    "css-loader": "^3.2.0",
+    "dotenv-webpack": "^7.0.2",
+    "express": "^4.17.1",
+    "file-loader": "^6.0.0",
+    "node-sass": "^6.0.1",
+    "path": "^0.12.7",
+    "react": "^16.8.6",
+    "react-chartjs-2": "^3.0.3",
+    "react-dom": "^16.8.6",
+    "react-notifications-component": "^3.1.0",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.1.0",
+    "sass-loader": "^10",
+    "style-loader": "^1.2.1"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.15.0",
+    "@types/node": "^16.4.12",
+    "@types/react": "^17.0.15",
+    "@types/react-dom": "^17.0.9",
+    "cross-env": "^5.2.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.6.4",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0"
+  }
+}
