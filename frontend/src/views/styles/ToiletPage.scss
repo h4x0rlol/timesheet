@@ -1,0 +1,29 @@
+.toiletpage_buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  border-bottom: 0.5px solid #485460;
+  height: 50px;
+  color: #f5f6f7;
+  align-items: center;
+}
+
+.toiletpage_graph {
+  display: flex;
+  flex-grow: 1;
+}
+
+.graph_loader {
+  display: flex;
+  align-self: center;
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .toiletpage_buttons {
+    p {
+      font-size: 14px;
+    }
+  }
+}
